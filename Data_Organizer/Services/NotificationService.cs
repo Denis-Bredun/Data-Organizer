@@ -20,7 +20,7 @@ namespace Data_Organizer.Services
 
         public async Task ShowToastAsync(string message)
         {
-            var notification = Toast.Make(message, ToastDuration.Long);
+            var notification = Toast.Make(message, ToastDuration.Long, 20);
             await notification.Show();
         }
     }
