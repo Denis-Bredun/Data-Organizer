@@ -2,7 +2,7 @@
 
 namespace Data_Organizer.Interfaces
 {
-    public interface ISpeechToText
+    public interface ISpeechToTextService
     {
         Task<bool> RequestPermissionsAsync();
         Task<string> ListenAsync(CultureInfo culture,

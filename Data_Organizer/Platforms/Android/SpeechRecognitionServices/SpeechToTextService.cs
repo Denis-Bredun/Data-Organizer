@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace Data_Organizer.Platforms
 {
-    public class SpeechToText : ISpeechToText
+    public class SpeechToTextService : ISpeechToTextService
     {
         private SpeechRecognitionListener? _listener;
         private SpeechRecognizer? _speechRecognizer;
