@@ -5,11 +5,25 @@
              IconImageSource="home_page.png"
              BackgroundColor="{StaticResource PageBackgroundColor}">
 
-    <VerticalStackLayout>
-        <Label 
-            Text="Main Page!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="0.13*, *" Margin="15" RowSpacing="15">
+
+        <Grid ColumnDefinitions="0.4*, 0.1*, 0.1*, 0.1*" ColumnSpacing="10">
+            <Button BackgroundColor="Aqua"/>
+            <Button Grid.Column="1" BackgroundColor="Aqua"/>
+            <Button Grid.Column="2" BackgroundColor="Aqua"/>
+            <Button Grid.Column="3" BackgroundColor="Aqua"/>
+        </Grid>
+
+        <Grid Grid.Row="1" ColumnDefinitions="0.8*, 0.2*" RowDefinitions="0.2*, 0.2*, 0.2*, 0.2*, 0.2*, 0.2*" ColumnSpacing="10" RowSpacing="10">
+            <Button Grid.Column="1" Grid.Row="0" BackgroundColor="Aqua"/>
+            <Button Grid.Column="1" Grid.Row="1" BackgroundColor="Aqua"/>
+            <Button Grid.Column="1" Grid.Row="2" BackgroundColor="Aqua"/>
+            <Button Grid.Column="1" Grid.Row="3" BackgroundColor="Aqua"/>
+            <Button Grid.Column="1" Grid.Row="4" BackgroundColor="Aqua"/>
+            <Button Grid.Column="1" Grid.Row="5" BackgroundColor="Aqua"/>
+            <Button Grid.RowSpan="6" BackgroundColor="Aqua"/>
+        </Grid>
+        
+    </Grid>
     
 </ContentPage>
