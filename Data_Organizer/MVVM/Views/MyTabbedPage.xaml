@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Data_Organizer.MVVM.Views.MyTabbedPage"
              xmlns:local="clr-namespace:Data_Organizer.MVVM.Views"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             android:TabbedPage.ToolbarPlacement="Bottom"
+             android:TabbedPage.IsSmoothScrollEnabled="True"
              Title="MyTabbedPage">
 
     <local:MainPage/>
