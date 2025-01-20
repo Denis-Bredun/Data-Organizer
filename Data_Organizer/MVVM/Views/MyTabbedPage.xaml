@@ -6,7 +6,11 @@
              xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
              android:TabbedPage.ToolbarPlacement="Bottom"
              android:TabbedPage.IsSmoothScrollEnabled="True"
-             Title="MyTabbedPage">
+             Title="MyTabbedPage"
+             BackgroundColor="{StaticResource PageBackgroundColor}"
+             BarBackgroundColor="{StaticResource BarBackgroundColor}"
+             UnselectedTabColor="{StaticResource UnselectedTabColor}"
+             SelectedTabColor="{StaticResource SelectedTabColor}">
 
     <local:MainPage/>
     <local:SavedNotesPage/>

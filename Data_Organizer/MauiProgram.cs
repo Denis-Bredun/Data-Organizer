@@ -18,7 +18,7 @@ namespace Data_Organizer
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddTransient<MyTabbedPage>();
+            builder.Services.AddSingleton<MyTabbedPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

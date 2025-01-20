@@ -4,10 +4,11 @@ namespace Data_Organizer
 {
     public partial class App : Application
     {
-        public App(MyTabbedPage tabbedPage)
+        public App(IServiceProvider serviceProvider)
         {
             InitializeComponent();
 
+            var tabbedPage = serviceProvider.GetRequiredService<MyTabbedPage>();
             MainPage = tabbedPage;
         }
     }

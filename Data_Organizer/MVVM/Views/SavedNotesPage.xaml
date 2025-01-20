@@ -2,11 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Data_Organizer.MVVM.Views.SavedNotesPage"
-             IconImageSource="saved_notes_page.png">
+             IconImageSource="saved_notes_page.png"
+             BackgroundColor="{StaticResource PageBackgroundColor}">
+    
     <VerticalStackLayout>
         <Label 
             Text="Saved Notes Page!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
     </VerticalStackLayout>
+    
 </ContentPage>
