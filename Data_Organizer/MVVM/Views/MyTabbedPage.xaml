@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Data_Organizer.MVVM.Views.MyTabbedPage"
+             xmlns:local="clr-namespace:Data_Organizer.MVVM.Views"
+             Title="MyTabbedPage">
+
+    <local:MainPage/>
+    <local:SavedNotesPage/>
+    <local:SettingsPage/>
+
+</TabbedPage>

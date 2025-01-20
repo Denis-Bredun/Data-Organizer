@@ -1,12 +1,14 @@
-﻿namespace Data_Organizer
+﻿using Data_Organizer.MVVM.Views;
+
+namespace Data_Organizer
 {
     public partial class App : Application
     {
-        public App()
+        public App(MyTabbedPage tabbedPage)
         {
             InitializeComponent();
 
-            //MainPage = new AppShell();
+            MainPage = tabbedPage;
         }
     }
 }

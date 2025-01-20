@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using Data_Organizer.MVVM.Views;
 using Microsoft.Extensions.Logging;
 
 namespace Data_Organizer
@@ -16,6 +17,8 @@ namespace Data_Organizer
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            builder.Services.AddTransient<MyTabbedPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();
