@@ -2,8 +2,13 @@
 {
     public class MenuItemModel
     {
-        public string Title { get; set; }
+        public string Title { get; }
         public ImageSource? Icon { get; private set; }
+
+        public MenuItemModel(string title)
+        {
+            Title = title;
+        }
 
         public void SetIcon(string imagePath)
         {
