@@ -1,11 +1,12 @@
 ﻿namespace Data_Organizer.MVVM.Models
 {
-    public class MenuItemModel
+    public class FeatureModel
     {
         public string Title { get; }
         public ImageSource? Icon { get; private set; }
+        public bool IsWithSubscription { get; set; }
 
-        public MenuItemModel(string title)
+        public FeatureModel(string title)
         {
             Title = title;
         }
