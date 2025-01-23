@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Maui;
+using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.Views;
+using Data_Organizer.Services;
 using Microsoft.Extensions.Logging;
 using UraniumUI;
 
@@ -22,6 +24,8 @@ namespace Data_Organizer
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<IFeatureService, FeatureService>();
+            builder.Services.AddSingleton<ICultureInfoService, CultureInfoService>();
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<SavedNotesPage>();
