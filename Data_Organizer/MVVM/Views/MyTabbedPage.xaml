@@ -12,8 +12,4 @@
              UnselectedTabColor="{StaticResource UnselectedTabColor}"
              SelectedTabColor="{StaticResource SelectedTabColor}">
 
-    <local:MainPage/>
-    <local:SavedNotesPage/>
-    <local:SettingsPage/>
-
 </TabbedPage>

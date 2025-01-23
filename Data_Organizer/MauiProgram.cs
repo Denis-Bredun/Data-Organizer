@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.Views;
 using Microsoft.Extensions.Logging;
 using UraniumUI;
@@ -21,6 +22,10 @@ namespace Data_Organizer
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<SavedNotesPage>();
+            builder.Services.AddSingleton<SettingsPage>();
             builder.Services.AddSingleton<MyTabbedPage>();
 
 #if DEBUG
