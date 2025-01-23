@@ -1,18 +1,25 @@
-﻿using Data_Organizer.Interfaces;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Data_Organizer.Interfaces;
+using Data_Organizer.MVVM.Models;
 
 namespace Data_Organizer.MVVM.ViewModels
 {
-    public class MainPageViewModel
+    public partial class MainPageViewModel : ObservableObject
     {
-        private readonly IFeatureService _featureService;
-        private readonly ICultureInfoService _cultureInfoService;
+        public IFeatureService FeatureService { get; private set; }
+        public ICultureInfoService CultureInfoService { get; private set; }
+
+        [ObservableProperty]
+        private FeatureModel _selectedFeature;
 
         public MainPageViewModel(
             IFeatureService featureService,
             ICultureInfoService cultureInfoService)
         {
-            _featureService = featureService;
-            _cultureInfoService = cultureInfoService;
+            FeatureService = featureService;
+            _selectedFeature = FeatureService.Features[0]; // later I should save the last choosen feature to SETTINGS
+
+            CultureInfoService = cultureInfoService;
         }
     }
 }

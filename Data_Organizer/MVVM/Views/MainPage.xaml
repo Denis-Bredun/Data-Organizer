@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+             xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
+             x:DataType="vm:MainPageViewModel"
              x:Class="Data_Organizer.MVVM.Views.MainPage"
              IconImageSource="home_page.png"
              BackgroundColor="{StaticResource PageBackgroundColor}">
@@ -9,7 +11,7 @@
     <Grid RowDefinitions="0.13*, *" Margin="15" RowSpacing="15">
 
         <Grid ColumnDefinitions="0.4*, 0.1*, 0.1*, 0.1*" ColumnSpacing="10">
-            <Button BackgroundColor="Aqua"/>
+            <uranium:Dropdown ItemsSource="{Binding FeatureService.Features}" SelectedItem="{Binding SelectedFeature}"/>
             <Button Grid.Column="1" BackgroundColor="Aqua"/>
             <Button Grid.Column="2" BackgroundColor="Aqua"/>
             <Button Grid.Column="3" BackgroundColor="Aqua"/>

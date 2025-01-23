@@ -8,7 +8,7 @@ namespace Data_Organizer.MVVM.Models
         private readonly string _baseTitle;
 
         [ObservableProperty]
-        public string _title;
+        private string _title;
 
         public bool IsWithSubscription { get; }
 
@@ -32,5 +32,7 @@ namespace Data_Organizer.MVVM.Models
         {
             Title = _baseTitle;
         }
+
+        public override string ToString() => Title;
     }
 }
