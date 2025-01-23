@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Data_Organizer.MVVM.Views;
 using Microsoft.Extensions.Logging;
+using UraniumUI;
 
 namespace Data_Organizer
 {
@@ -12,6 +13,8 @@ namespace Data_Organizer
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseUraniumUI()
+                .UseUraniumUIMaterial()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
