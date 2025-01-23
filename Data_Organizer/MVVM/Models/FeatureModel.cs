@@ -6,9 +6,16 @@
         public ImageSource? Icon { get; private set; }
         public bool IsWithSubscription { get; set; }
 
-        public FeatureModel(string title)
+        public FeatureModel(
+            string title,
+            bool isWithSubscription = false,
+            string imagePath = "")
         {
             Title = title;
+            IsWithSubscription = isWithSubscription;
+
+            if (imagePath != "")
+                Icon = ImageSource.FromFile(imagePath);
         }
 
         public void SetIcon(string imagePath)
