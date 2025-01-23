@@ -6,7 +6,7 @@ namespace Data_Organizer.Interfaces
     public interface IFeatureService
     {
         public ObservableCollection<FeatureModel> Features { get; }
-        void SetIconsForFeaturesInSubscription();
-        void RemoveIconsForFeaturesInSubscription();
+        void AddSubscriptionMarkToFeatures();
+        void RemoveSubscriptionMarkFromFeatures();
     }
 }

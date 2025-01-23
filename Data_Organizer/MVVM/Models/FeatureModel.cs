@@ -1,31 +1,36 @@
-﻿namespace Data_Organizer.MVVM.Models
-{
-    public class FeatureModel
-    {
-        public string Title { get; }
-        public ImageSource? Icon { get; private set; }
-        public bool IsWithSubscription { get; set; }
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-        public FeatureModel(
-            string title,
-            bool isWithSubscription = false,
-            string imagePath = "")
+namespace Data_Organizer.MVVM.Models
+{
+    public partial class FeatureModel : ObservableObject
+    {
+        private const string SUBSCRIPTION_MARK = " ✖";
+        private readonly string _baseTitle;
+
+        [ObservableProperty]
+        public string _title;
+
+        public bool IsWithSubscription { get; }
+
+        public FeatureModel(string baseTitle, bool isWithSubscription = false)
         {
-            Title = title;
+            _baseTitle = baseTitle;
             IsWithSubscription = isWithSubscription;
 
-            if (imagePath != "")
-                Icon = ImageSource.FromFile(imagePath);
+            Title = _baseTitle;
+
+            if (IsWithSubscription)
+                Title += SUBSCRIPTION_MARK;
         }
 
-        public void SetIcon(string imagePath)
+        public void AddSubscriptionMark()
         {
-            Icon = ImageSource.FromFile(imagePath);
+            Title += SUBSCRIPTION_MARK;
         }
 
-        public void RemoveIcon()
+        public void RemoveSubscriptionMark()
         {
-            Icon = null;
+            Title = _baseTitle;
         }
     }
 }

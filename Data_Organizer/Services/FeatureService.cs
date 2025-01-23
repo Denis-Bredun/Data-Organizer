@@ -6,29 +6,27 @@ namespace Data_Organizer.Services
 {
     public class FeatureService : IFeatureService
     {
-        private string _subscriptionFileName = "subscription.png";
-
         public ObservableCollection<FeatureModel> Features { get; }
 
         public FeatureService()
         {
             Features = new ObservableCollection<FeatureModel>()
-            {
-                new FeatureModel("Транскрипція"),
-                new FeatureModel("Конспект", true, _subscriptionFileName)
-            };
+        {
+            new FeatureModel("Транскрипція"),
+            new FeatureModel("Конспект", true) // Здесь уже установлено значение для IsWithSubscription
+        };
         }
 
-        public void RemoveIconsForFeaturesInSubscription()
+        public void AddSubscriptionMarkToFeatures()
         {
             foreach (var feature in Features.Where(el => el.IsWithSubscription))
-                feature.RemoveIcon();
+                feature.AddSubscriptionMark();
         }
 
-        public void SetIconsForFeaturesInSubscription()
+        public void RemoveSubscriptionMarkFromFeatures()
         {
             foreach (var feature in Features.Where(el => el.IsWithSubscription))
-                feature.SetIcon(_subscriptionFileName);
+                feature.RemoveSubscriptionMark();
         }
     }
 }
