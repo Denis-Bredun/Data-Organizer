@@ -4,7 +4,7 @@ namespace Data_Organizer.Services
 {
     public class PreferenceService : IPreferenceService
     {
-        public string GetPreference<T>(MVVM.Models.Enums.Preferences key, T? defaultValue = default)
+        public string GetPreference<T>(AppEnums.Preferences key, T? defaultValue = default)
         {
             var strKey = key.ToString();
             var strDefaultValue = defaultValue?.ToString();
@@ -14,7 +14,7 @@ namespace Data_Organizer.Services
             return preferenceValue;
         }
 
-        public void SetPreference<T>(MVVM.Models.Enums.Preferences key, T value)
+        public void SetPreference<T>(AppEnums.Preferences key, T value)
         {
             var strKey = key.ToString();
             var strValue = value.ToString();

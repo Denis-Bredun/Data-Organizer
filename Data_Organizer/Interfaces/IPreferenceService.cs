@@ -2,7 +2,7 @@
 {
     public interface IPreferenceService
     {
-        string GetPreference<T>(MVVM.Models.Enums.Preferences key, T? defaultValue);
-        void SetPreference<T>(MVVM.Models.Enums.Preferences key, T value);
+        string GetPreference<T>(AppEnums.Preferences key, T? defaultValue);
+        void SetPreference<T>(AppEnums.Preferences key, T value);
     }
 }

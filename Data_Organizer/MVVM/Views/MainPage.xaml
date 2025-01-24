@@ -11,7 +11,7 @@
     <Grid RowDefinitions="0.13*, *" Margin="15" RowSpacing="15">
 
         <Grid ColumnDefinitions="0.4*, 0.1*, 0.1*, 0.1*" ColumnSpacing="10">
-            <uranium:Dropdown ItemsSource="{Binding FeatureService.Features}" SelectedItem="{Binding SelectedFeature}"/>
+            <uranium:Dropdown ItemsSource="{Binding FeatureService.Features}" SelectedItem="{Binding SelectedFeature, Mode=TwoWay}"/>
             <Button Grid.Column="1" BackgroundColor="Aqua"/>
             <Button Grid.Column="2" BackgroundColor="Aqua"/>
             <Button Grid.Column="3" BackgroundColor="Aqua"/>
