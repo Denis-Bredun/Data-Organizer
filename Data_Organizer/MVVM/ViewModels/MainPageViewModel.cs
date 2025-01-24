@@ -46,8 +46,11 @@ namespace Data_Organizer.MVVM.ViewModels
             var defaultValue = FeatureService.Features.FirstOrDefault(
                     f => f.Title.Contains(defaultValueEnumDescription));
 
-            var lastSelectedFeature = _preferencesService.GetPreference(
+            string lastSelectedFeature = _preferencesService.GetPreference(
                 key, defaultValue);
+
+            SelectedFeature = FeatureService.Features.FirstOrDefault(
+                    f => f.Title.Contains(lastSelectedFeature));
         }
     }
 }
