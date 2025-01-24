@@ -13,7 +13,7 @@ namespace Data_Organizer.Services
             Features = new ObservableCollection<FeatureModel>()
         {
             new FeatureModel("Транскрипція"),
-            new FeatureModel("Конспект", true) // Здесь уже установлено значение для IsWithSubscription
+            new FeatureModel("Конспект", true)
         };
         }
 
