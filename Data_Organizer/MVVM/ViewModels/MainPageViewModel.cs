@@ -7,7 +7,7 @@ namespace Data_Organizer.MVVM.ViewModels
 {
     public partial class MainPageViewModel : ObservableObject
     {
-        private readonly IPreferencesService _preferencesService;
+        private readonly IPreferenceService _preferenceService;
         private readonly IEnumDescriptionResolverService _enumDescriptionResolverService;
 
         [ObservableProperty]
@@ -17,12 +17,12 @@ namespace Data_Organizer.MVVM.ViewModels
         public ICultureInfoService CultureInfoService { get; }
 
         public MainPageViewModel(
-            IPreferencesService preferencesService,
+            IPreferenceService preferenceService,
             IEnumDescriptionResolverService enumDescriptionResolverService,
             IFeatureService featureService,
             ICultureInfoService cultureInfoService)
         {
-            _preferencesService = preferencesService;
+            _preferenceService = preferenceService;
             _enumDescriptionResolverService = enumDescriptionResolverService;
 
             FeatureService = featureService;
@@ -46,7 +46,7 @@ namespace Data_Organizer.MVVM.ViewModels
             var defaultValue = FeatureService.Features.FirstOrDefault(
                     f => f.Title.Contains(defaultValueEnumDescription));
 
-            string lastSelectedFeature = _preferencesService.GetPreference(
+            string lastSelectedFeature = _preferenceService.GetPreference(
                 key, defaultValue);
 
             SelectedFeature = FeatureService.Features.FirstOrDefault(

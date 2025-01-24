@@ -2,7 +2,7 @@
 
 namespace Data_Organizer.Services
 {
-    public class PreferencesService : IPreferencesService
+    public class PreferenceService : IPreferenceService
     {
         public string GetPreference<T>(MVVM.Models.Enums.Preferences key, T? defaultValue = default)
         {

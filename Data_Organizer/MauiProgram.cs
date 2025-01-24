@@ -25,7 +25,7 @@ namespace Data_Organizer
                 });
 
             builder.Services.AddSingleton<IEnumDescriptionResolverService, EnumDescriptionResolverService>();
-            builder.Services.AddSingleton<IPreferencesService, PreferencesService>();
+            builder.Services.AddSingleton<IPreferenceService, PreferenceService>();
             builder.Services.AddSingleton<IFeatureService, FeatureService>();
             builder.Services.AddSingleton<ICultureInfoService, CultureInfoService>();
             builder.Services.AddSingleton<MainPageViewModel>();
