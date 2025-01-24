@@ -8,10 +8,17 @@
              IconImageSource="home_page.png"
              BackgroundColor="{StaticResource PageBackgroundColor}">
 
-    <Grid RowDefinitions="0.13*, *" Margin="15" RowSpacing="15">
+    <Grid RowDefinitions="0.08*, *" Margin="15" RowSpacing="15">
 
-        <Grid ColumnDefinitions="0.4*, 0.1*, 0.1*, 0.1*" ColumnSpacing="10">
-            <uranium:Dropdown ItemsSource="{Binding FeatureService.Features}" SelectedItem="{Binding SelectedFeature, Mode=TwoWay}"/>
+        <Grid ColumnDefinitions="0.30*, 0.1*, 0.1*, 0.1*" ColumnSpacing="10">
+            <uranium:Dropdown 
+                ItemsSource="{Binding FeatureService.Features}" 
+                SelectedItem="{Binding SelectedFeature, Mode=TwoWay}"
+                FontSize="20"
+                HorizontalTextAlignment="Center"
+                TextColor="White"
+                BackgroundColor="#2d302e"
+                CornerRadius="20"/>
             <Button Grid.Column="1" BackgroundColor="Aqua"/>
             <Button Grid.Column="2" BackgroundColor="Aqua"/>
             <Button Grid.Column="3" BackgroundColor="Aqua"/>
