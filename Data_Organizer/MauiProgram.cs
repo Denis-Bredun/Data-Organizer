@@ -24,6 +24,7 @@ namespace Data_Organizer
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<IPreferencesService, PreferencesService>();
             builder.Services.AddSingleton<IFeatureService, FeatureService>();
             builder.Services.AddSingleton<ICultureInfoService, CultureInfoService>();
             builder.Services.AddSingleton<MainPageViewModel>();
