@@ -7,7 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
-                <ResourceDictionary x:Name="appColors" Source="Resources/Styles/ProjectColors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/ProjectColors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/ProjectStylesNumbers.xaml" />
                 <ResourceDictionary Source="Resources/Styles/ProjectStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
