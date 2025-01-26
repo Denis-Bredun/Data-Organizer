@@ -35,17 +35,17 @@
                 BackgroundColor="#2d302e"
                 CornerRadius="20"/>
 
-            <Button Grid.Column="2" BackgroundColor="Aqua"/>
+            <ImageButton Grid.Column="2" Source="settings.png"/>
         </Grid>
 
         <Grid Grid.Row="1" ColumnDefinitions="0.8*, 0.2*" RowDefinitions="0.2*, 0.2*, 0.2*, 0.2*, 0.2*, 0.2*" ColumnSpacing="10" RowSpacing="10">
-            <Button Grid.Column="1" Grid.Row="0" BackgroundColor="Aqua"/>
-            <Button Grid.Column="1" Grid.Row="1" BackgroundColor="Aqua"/>
-            <Button Grid.Column="1" Grid.Row="2" BackgroundColor="Aqua"/>
-            <Button Grid.Column="1" Grid.Row="3" BackgroundColor="Aqua"/>
-            <Button Grid.Column="1" Grid.Row="4" BackgroundColor="Aqua"/>
-            <Button Grid.Column="1" Grid.Row="5" BackgroundColor="Aqua"/>
-            <Button Grid.RowSpan="6" BackgroundColor="Aqua"/>
+            <ImageButton Grid.RowSpan="6" BackgroundColor="Aqua"/>
+            <ImageButton Grid.Column="1" Grid.Row="0" Source="start_record.png"/>
+            <ImageButton Grid.Column="1" Grid.Row="1" Source="copy.png"/>
+            <ImageButton Grid.Column="1" Grid.Row="2" Source="paste.png"/>
+            <ImageButton Grid.Column="1" Grid.Row="3" Source="edit.png"/>
+            <ImageButton Grid.Column="1" Grid.Row="4" Source="clean.png"/>
+            <ImageButton Grid.Column="1" Grid.Row="5" Source="save.png"/>
         </Grid>
         
     </Grid>
