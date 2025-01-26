@@ -17,12 +17,7 @@ namespace Data_Organizer
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
                 .UseUraniumUI()
-                .UseUraniumUIMaterial()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                .UseUraniumUIMaterial();
 
             builder.Services.AddSingleton<IApplicationPreferencesService, ApplicationPreferencesService>();
             builder.Services.AddSingleton<IEnumDescriptionResolverService, EnumDescriptionResolverService>();
