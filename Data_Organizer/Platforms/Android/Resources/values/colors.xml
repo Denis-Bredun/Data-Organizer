@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#512BD4</color>
-    <color name="colorPrimaryDark">#2B0B98</color>
-    <color name="colorAccent">#2B0B98</color>
+	<color name="colorPrimary">#141414</color>
+	<color name="colorPrimaryDark">#000000</color>
+	<color name="colorAccent">#ffffff</color>
 
-    <style name="MyAppTheme" parent="Maui.SplashTheme">
-		<item name="android:textColor">@android:color/white</item>
+    <style name="AppTheme" parent="Maui.SplashTheme">
+		<item name="android:textColor">#ffffff</item>
 		<item name="android:itemBackground">#393d3a</item>
 	</style>
     
