@@ -3,4 +3,10 @@
     <color name="colorPrimary">#512BD4</color>
     <color name="colorPrimaryDark">#2B0B98</color>
     <color name="colorAccent">#2B0B98</color>
+
+    <style name="MyAppTheme" parent="Maui.SplashTheme">
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:itemBackground">#393d3a</item>
+	</style>
+    
 </resources>
