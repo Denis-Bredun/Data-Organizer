@@ -31,16 +31,18 @@ namespace Data_Organizer.Services
         private void LoadMainPagePreferences()
         {
             LoadLastSelectedFeature();
+            LoadLastSelectedOutputLanguage();
         }
 
         private void SaveMainPagePreferences()
         {
             SaveLastSelectedFeature();
+            SaveLastSelectedOutputLanguage();
         }
 
         private void LoadLastSelectedFeature()
         {
-            var key = AppEnums.Preferences.LastChoosenFeature;
+            var key = AppEnums.Preferences.LastSelectedFeature;
 
             var defaultValueEnum = AppEnums.Features.Transcription;
             var defaultValueEnumDescription = _enumDescriptionResolverService.GetEnumDescription(defaultValueEnum);
@@ -56,8 +58,32 @@ namespace Data_Organizer.Services
 
         private void SaveLastSelectedFeature()
         {
-            var key = AppEnums.Preferences.LastChoosenFeature;
+            var key = AppEnums.Preferences.LastSelectedFeature;
             var value = _mainPageViewModel.SelectedFeature;
+
+            _preferenceService.SetPreference(key, value);
+        }
+
+        private void LoadLastSelectedOutputLanguage()
+        {
+            var key = AppEnums.Preferences.LastSelectedOutputLanguage;
+
+            var defaultValueEnum = AppEnums.Languages.UA;
+            var defaultValueEnumDescription = defaultValueEnum.ToString();
+            var defaultValue = _mainPageViewModel.CultureInfoService.Languages.FirstOrDefault(
+                    l => l.DisplayName.Contains(defaultValueEnumDescription));
+
+            string lastSelectedOutputLanguage = _preferenceService.GetPreference(
+                key, defaultValue);
+
+            _mainPageViewModel.SelectedLanguage = _mainPageViewModel.CultureInfoService.Languages.FirstOrDefault(
+                    l => l.DisplayName.Contains(lastSelectedOutputLanguage));
+        }
+
+        private void SaveLastSelectedOutputLanguage()
+        {
+            var key = AppEnums.Preferences.LastSelectedOutputLanguage;
+            var value = _mainPageViewModel.SelectedLanguage;
 
             _preferenceService.SetPreference(key, value);
         }

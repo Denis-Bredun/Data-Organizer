@@ -8,6 +8,8 @@ namespace Data_Organizer.MVVM.ViewModels
     {
         [ObservableProperty]
         private FeatureModel _selectedFeature;
+        [ObservableProperty]
+        private LanguageModel _selectedLanguage;
 
         public IFeatureService FeatureService { get; }
         public ICultureInfoService CultureInfoService { get; }

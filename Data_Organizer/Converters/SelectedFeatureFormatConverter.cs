@@ -2,7 +2,7 @@
 
 namespace Data_Organizer.Converters
 {
-    class ChoosenFeatureFormatConverter : IValueConverter
+    class SelectedFeatureFormatConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

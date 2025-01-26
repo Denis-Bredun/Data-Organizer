@@ -2,7 +2,7 @@
 {
     public enum Preferences
     {
-        LastChoosenFeature,
-        LastChoosenOutputLanguage
+        LastSelectedFeature,
+        LastSelectedOutputLanguage
     }
 }
