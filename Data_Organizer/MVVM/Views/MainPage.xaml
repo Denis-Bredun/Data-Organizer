@@ -19,21 +19,21 @@
             <uranium:Dropdown 
                 ItemsSource="{Binding FeatureService.Features}" 
                 SelectedItem="{Binding SelectedFeature, Mode=TwoWay, Converter={StaticResource SelectedFeatureFormatConverter}}"
-                FontSize="20"
+                FontSize="{StaticResource FontSize}"
                 HorizontalTextAlignment="Center"
                 TextColor="White"
                 BackgroundColor="#2d302e"
-                CornerRadius="20"/>
+                CornerRadius="{StaticResource CornerRadius}"/>
 
             <uranium:Dropdown 
                 Grid.Column="1"
                 ItemsSource="{Binding CultureInfoService.Languages}" 
                 SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
-                FontSize="20"
+                FontSize="{StaticResource FontSize}"
                 HorizontalTextAlignment="Center"
                 TextColor="White"
                 BackgroundColor="#2d302e"
-                CornerRadius="20"/>
+                CornerRadius="{StaticResource CornerRadius}"/>
 
             <ImageButton Grid.Column="2" Source="settings.png"/>
         </Grid>
@@ -43,11 +43,11 @@
                 Grid.RowSpan="6"
                 StrokeThickness="0.5"
                 Stroke="#adadad"
-                StrokeShape="RoundRectangle 20"
+                StrokeShape="{StaticResource CornerRadiusShape}"
                 BackgroundColor="#4a4a4a">
                 <ScrollView>
                     <Editor
-                        FontSize="20"
+                        FontSize="{StaticResource FontSize}"
                         AutoSize="TextChanges"
                         TextColor="White"/>
                 </ScrollView>
