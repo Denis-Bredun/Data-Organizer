@@ -5,5 +5,6 @@
     <x:Double x:Key="FontSize">20</x:Double>
     <x:Int32 x:Key="CornerRadius">20</x:Int32>
     <RoundRectangle x:Key="CornerRadiusShape" CornerRadius="20" />
+    <x:Double x:Key="BorderThickness">0.5</x:Double>
     
 </ResourceDictionary>

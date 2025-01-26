@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui">
+
+    <Style TargetType="uranium:Dropdown" x:Key="DropdownStyle">
+        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource ControlElementBackgroundColor}" />
+        <Setter Property="CornerRadius" Value="{StaticResource CornerRadius}" />
+    </Style>
+
+    <Style TargetType="Border">
+        <Setter Property="StrokeThickness" Value="{StaticResource BorderThickness}" />
+        <Setter Property="Stroke" Value="{StaticResource BorderColor}" />
+        <Setter Property="StrokeShape" Value="{StaticResource CornerRadiusShape}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource EditorBackgroundColor}" />
+    </Style>
+
+    <Style TargetType="Editor" x:Key="EditorStyle">
+        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+        <Setter Property="AutoSize" Value="TextChanges" />
+    </Style>
+    
+</ResourceDictionary>

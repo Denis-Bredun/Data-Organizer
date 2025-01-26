@@ -6,5 +6,9 @@
     <Color x:Key="BarBackgroundColor">#242323</Color>
     <Color x:Key="UnselectedTabColor">White</Color>
     <Color x:Key="SelectedTabColor">Aqua</Color>
+    <Color x:Key="TextColor">White</Color>
+    <Color x:Key="BorderColor">#adadad</Color>
+    <Color x:Key="EditorBackgroundColor">#4a4a4a</Color>
+    <Color x:Key="ControlElementBackgroundColor">#2d302e</Color>
     
 </ResourceDictionary>
