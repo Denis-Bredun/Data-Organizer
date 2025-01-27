@@ -24,6 +24,10 @@ namespace Data_Organizer
             builder.Services.AddSingleton<IPreferenceService, PreferenceService>();
             builder.Services.AddSingleton<IFeatureService, FeatureService>();
             builder.Services.AddSingleton<ICultureInfoService, CultureInfoService>();
+            builder.Services.AddSingleton<INotificationService, NotificationService>();
+            builder.Services.AddSingleton<ISpeechToTextService, Data_Organizer.Platforms.SpeechToTextService>();
+            builder.Services.AddSingleton<IAudioTranscriptorService, AudioTranscriptorService>();
+            builder.Services.AddSingleton<IClipboardService, ClipboardService>();
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<SavedNotesPage>();
