@@ -20,22 +20,20 @@
                 ItemsSource="{Binding FeatureService.Features}" 
                 SelectedItem="{Binding SelectedFeature, Mode=TwoWay, Converter={StaticResource SelectedFeatureFormatConverter}}"
                 TextColor="{StaticResource TextColor}"
-                BackgroundColor="{StaticResource ControlElementBackgroundColor}"
-                Style="{StaticResource DropdownStyle}"/>
+                BackgroundColor="{StaticResource ControlElementBackgroundColor}"/>
 
             <uranium:Dropdown 
                 Grid.Column="1"
                 ItemsSource="{Binding CultureInfoService.Languages}" 
                 SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
                 TextColor="{StaticResource TextColor}"
-                BackgroundColor="{StaticResource ControlElementBackgroundColor}"
-                Style="{StaticResource DropdownStyle}"/>
+                BackgroundColor="{StaticResource ControlElementBackgroundColor}"/>
 
             <ImageButton Grid.Column="2" Source="settings.png"/>
         </Grid>
 
         <Grid Grid.Row="1" ColumnDefinitions="0.8*, 0.2*" RowDefinitions="0.2*, 0.2*, 0.2*, 0.2*, 0.2*, 0.2*" ColumnSpacing="10" RowSpacing="10">
-            <Border Grid.RowSpan="6" Style="{StaticResource BorderStyle}">
+            <Border Grid.RowSpan="6">
                 <ScrollView>
                     <Editor Style="{StaticResource EditorStyle}"/>
                 </ScrollView>

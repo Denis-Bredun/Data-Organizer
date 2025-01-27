@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui">
 
-    <Style TargetType="uranium:Dropdown" x:Key="DropdownStyle">
+    <Style TargetType="uranium:Dropdown">
         <Setter Property="FontSize" Value="{StaticResource FontSize}" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
         <Setter Property="TextColor" Value="{StaticResource TextColor}" />
