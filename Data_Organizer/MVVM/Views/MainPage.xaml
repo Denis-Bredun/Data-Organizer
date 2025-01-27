@@ -50,8 +50,9 @@
                          Style="{StaticResource MainPageButtonStyle}"/>
             <ImageButton Grid.Column="1" Grid.Row="2" Source="paste.png" 
                          Style="{StaticResource MainPageButtonStyle}"/>
-            <ImageButton Grid.Column="1" Grid.Row="3" Source="edit.png" 
-                         Style="{StaticResource MainPageButtonStyle}"/>
+            <ImageButton Grid.Column="1" Grid.Row="3" Source="{Binding EditButtonImageSource}" 
+                         Style="{StaticResource MainPageButtonStyle}"
+                         Command="{Binding SwitchEditModeCommand}"/>
             <ImageButton Grid.Column="1" Grid.Row="4" Source="clean.png" 
                          Style="{StaticResource MainPageButtonStyle}"/>
             <ImageButton Grid.Column="1" Grid.Row="5" Source="save.png" 
