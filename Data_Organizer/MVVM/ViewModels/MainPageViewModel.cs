@@ -7,7 +7,6 @@ namespace Data_Organizer.MVVM.ViewModels
     public partial class MainPageViewModel : ObservableObject
     {
         private readonly INotificationService _notificationService;
-        private readonly IAudioTranscriptorService _audioTranscriptorService;
         private readonly IClipboardService _clipboardService;
 
         [ObservableProperty]
@@ -21,6 +20,7 @@ namespace Data_Organizer.MVVM.ViewModels
 
         public IFeatureService FeatureService { get; }
         public ICultureInfoService CultureInfoService { get; }
+        public IAudioTranscriptorService AudioTranscriptorService { get; }
 
         public MainPageViewModel(
             IFeatureService featureService,
@@ -31,9 +31,9 @@ namespace Data_Organizer.MVVM.ViewModels
         {
             FeatureService = featureService;
             CultureInfoService = cultureInfoService;
+            AudioTranscriptorService = audioTranscriptorService;
 
             _notificationService = notificationService;
-            _audioTranscriptorService = audioTranscriptorService;
             _clipboardService = clipboardService;
 
             IsReadOnly = true;

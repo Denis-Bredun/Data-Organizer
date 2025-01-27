@@ -1,17 +1,20 @@
-﻿using Data_Organizer.Interfaces;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Data_Organizer.Interfaces;
 using System.Globalization;
 
 namespace Data_Organizer.Services
 {
-    public class AudioTranscriptorService : IAudioTranscriptorService
+    public partial class AudioTranscriptorService : ObservableObject, IAudioTranscriptorService
     {
         public event Action<string> OnTranscriptionUpdated;
-        public bool IsListening { get; private set; }
 
         private readonly ISpeechToTextService _speechToTextService;
         private readonly INotificationService _notificationService;
         private CancellationTokenSource _tokenSource;
         private string _transcription;
+
+        [ObservableProperty]
+        private bool isListening;
 
         public AudioTranscriptorService(
             ISpeechToTextService speechToTextService,
