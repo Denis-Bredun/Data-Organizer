@@ -10,6 +10,10 @@ namespace Data_Organizer.MVVM.ViewModels
         private FeatureModel _selectedFeature;
         [ObservableProperty]
         private LanguageModel _selectedLanguage;
+        [ObservableProperty]
+        private string _outputText;
+        [ObservableProperty]
+        private bool _isReadOnly;
 
         public IFeatureService FeatureService { get; }
         public ICultureInfoService CultureInfoService { get; }
@@ -20,6 +24,8 @@ namespace Data_Organizer.MVVM.ViewModels
         {
             FeatureService = featureService;
             CultureInfoService = cultureInfoService;
+
+            IsReadOnly = true;
         }
     }
 }
