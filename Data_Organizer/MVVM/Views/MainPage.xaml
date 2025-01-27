@@ -47,14 +47,17 @@
             
             <ImageButton Grid.Column="1" Grid.Row="0" Source="start_record.png"/>
             <ImageButton Grid.Column="1" Grid.Row="1" Source="copy.png" 
-                         Style="{StaticResource MainPageButtonStyle}"/>
+                         Style="{StaticResource MainPageButtonStyle}"
+                         Command="{Binding CopyOutputTextCommand}"/>
             <ImageButton Grid.Column="1" Grid.Row="2" Source="paste.png" 
-                         Style="{StaticResource MainPageButtonStyle}"/>
+                         Style="{StaticResource MainPageButtonStyle}"
+                         Command="{Binding PasteTextCommand}"/>
             <ImageButton Grid.Column="1" Grid.Row="3" Source="{Binding EditButtonImageSource}" 
                          Style="{StaticResource MainPageButtonStyle}"
                          Command="{Binding SwitchEditModeCommand}"/>
             <ImageButton Grid.Column="1" Grid.Row="4" Source="clean.png" 
-                         Style="{StaticResource MainPageButtonStyle}"/>
+                         Style="{StaticResource MainPageButtonStyle}"
+                         Command="{Binding CleanEditorCommand}"/>
             <ImageButton Grid.Column="1" Grid.Row="5" Source="save.png" 
                          Style="{StaticResource MainPageButtonStyle}"/>
         </Grid>

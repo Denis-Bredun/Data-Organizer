@@ -49,6 +49,54 @@ namespace Data_Organizer.MVVM.ViewModels
         }
 
         [RelayCommand]
+        public async Task CopyOutputText()
+        {
+            if (string.IsNullOrWhiteSpace(OutputText))
+            {
+                await _notificationService.ShowToastAsync("Нема чого копіювати...");
+                return;
+            }
+
+            await _clipboardService.Add(OutputText);
+
+            await _notificationService.ShowToastAsync("Дані були успішно скопійовані!");
+        }
+
+        [RelayCommand]
+        public async Task PasteText()
+        {
+            var action = await _notificationService.ShowActionSheetAsync("Як бажаєте вставити дані?", ["Вставити в кінець", "Замінити весь текст"]);
+
+            switch (action)
+            {
+                case "Вставити в кінець":
+                    OutputText += "\n";
+                    OutputText += await _clipboardService.GetLastData();
+                    await _notificationService.ShowToastAsync("Дані були успішно вставлені в кінець!");
+                    break;
+                case "Замінити весь текст":
+                    OutputText = await _clipboardService.GetLastData();
+                    await _notificationService.ShowToastAsync("Дані успішно замінили весь текст!");
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        [RelayCommand]
+        public async Task CleanEditor()
+        {
+            bool isConfirmed = await _notificationService.ShowConfirmationDialogAsync("Ви дійсно бажаєте очистити текстове поле?");
+
+            if (!isConfirmed)
+                return;
+
+            OutputText = "";
+
+            await _notificationService.ShowToastAsync("Текстове поле було очищено!");
+        }
+
+        [RelayCommand]
         public async Task SwitchEditMode()
         {
             bool wasEditModeEnabled = false;
@@ -71,7 +119,7 @@ namespace Data_Organizer.MVVM.ViewModels
 
         public async Task<bool> EnableEditMode()
         {
-            var isConfirmed = await _notificationService.ShowConfirmationDialogAsync("Ви дійсно бажаєте увійти в режим редагування?");
+            bool isConfirmed = await _notificationService.ShowConfirmationDialogAsync("Ви дійсно бажаєте увійти в режим редагування?");
 
             if (!isConfirmed)
                 return false;

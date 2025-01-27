@@ -4,6 +4,6 @@
     {
         Task ShowToastAsync(string message);
         Task<bool> ShowConfirmationDialogAsync(string message);
-        Task<string> ShowActionSheetAsync(params string[] actions);
+        Task<string> ShowActionSheetAsync(string message, params string[] actions);
     }
 }

@@ -6,10 +6,10 @@ namespace Data_Organizer.Services
 {
     public class NotificationService : INotificationService
     {
-        public async Task<string> ShowActionSheetAsync(params string[] actions)
+        public async Task<string> ShowActionSheetAsync(string message = "Що ви бажаєте зробити?", params string[] actions)
         {
             var currentPage = Application.Current?.MainPage;
-            return await currentPage.DisplayActionSheet("Що ви бажаєте зробити?", "Нічого", null, actions);
+            return await currentPage.DisplayActionSheet(message, "Нічого", null, actions);
         }
 
         public async Task<bool> ShowConfirmationDialogAsync(string message)
