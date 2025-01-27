@@ -11,7 +11,6 @@
 
     <ContentPage.Resources>
         <converters:SelectedFeatureFormatConverter x:Key="SelectedFeatureFormatConverter"/>
-        <converters:BoolReverserConverter x:Key="BoolReverserConverter"/>
     </ContentPage.Resources>
     
     <Grid RowDefinitions="0.08*, *" Margin="15" RowSpacing="15">
@@ -22,7 +21,7 @@
                 SelectedItem="{Binding SelectedFeature, Mode=TwoWay, Converter={StaticResource SelectedFeatureFormatConverter}}"
                 TextColor="{StaticResource TextColor}"
                 BackgroundColor="{StaticResource ControlElementBackgroundColor}"
-                IsEnabled="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}"/>
+                Style="{StaticResource MainPageDropdownStyle}"/>
 
             <uranium:Dropdown 
                 Grid.Column="1"
@@ -30,10 +29,10 @@
                 SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
                 TextColor="{StaticResource TextColor}"
                 BackgroundColor="{StaticResource ControlElementBackgroundColor}"
-                IsEnabled="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}"/>
+                Style="{StaticResource MainPageDropdownStyle}"/>
 
             <ImageButton Grid.Column="2" Source="settings.png"
-                         IsEnabled="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}"/>
+                         Style="{StaticResource MainPageButtonStyle}"/>
         </Grid>
 
         <Grid Grid.Row="1" ColumnDefinitions="0.8*, 0.2*" RowDefinitions="0.2*, 0.2*, 0.2*, 0.2*, 0.2*, 0.2*" ColumnSpacing="10" RowSpacing="10">
@@ -42,22 +41,21 @@
                     <Editor 
                         Text="{Binding OutputText, Mode=TwoWay}" 
                         IsReadOnly="{Binding IsReadOnly, Mode=TwoWay}" 
-                        Style="{StaticResource EditorStyle}"
-                        IsEnabled="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}"/>
+                        Style="{StaticResource MainPageEditorStyle}"/>
                 </ScrollView>
             </Border>
             
             <ImageButton Grid.Column="1" Grid.Row="0" Source="start_record.png"/>
             <ImageButton Grid.Column="1" Grid.Row="1" Source="copy.png" 
-                         IsEnabled="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}"/>
+                         Style="{StaticResource MainPageButtonStyle}"/>
             <ImageButton Grid.Column="1" Grid.Row="2" Source="paste.png" 
-                         IsEnabled="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}"/>
+                         Style="{StaticResource MainPageButtonStyle}"/>
             <ImageButton Grid.Column="1" Grid.Row="3" Source="edit.png" 
-                         IsEnabled="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}"/>
+                         Style="{StaticResource MainPageButtonStyle}"/>
             <ImageButton Grid.Column="1" Grid.Row="4" Source="clean.png" 
-                         IsEnabled="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}"/>
+                         Style="{StaticResource MainPageButtonStyle}"/>
             <ImageButton Grid.Column="1" Grid.Row="5" Source="save.png" 
-                         IsEnabled="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}"/>
+                         Style="{StaticResource MainPageButtonStyle}"/>
         </Grid>
         
     </Grid>

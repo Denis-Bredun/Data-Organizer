@@ -1,14 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui">
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+             xmlns:converters="clr-namespace:Data_Organizer.Converters">
 
-    <Style TargetType="uranium:Dropdown">
+    <converters:BoolReverserConverter x:Key="BoolReverserConverter"/>
+    
+    <Style TargetType="uranium:Dropdown" x:Key="BaseDropdownStyle">
         <Setter Property="FontSize" Value="{StaticResource FontSize}" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
         <Setter Property="TextColor" Value="{StaticResource TextColor}" />
         <Setter Property="BackgroundColor" Value="{StaticResource ControlElementBackgroundColor}" />
         <Setter Property="CornerRadius" Value="{StaticResource CornerRadius}" />
+    </Style>
+
+    <Style TargetType="uranium:Dropdown" x:Key="MainPageDropdownStyle" BasedOn="{StaticResource BaseDropdownStyle}">
+        <Setter Property="IsEnabled" 
+            Value="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}" />
     </Style>
 
     <Style TargetType="Border">
@@ -18,10 +26,20 @@
         <Setter Property="BackgroundColor" Value="{StaticResource EditorBackgroundColor}" />
     </Style>
 
-    <Style TargetType="Editor" x:Key="EditorStyle">
+    <Style TargetType="Editor" x:Key="BaseEditorStyle">
         <Setter Property="FontSize" Value="{StaticResource FontSize}" />
         <Setter Property="TextColor" Value="{StaticResource TextColor}" />
         <Setter Property="AutoSize" Value="TextChanges" />
     </Style>
-    
+
+    <Style TargetType="Editor" x:Key="MainPageEditorStyle" BasedOn="{StaticResource BaseEditorStyle}">
+        <Setter Property="IsEnabled" 
+        Value="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}" />
+    </Style>
+
+    <Style TargetType="ImageButton" x:Key="MainPageButtonStyle">
+        <Setter Property="IsEnabled" 
+            Value="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}" />
+    </Style>
+
 </ResourceDictionary>
