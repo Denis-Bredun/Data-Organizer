@@ -109,11 +109,27 @@ namespace Data_Organizer.Services
         {
             string baseText = "";
             bool addNewLine = false;
+            var lastUpdateTime = DateTime.UtcNow;
+
+            async Task MonitorSilence()
+            {
+                while (!_tokenSource.Token.IsCancellationRequested)
+                {
+                    await Task.Delay(1000);
+                    if ((DateTime.UtcNow - lastUpdateTime).TotalSeconds >= 10)
+                    {
+                        _tokenSource.Cancel();
+                    }
+                }
+            }
+
+            _ = MonitorSilence();
 
             _transcription = await _speechToTextService.ListenAsync(
                 culture,
                 new Progress<string>(currentText =>
                 {
+                    lastUpdateTime = DateTime.UtcNow;
                     FormatRecognizedSpeech(ref baseText, ref currentText, ref addNewLine);
                     OnTranscriptionUpdated(_transcription);
                 }), _tokenSource.Token);
