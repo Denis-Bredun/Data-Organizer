@@ -45,7 +45,8 @@
                 </ScrollView>
             </Border>
             
-            <ImageButton Grid.Column="1" Grid.Row="0" Source="start_record.png"/>
+            <ImageButton Grid.Column="1" Grid.Row="0" Source="{Binding PlayButtonImageSource}"
+                         Command="{Binding PlayFeatureCommand}"/>
             <ImageButton Grid.Column="1" Grid.Row="1" Source="copy.png" 
                          Style="{StaticResource MainPageButtonStyle}"
                          Command="{Binding CopyOutputTextCommand}"/>

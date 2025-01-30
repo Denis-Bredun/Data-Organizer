@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Data_Organizer.Interfaces;
+using Data_Organizer.MVVM.ViewModels;
 using System.Globalization;
 
 namespace Data_Organizer.Services
@@ -10,6 +11,8 @@ namespace Data_Organizer.Services
 
         private readonly ISpeechToTextService _speechToTextService;
         private readonly INotificationService _notificationService;
+        private readonly IServiceProvider _serviceProvider;
+        private MainPageViewModel _mainPageViewModel;
         private CancellationTokenSource _tokenSource;
         private string _transcription;
 
@@ -18,10 +21,13 @@ namespace Data_Organizer.Services
 
         public AudioTranscriptorService(
             ISpeechToTextService speechToTextService,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IServiceProvider serviceProvider)
         {
             _speechToTextService = speechToTextService;
             _notificationService = notificationService;
+            _serviceProvider = serviceProvider;
+
             IsListening = false;
         }
 
@@ -33,27 +39,40 @@ namespace Data_Organizer.Services
             if (!await CheckPermissions())
                 return;
 
+            SetMainPageViewModelIfNecessary();
+
             ResetCancellationTokenSource();
 
             try
             {
                 IsListening = true;
-
+                SwitchPlayButtonImage();
                 await LaunchSpeechToTextService(culture);
             }
             catch (Exception ex)
             {
                 IsListening = false;
-
+                SwitchPlayButtonImage();
                 await ShowNotificationWhenStoppedListening(
                     _tokenSource.IsCancellationRequested,
                     ex.Message);
             }
         }
 
-        public async Task StopListening()
+        private void SetMainPageViewModelIfNecessary()
         {
-            await _tokenSource?.CancelAsync();
+            if (_mainPageViewModel == null)
+                _mainPageViewModel = _serviceProvider.GetRequiredService<MainPageViewModel>();
+        }
+
+        private void SwitchPlayButtonImage()
+        {
+            _mainPageViewModel.SwitchPlayButtonImage(IsListening);
+        }
+
+        public void StopListening()
+        {
+            _tokenSource?.Cancel();
         }
 
         private bool IsConnectedToInternet() => Connectivity.Current.NetworkAccess == NetworkAccess.Internet;

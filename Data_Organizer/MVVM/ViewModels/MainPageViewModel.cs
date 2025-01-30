@@ -2,13 +2,15 @@
 using CommunityToolkit.Mvvm.Input;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
+using System.Globalization;
 
 namespace Data_Organizer.MVVM.ViewModels
 {
-    public partial class MainPageViewModel : ObservableObject
+    public partial class MainPageViewModel : ObservableObject, IDisposable
     {
         private readonly INotificationService _notificationService;
         private readonly IClipboardService _clipboardService;
+        private Action<string>? _transcriptionUpdatedHandler;
 
         [ObservableProperty]
         private FeatureModel _selectedFeature;
@@ -20,6 +22,8 @@ namespace Data_Organizer.MVVM.ViewModels
         private bool _isReadOnly;
         [ObservableProperty]
         private string _editButtonImageSource;
+        [ObservableProperty]
+        private string _playButtonImageSource;
 
         public IFeatureService FeatureService { get; }
         public ICultureInfoService CultureInfoService { get; }
@@ -46,6 +50,38 @@ namespace Data_Organizer.MVVM.ViewModels
         {
             IsReadOnly = true;
             EditButtonImageSource = "disabled_edit_mode.png";
+            PlayButtonImageSource = "start_record.png";
+        }
+
+        [RelayCommand]
+        public void PlayFeature()
+        {
+            SetTranscriptionUpdatedHandlerIfNecessary();
+
+            if (!AudioTranscriptorService.IsListening)
+            {
+                var cultureInfo = CultureInfo.GetCultureInfo(SelectedLanguage.CultureCode);
+                AudioTranscriptorService.StartListening(cultureInfo);
+            }
+            else
+                AudioTranscriptorService.StopListening();
+        }
+
+        private void SetTranscriptionUpdatedHandlerIfNecessary()
+        {
+            if (_transcriptionUpdatedHandler == null)
+            {
+                _transcriptionUpdatedHandler = text => OutputText = text;
+                AudioTranscriptorService.OnTranscriptionUpdated += _transcriptionUpdatedHandler;
+            }
+        }
+
+        public void SwitchPlayButtonImage(bool isListening)
+        {
+            if (isListening)
+                PlayButtonImageSource = "pause_record.png";
+            else
+                PlayButtonImageSource = "start_record.png";
         }
 
         [RelayCommand]
@@ -135,6 +171,21 @@ namespace Data_Organizer.MVVM.ViewModels
             IsReadOnly = true;
 
             await _notificationService.ShowToastAsync("Ви вийшли з режиму редагування!");
+        }
+
+        public void Dispose()
+        {
+            AudioTranscriptorService.StopListening();
+            UnsubscribeFromTranscriptionUpdates();
+        }
+
+        private void UnsubscribeFromTranscriptionUpdates()
+        {
+            if (_transcriptionUpdatedHandler != null)
+            {
+                AudioTranscriptorService.OnTranscriptionUpdated -= _transcriptionUpdatedHandler;
+                _transcriptionUpdatedHandler = null;
+            }
         }
     }
 }
