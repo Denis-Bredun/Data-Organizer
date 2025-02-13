@@ -29,6 +29,10 @@ namespace Data_Organizer
             builder.Services.AddTransient<IAudioTranscriptorService, AudioTranscriptorService>();
             builder.Services.AddTransient<IClipboardService, ClipboardService>();
             builder.Services.AddTransient<AppShell>();
+            builder.Services.AddViewModel<WelcomeViewModel, WelcomePage>();
+            builder.Services.AddViewModel<SignUpViewModel, SignUpPage>();
+            builder.Services.AddViewModel<SignInViewModel, SignInPage>();
+            builder.Services.AddViewModel<MainPageViewModel, MainPage>();
             builder.Services.AddViewModel<MainPageViewModel, MainPage>();
             builder.Services.AddTransient<SavedNotesPage>();
             builder.Services.AddTransient<SettingsPage>();
