@@ -19,26 +19,33 @@ namespace Data_Organizer
                 .UseUraniumUI()
                 .UseUraniumUIMaterial();
 
-            builder.Services.AddSingleton<IApplicationPreferencesService, ApplicationPreferencesService>();
-            builder.Services.AddSingleton<IEnumDescriptionResolverService, EnumDescriptionResolverService>();
-            builder.Services.AddSingleton<IPreferenceService, PreferenceService>();
-            builder.Services.AddSingleton<IFeatureService, FeatureService>();
-            builder.Services.AddSingleton<ICultureInfoService, CultureInfoService>();
-            builder.Services.AddSingleton<INotificationService, NotificationService>();
-            builder.Services.AddSingleton<ISpeechToTextService, Data_Organizer.Platforms.SpeechToTextService>();
-            builder.Services.AddSingleton<IAudioTranscriptorService, AudioTranscriptorService>();
-            builder.Services.AddSingleton<IClipboardService, ClipboardService>();
-            builder.Services.AddSingleton<MainPageViewModel>();
-            builder.Services.AddSingleton<AppShell>();
-            builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<SavedNotesPage>();
-            builder.Services.AddSingleton<SettingsPage>();
+            builder.Services.AddTransient<IApplicationPreferencesService, ApplicationPreferencesService>();
+            builder.Services.AddTransient<IEnumDescriptionResolverService, EnumDescriptionResolverService>();
+            builder.Services.AddTransient<IPreferenceService, PreferenceService>();
+            builder.Services.AddTransient<IFeatureService, FeatureService>();
+            builder.Services.AddTransient<ICultureInfoService, CultureInfoService>();
+            builder.Services.AddTransient<INotificationService, NotificationService>();
+            builder.Services.AddTransient<ISpeechToTextService, Data_Organizer.Platforms.SpeechToTextService>();
+            builder.Services.AddTransient<IAudioTranscriptorService, AudioTranscriptorService>();
+            builder.Services.AddTransient<IClipboardService, ClipboardService>();
+            builder.Services.AddTransient<AppShell>();
+            builder.Services.AddViewModel<MainPageViewModel, MainPage>();
+            builder.Services.AddTransient<SavedNotesPage>();
+            builder.Services.AddTransient<SettingsPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
+        }
+
+        private static void AddViewModel<TViewModel, TView>(this IServiceCollection services)
+            where TView : ContentPage, new()
+            where TViewModel : class
+        {
+            services.AddSingleton<TViewModel>();
+            services.AddTransient<TView>(s => new TView() { BindingContext = s.GetRequiredService<TViewModel>() });
         }
     }
 }

@@ -4,19 +4,20 @@ namespace Data_Organizer.MVVM.Views;
 
 public partial class MainPage : ContentPage
 {
-    private readonly MainPageViewModel _viewModel;
-
-    public MainPage(MainPageViewModel viewModel)
+    public MainPage()
     {
         InitializeComponent();
+    }
 
-        _viewModel = viewModel;
-        BindingContext = _viewModel;
+    private async void OnEditorTextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (e.OldTextValue != e.NewTextValue)
+            await MyScrollView.ScrollToAsync(MyEditor, ScrollToPosition.End, true);
     }
 
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        _viewModel.Dispose();
+        ((MainPageViewModel)BindingContext).Dispose();
     }
 }
