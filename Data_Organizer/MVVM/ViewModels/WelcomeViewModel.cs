@@ -1,8 +1,20 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Data_Organizer.MVVM.ViewModels
 {
-    public class WelcomeViewModel : ObservableObject
+    public partial class WelcomeViewModel : ObservableObject
     {
+        [RelayCommand]
+        public async Task NavigateToSignUpPage()
+        {
+            await Shell.Current.GoToAsync("//SignUpPage");
+        }
+
+        [RelayCommand]
+        public async Task NavigateToSignInPage()
+        {
+            await Shell.Current.GoToAsync("//SignInPage");
+        }
     }
 }
