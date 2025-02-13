@@ -11,8 +11,8 @@ namespace Data_Organizer
         {
             InitializeComponent();
 
-            var tabbedPage = serviceProvider.GetRequiredService<MyTabbedPage>();
-            MainPage = tabbedPage;
+            var appShell = serviceProvider.GetRequiredService<AppShell>();
+            MainPage = appShell;
 
             _applicationPreferencesService = serviceProvider.GetRequiredService<IApplicationPreferencesService>();
         }

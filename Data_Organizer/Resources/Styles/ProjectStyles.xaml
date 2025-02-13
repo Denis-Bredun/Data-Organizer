@@ -42,4 +42,12 @@
             Value="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}" />
     </Style>
 
+    <Style TargetType="Shell">
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource BarBackgroundColor}" />
+    </Style>
+
+    <Style TargetType="ContentPage">
+        <Setter Property="BackgroundColor" Value="{StaticResource PageBackgroundColor}"/>
+    </Style>
+
 </ResourceDictionary>

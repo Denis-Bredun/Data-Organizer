@@ -29,10 +29,10 @@ namespace Data_Organizer
             builder.Services.AddSingleton<IAudioTranscriptorService, AudioTranscriptorService>();
             builder.Services.AddSingleton<IClipboardService, ClipboardService>();
             builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddSingleton<AppShell>();
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<SavedNotesPage>();
             builder.Services.AddSingleton<SettingsPage>();
-            builder.Services.AddSingleton<MyTabbedPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();
