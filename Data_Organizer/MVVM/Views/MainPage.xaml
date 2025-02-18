@@ -5,7 +5,8 @@
              xmlns:converters="clr-namespace:Data_Organizer.Converters"
              xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
              x:DataType="vm:MainPageViewModel"
-             x:Class="Data_Organizer.MVVM.Views.MainPage">
+             x:Class="Data_Organizer.MVVM.Views.MainPage"
+             Style="{StaticResource PageStyle}">
 
     <ContentPage.Resources>
         <converters:SelectedFeatureFormatConverter x:Key="SelectedFeatureFormatConverter"/>

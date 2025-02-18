@@ -9,8 +9,6 @@
     <Style TargetType="uranium:Dropdown" x:Key="BaseDropdownStyle">
         <Setter Property="FontSize" Value="{StaticResource FontSize}" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
-        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
-        <Setter Property="BackgroundColor" Value="{StaticResource ControlElementBackgroundColor}" />
         <Setter Property="CornerRadius" Value="{StaticResource CornerRadius}" />
     </Style>
 
@@ -42,12 +40,32 @@
             Value="{Binding AudioTranscriptorService.IsListening, Converter={StaticResource BoolReverserConverter}}" />
     </Style>
 
-    <Style TargetType="Shell">
+    <Style TargetType="Shell" x:Key="ShellStyle">
         <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource BarBackgroundColor}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource SelectedTabColor}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource UnselectedTabColor}" />
+        <Setter Property="Shell.FlyoutBehavior" Value="Disabled" />
     </Style>
 
-    <Style TargetType="ContentPage">
+    <Style TargetType="ContentPage" x:Key="PageStyle">
         <Setter Property="BackgroundColor" Value="{StaticResource PageBackgroundColor}"/>
+    </Style>
+
+    <Style TargetType="Label" x:Key="GreetingTextStyle">
+        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="{StaticResource GreetingTextFontSize}"/>
+        <Setter Property="TextColor" Value="{StaticResource TextColor}"/>
+    </Style>
+
+    <Style TargetType="Button" x:Key="BaseButtonStyle">
+        <Setter Property="CornerRadius" Value="{StaticResource CornerRadius}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource ControlElementBackgroundColor}" />
+    </Style>
+
+    <Style TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}" x:Key="SignInButtonStyle">
+        <Setter Property="BackgroundColor" Value="{StaticResource SignInButtonBackgroundColor}" />
     </Style>
 
 </ResourceDictionary>
