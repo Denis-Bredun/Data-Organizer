@@ -29,7 +29,7 @@
                 BackgroundColor="{StaticResource ControlElementBackgroundColor}"
                 Style="{StaticResource MainPageDropdownStyle}"/>
 
-            <ImageButton Grid.Column="2" Source="settings.png"
+            <ImageButton Grid.Column="2" Source="settings.svg"
                          Style="{StaticResource MainPageButtonStyle}"/>
         </Grid>
 
@@ -47,19 +47,19 @@
             
             <ImageButton Grid.Column="1" Grid.Row="0" Source="{Binding PlayButtonImageSource}"
                          Command="{Binding PlayFeatureCommand}"/>
-            <ImageButton Grid.Column="1" Grid.Row="1" Source="copy.png" 
+            <ImageButton Grid.Column="1" Grid.Row="1" Source="copy.svg" 
                          Style="{StaticResource MainPageButtonStyle}"
                          Command="{Binding CopyOutputTextCommand}"/>
-            <ImageButton Grid.Column="1" Grid.Row="2" Source="paste.png" 
+            <ImageButton Grid.Column="1" Grid.Row="2" Source="paste.svg" 
                          Style="{StaticResource MainPageButtonStyle}"
                          Command="{Binding PasteTextCommand}"/>
             <ImageButton Grid.Column="1" Grid.Row="3" Source="{Binding EditButtonImageSource}" 
                          Style="{StaticResource MainPageButtonStyle}"
                          Command="{Binding SwitchEditModeCommand}"/>
-            <ImageButton Grid.Column="1" Grid.Row="4" Source="clean.png" 
+            <ImageButton Grid.Column="1" Grid.Row="4" Source="clean.svg" 
                          Style="{StaticResource MainPageButtonStyle}"
                          Command="{Binding CleanEditorCommand}"/>
-            <ImageButton Grid.Column="1" Grid.Row="5" Source="save.png" 
+            <ImageButton Grid.Column="1" Grid.Row="5" Source="save.svg" 
                          Style="{StaticResource MainPageButtonStyle}"/>
         </Grid>
         

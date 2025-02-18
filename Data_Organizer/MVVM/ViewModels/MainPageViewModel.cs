@@ -49,8 +49,8 @@ namespace Data_Organizer.MVVM.ViewModels
         private void SetDefaultProperties()
         {
             IsReadOnly = true;
-            EditButtonImageSource = "disabled_edit_mode.png";
-            PlayButtonImageSource = "start_record.png";
+            EditButtonImageSource = "disabled_edit_mode.svg";
+            PlayButtonImageSource = "start_record.svg";
         }
 
         [RelayCommand]
@@ -79,9 +79,9 @@ namespace Data_Organizer.MVVM.ViewModels
         public void SwitchPlayButtonImage(bool isListening)
         {
             if (isListening)
-                PlayButtonImageSource = "pause_record.png";
+                PlayButtonImageSource = "pause_record.svg";
             else
-                PlayButtonImageSource = "start_record.png";
+                PlayButtonImageSource = "start_record.svg";
         }
 
         [RelayCommand]
@@ -148,9 +148,9 @@ namespace Data_Organizer.MVVM.ViewModels
         private void SwitchEditButtonImage(bool wasEditModeEnabled)
         {
             if (wasEditModeEnabled)
-                EditButtonImageSource = "enabled_edit_mode.png";
+                EditButtonImageSource = "enabled_edit_mode.svg";
             else
-                EditButtonImageSource = "disabled_edit_mode.png";
+                EditButtonImageSource = "disabled_edit_mode.svg";
         }
 
         public async Task<bool> EnableEditMode()
