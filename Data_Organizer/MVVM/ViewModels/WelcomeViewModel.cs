@@ -16,5 +16,11 @@ namespace Data_Organizer.MVVM.ViewModels
         {
             await Shell.Current.GoToAsync("//SignInPage");
         }
+
+        [RelayCommand]
+        public async Task NavigateToMainPage()
+        {
+            await Shell.Current.GoToAsync("//TabBar");
+        }
     }
 }

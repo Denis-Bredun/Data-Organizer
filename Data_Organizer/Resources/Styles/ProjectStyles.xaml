@@ -68,4 +68,8 @@
         <Setter Property="BackgroundColor" Value="{StaticResource SignInButtonBackgroundColor}" />
     </Style>
 
+    <Style TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}" x:Key="GoWithoutRegistrationButtonStyle">
+        <Setter Property="BackgroundColor" Value="{StaticResource GoWithoutRegistrationButtonBackgroundColor}" />
+    </Style>
+
 </ResourceDictionary>
