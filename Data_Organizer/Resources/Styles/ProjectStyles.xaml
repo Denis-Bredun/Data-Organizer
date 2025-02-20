@@ -68,8 +68,47 @@
         <Setter Property="BackgroundColor" Value="{StaticResource SignInButtonBackgroundColor}" />
     </Style>
 
+    <Style TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}" x:Key="SignUpButtonStyle">
+        <Setter Property="BackgroundColor" Value="{StaticResource SignInButtonBackgroundColor}" />
+    </Style>
+
     <Style TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}" x:Key="GoWithoutRegistrationButtonStyle">
         <Setter Property="BackgroundColor" Value="{StaticResource GoWithoutRegistrationButtonBackgroundColor}" />
     </Style>
 
+    <Style TargetType="Label" x:Key="LabelStyle">
+        <Setter Property="FontSize" Value="{StaticResource FontSize}"/>
+        <Setter Property="TextColor" Value="{StaticResource TextColor}"/>
+    </Style>
+
+    <Style TargetType="Label" BasedOn="{StaticResource LabelStyle}" x:Key="PageTitleStyle">
+        <Setter Property="FontSize" Value="{StaticResource TitleFontSize}"/>
+        <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+    </Style>
+
+    <Style TargetType="Label" BasedOn="{StaticResource LabelStyle}" x:Key="EntriesTitleStyle">
+        <Setter Property="VerticalOptions" Value="End"/>
+        <Setter Property="Margin" Value="0 0 0 18"/>
+    </Style>
+
+    <Style TargetType="Frame" x:Key="EntriesFrameStyle">
+        <Setter Property="BackgroundColor" Value="{StaticResource ControlElementBackgroundColor}" />
+        <Setter Property="CornerRadius" Value="{StaticResource CornerRadius}" />
+        <Setter Property="HasShadow" Value="False" />
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+
+    <Style TargetType="Entry" x:Key="EntryStyle">
+        <Setter Property="ClearButtonVisibility" Value="WhileEditing"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSize}"/>
+        <Setter Property="TextColor" Value="{StaticResource TextColor}"/>
+    </Style>
+    
+    <Style TargetType="Entry" BasedOn="{StaticResource EntryStyle}" x:Key="UsernameEntryStyle">
+        <Setter Property="MaxLength" Value="20"/>
+        <Setter Property="PlaceholderColor" Value="{StaticResource PlaceholderColor}"/>
+        <Setter Property="Placeholder" Value="Dmitry Azimov"/>
+    </Style>
+    
 </ResourceDictionary>

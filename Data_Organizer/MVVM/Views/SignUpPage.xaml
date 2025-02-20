@@ -2,12 +2,76 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Data_Organizer.MVVM.Views.SignUpPage"
-             Title="SignUpPage"
              Style="{StaticResource PageStyle}">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <Grid RowDefinitions="1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*">
+        <Label Grid.Row="0"
+            Text="Реєстрація"
+            Style="{StaticResource PageTitleStyle}"/>
+
+        <Grid Grid.Row="1" RowDefinitions="*,*" Margin="0 30 0 30">
+            <Label 
+                Text="Відображуване ім'я"
+                Style="{StaticResource EntriesTitleStyle}"/>
+            <Frame Grid.Row="1" 
+                   Style="{StaticResource EntriesFrameStyle}">
+                <Entry 
+                    Style="{StaticResource UsernameEntryStyle}"/>
+            </Frame>
+        </Grid>
+
+        <Grid Grid.Row="2" RowDefinitions="*,*" Margin="0 30 0 30">
+            <Label 
+                Text="Пошта *"
+                Style="{StaticResource EntriesTitleStyle}"/>
+            <Frame Grid.Row="1" 
+                   Style="{StaticResource EntriesFrameStyle}">
+                <Entry 
+                    Style="{StaticResource EntryStyle}"/>
+            </Frame>
+        </Grid>
+
+        <Grid Grid.Row="3" RowDefinitions="*,*" Margin="0 30 0 30">
+            <Label 
+                Text="Пароль *"
+                Style="{StaticResource EntriesTitleStyle}"/>
+            <Frame Grid.Row="1" 
+                   Style="{StaticResource EntriesFrameStyle}">
+                <Entry 
+                    Style="{StaticResource EntryStyle}"/>
+            </Frame>
+        </Grid>
+
+        <Grid Grid.Row="4" RowDefinitions="*,*" Margin="0 30 0 30">
+            <Label 
+                Text="Підтвердження паролю *"
+                Style="{StaticResource EntriesTitleStyle}"/>
+            <Frame Grid.Row="1" 
+                   Style="{StaticResource EntriesFrameStyle}">
+                <Entry 
+                    Style="{StaticResource EntryStyle}"/>
+            </Frame>
+        </Grid>
+
+        <Grid Grid.Row="5" ColumnDefinitions="0.1*,0.9*" Margin="0 30 0 30">
+            <CheckBox Color="White"/>
+            <Label 
+                Grid.Column="1"
+                VerticalOptions="Center"
+                Text="Дати згоду на збір метаданих"
+                FontSize="{StaticResource FontSize}"
+                TextColor="{StaticResource TextColor}"
+                ToolTipProperties.Text="Test Tooltip"/>
+        </Grid>
+
+        <Button
+            Grid.Row="6"
+            Style="{StaticResource SignUpButtonStyle}"
+            VerticalOptions="Center"
+            Margin="0 30 0 30"
+            Text="Зареєструватись"
+            Command="{Binding NavigateToSignUpPageCommand}"/>
+
+    </Grid>
+    
 </ContentPage>

@@ -13,6 +13,8 @@ namespace Data_Organizer.MVVM.ViewModels
         private string _password;
         [ObservableProperty]
         private string _confirmPassword;
+        [ObservableProperty]
+        private bool _isMetadataStored;
 
         [RelayCommand]
         public async Task NavigateToSignInPage()
