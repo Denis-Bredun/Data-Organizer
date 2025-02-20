@@ -76,6 +76,13 @@
         <Setter Property="BackgroundColor" Value="{StaticResource GoWithoutRegistrationButtonBackgroundColor}" />
     </Style>
 
+    <Style TargetType="Button" x:Key="LinkButtonStyle">
+        <Setter Property="FontSize" Value="{StaticResource LinkFontSize}" />
+        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontAttributes" Value="Italic" />
+    </Style>
+
     <Style TargetType="Label" x:Key="LabelStyle">
         <Setter Property="FontSize" Value="{StaticResource FontSize}"/>
         <Setter Property="TextColor" Value="{StaticResource TextColor}"/>
@@ -89,12 +96,15 @@
 
     <Style TargetType="Label" BasedOn="{StaticResource LabelStyle}" x:Key="EntriesTitleStyle">
         <Setter Property="VerticalOptions" Value="End"/>
-        <Setter Property="Margin" Value="0 0 0 18"/>
+        <Setter Property="Margin" Value="20,0,0,0"/>
     </Style>
 
-    <Style TargetType="Frame" x:Key="EntriesFrameStyle">
-        <Setter Property="BackgroundColor" Value="{StaticResource ControlElementBackgroundColor}" />
+    <Style TargetType="Frame" x:Key="FrameStyle">
         <Setter Property="CornerRadius" Value="{StaticResource CornerRadius}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource ControlElementBackgroundColor}"/>
+    </Style>
+
+    <Style TargetType="Frame" BasedOn="{StaticResource FrameStyle}" x:Key="EntriesFrameStyle">
         <Setter Property="HasShadow" Value="False" />
         <Setter Property="Padding" Value="0"/>
     </Style>
@@ -104,11 +114,11 @@
         <Setter Property="FontSize" Value="{StaticResource FontSize}"/>
         <Setter Property="TextColor" Value="{StaticResource TextColor}"/>
     </Style>
-    
+
     <Style TargetType="Entry" BasedOn="{StaticResource EntryStyle}" x:Key="UsernameEntryStyle">
         <Setter Property="MaxLength" Value="20"/>
         <Setter Property="PlaceholderColor" Value="{StaticResource PlaceholderColor}"/>
         <Setter Property="Placeholder" Value="Dmitry Azimov"/>
     </Style>
-    
+
 </ResourceDictionary>

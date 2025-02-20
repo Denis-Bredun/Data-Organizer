@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
+             x:DataType="vm:SignUpViewModel"
              x:Class="Data_Organizer.MVVM.Views.SignUpPage"
              Style="{StaticResource PageStyle}">
 
-    <Grid RowDefinitions="1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*">
+    <Grid RowDefinitions="0.5*, 1*, 1*, 1*, 1*, 0.7*, 0.6*, 1*">
         <Label Grid.Row="0"
             Text="Реєстрація"
             Style="{StaticResource PageTitleStyle}"/>
 
-        <Grid Grid.Row="1" RowDefinitions="*,*" Margin="0 30 0 30">
+        <Grid Grid.Row="1" RowDefinitions="*,*" Margin="30,0,30,0">
             <Label 
                 Text="Відображуване ім'я"
                 Style="{StaticResource EntriesTitleStyle}"/>
@@ -20,7 +22,7 @@
             </Frame>
         </Grid>
 
-        <Grid Grid.Row="2" RowDefinitions="*,*" Margin="0 30 0 30">
+        <Grid Grid.Row="2" RowDefinitions="*,*" Margin="30,0,30,0">
             <Label 
                 Text="Пошта *"
                 Style="{StaticResource EntriesTitleStyle}"/>
@@ -31,47 +33,68 @@
             </Frame>
         </Grid>
 
-        <Grid Grid.Row="3" RowDefinitions="*,*" Margin="0 30 0 30">
+        <Grid Grid.Row="3" RowDefinitions="*,*" Margin="30,0,30,0">
             <Label 
                 Text="Пароль *"
                 Style="{StaticResource EntriesTitleStyle}"/>
             <Frame Grid.Row="1" 
                    Style="{StaticResource EntriesFrameStyle}">
                 <Entry 
-                    Style="{StaticResource EntryStyle}"/>
+                    Style="{StaticResource EntryStyle}"
+                    IsPassword="True"/>
             </Frame>
         </Grid>
 
-        <Grid Grid.Row="4" RowDefinitions="*,*" Margin="0 30 0 30">
+        <Grid Grid.Row="4" RowDefinitions="*,*" Margin="30,0,30,0">
             <Label 
                 Text="Підтвердження паролю *"
                 Style="{StaticResource EntriesTitleStyle}"/>
             <Frame Grid.Row="1" 
                    Style="{StaticResource EntriesFrameStyle}">
                 <Entry 
-                    Style="{StaticResource EntryStyle}"/>
+                    Style="{StaticResource EntryStyle}"
+                    IsPassword="True"/>
             </Frame>
         </Grid>
 
-        <Grid Grid.Row="5" ColumnDefinitions="0.1*,0.9*" Margin="0 30 0 30">
+        <Grid Grid.Row="5" ColumnDefinitions="0.1*,*,0.1*" Margin="25,0,25,0">
             <CheckBox Color="White"/>
             <Label 
                 Grid.Column="1"
                 VerticalOptions="Center"
                 Text="Дати згоду на збір метаданих"
                 FontSize="{StaticResource FontSize}"
-                TextColor="{StaticResource TextColor}"
-                ToolTipProperties.Text="Test Tooltip"/>
+                TextColor="{StaticResource TextColor}"/>
+            <ImageButton 
+                x:Name="QuestionButton"
+                Grid.Column="2" 
+                Source="question.svg"
+                HeightRequest="40"
+                Command="{Binding ShowTipAboutMetadataCommand}"/>
         </Grid>
 
-        <Button
+        <Button 
             Grid.Row="6"
             Style="{StaticResource SignUpButtonStyle}"
-            VerticalOptions="Center"
-            Margin="0 30 0 30"
+            VerticalOptions="Start"
+            Margin="30,0,30,0"
             Text="Зареєструватись"
-            Command="{Binding NavigateToSignUpPageCommand}"/>
+            Command="{Binding NavigateToMainPageCommand}"/>
 
+        <Grid Grid.Row="7" RowDefinitions="*,*" Margin="25,0,25,30">
+
+            <Button
+                Text="Маєте акаунт? Увійдіть."
+                Style="{StaticResource LinkButtonStyle}"
+                VerticalOptions="Start"
+                Command="{Binding NavigateToSignInPageCommand}"/>
+
+            <Button
+                Grid.Row="1"
+                Text="Увійти як гість"
+                Style="{StaticResource LinkButtonStyle}"
+                VerticalOptions="Start"
+                Command="{Binding NavigateToMainPageCommand}"/>
+        </Grid>
     </Grid>
-    
 </ContentPage>

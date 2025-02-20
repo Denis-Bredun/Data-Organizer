@@ -18,9 +18,9 @@ namespace Data_Organizer.Services
             return await currentPage.DisplayAlert("Підтвердження", message, "Так", "Ні");
         }
 
-        public async Task ShowToastAsync(string message)
+        public async Task ShowToastAsync(string message, double textSize = 20)
         {
-            var notification = Toast.Make(message, ToastDuration.Long, 20);
+            var notification = Toast.Make(message, ToastDuration.Long, textSize);
             await notification.Show();
         }
     }

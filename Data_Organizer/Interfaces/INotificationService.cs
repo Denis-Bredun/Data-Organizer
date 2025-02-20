@@ -2,7 +2,7 @@
 {
     public interface INotificationService
     {
-        Task ShowToastAsync(string message);
+        Task ShowToastAsync(string message, double textSize = 20);
         Task<bool> ShowConfirmationDialogAsync(string message);
         Task<string> ShowActionSheetAsync(string message, params string[] actions);
     }
