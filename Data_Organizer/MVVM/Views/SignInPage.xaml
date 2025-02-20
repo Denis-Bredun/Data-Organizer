@@ -6,14 +6,14 @@
              x:Class="Data_Organizer.MVVM.Views.SignInPage"
              Style="{StaticResource PageStyle}">
 
-    <Grid RowDefinitions="2*, *, *, *, *">
+    <Grid RowDefinitions="0.5*, 1*, 1*, 1*, 1*, 1*, 0.6*, 1*">
         <Label Grid.Row="0"
                Text="Авторизація"
                Style="{StaticResource PageTitleStyle}"/>
 
         <Grid Grid.Row="1" RowDefinitions="*,*" Margin="30,0,30,0">
             <Label 
-                Text="Пошта *"
+                Text="Пошта"
                 Style="{StaticResource EntriesTitleStyle}"/>
             <Frame Grid.Row="1" 
                    Style="{StaticResource EntriesFrameStyle}">
@@ -25,7 +25,7 @@
 
         <Grid Grid.Row="2" RowDefinitions="*,*" Margin="30,0,30,0">
             <Label 
-                Text="Пароль *"
+                Text="Пароль"
                 Style="{StaticResource EntriesTitleStyle}"/>
             <Frame Grid.Row="1" 
                    Style="{StaticResource EntriesFrameStyle}">
@@ -37,14 +37,14 @@
         </Grid>
 
         <Button 
-            Grid.Row="3"
+            Grid.Row="4"
             Style="{StaticResource SignInButtonStyle}"
             VerticalOptions="Start"
             Margin="30,0,30,0"
             Text="Авторизуватись"
             Command="{Binding SignInCommand}"/>
 
-        <Grid Grid.Row="4" RowDefinitions="*,*" Margin="25,0,25,30">
+        <Grid Grid.Row="5" RowDefinitions="*,*" Margin="25,0,25,30">
 
             <Button
                 Text="Немає акаунту? Зареєструйтесь."
