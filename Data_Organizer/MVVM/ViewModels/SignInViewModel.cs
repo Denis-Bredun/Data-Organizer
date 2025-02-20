@@ -21,5 +21,11 @@ namespace Data_Organizer.MVVM.ViewModels
         {
             await Shell.Current.GoToAsync("//TabBar");
         }
+
+        [RelayCommand]
+        public async Task SignIn()
+        {
+            // авторизация + подгрузка о том, чи собираем метаданные
+        }
     }
 }
