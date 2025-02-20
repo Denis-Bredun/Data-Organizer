@@ -18,7 +18,8 @@
             <Frame Grid.Row="1" 
                    Style="{StaticResource EntriesFrameStyle}">
                 <Entry 
-                    Style="{StaticResource UsernameEntryStyle}"/>
+                    Style="{StaticResource UsernameEntryStyle}"
+                    Text="{Binding Username, Mode=TwoWay}"/>
             </Frame>
         </Grid>
 
@@ -29,7 +30,8 @@
             <Frame Grid.Row="1" 
                    Style="{StaticResource EntriesFrameStyle}">
                 <Entry 
-                    Style="{StaticResource EntryStyle}"/>
+                    Style="{StaticResource EntryStyle}"
+                    Text="{Binding Email, Mode=TwoWay}"/>
             </Frame>
         </Grid>
 
@@ -41,7 +43,8 @@
                    Style="{StaticResource EntriesFrameStyle}">
                 <Entry 
                     Style="{StaticResource EntryStyle}"
-                    IsPassword="True"/>
+                    IsPassword="True"
+                    Text="{Binding Password, Mode=TwoWay}"/>
             </Frame>
         </Grid>
 
@@ -53,12 +56,15 @@
                    Style="{StaticResource EntriesFrameStyle}">
                 <Entry 
                     Style="{StaticResource EntryStyle}"
-                    IsPassword="True"/>
+                    IsPassword="True"
+                    Text="{Binding ConfirmPassword, Mode=TwoWay}"/>
             </Frame>
         </Grid>
 
         <Grid Grid.Row="5" ColumnDefinitions="0.1*,*,0.1*" Margin="25,0,25,0">
-            <CheckBox Color="White"/>
+            <CheckBox 
+                Color="White"
+                IsChecked="{Binding IsMetadataStored, Mode=TwoWay}"/>
             <Label 
                 Grid.Column="1"
                 VerticalOptions="Center"
@@ -79,7 +85,7 @@
             VerticalOptions="Start"
             Margin="30,0,30,0"
             Text="Зареєструватись"
-            Command="{Binding NavigateToMainPageCommand}"/>
+            Command="{Binding SignUpCommand}"/>
 
         <Grid Grid.Row="7" RowDefinitions="*,*" Margin="25,0,25,30">
 

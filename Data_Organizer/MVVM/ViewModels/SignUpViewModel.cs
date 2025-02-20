@@ -33,7 +33,17 @@ namespace Data_Organizer.MVVM.ViewModels
         [RelayCommand]
         public async Task NavigateToMainPage()
         {
+            // добавить сохранение куда-то того, что метаданные не собираются
+
             await Shell.Current.GoToAsync("//TabBar");
+        }
+
+        [RelayCommand]
+        public async Task SignUp()
+        {
+            // добавить регистрацию
+
+            // добавить сохранение куда-то того, что метаданные собираются
         }
 
         [RelayCommand]
