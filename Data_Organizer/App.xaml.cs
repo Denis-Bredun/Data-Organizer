@@ -11,6 +11,8 @@ namespace Data_Organizer
         {
             InitializeComponent();
 
+            VersionTracking.Track();
+
             var appShell = serviceProvider.GetRequiredService<AppShell>();
             MainPage = appShell;
 
@@ -24,9 +26,12 @@ namespace Data_Organizer
             base.OnSleep();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
             _applicationPreferencesService.LoadPreferences();
+
+            if (!VersionTracking.IsFirstLaunchEver)
+                await Shell.Current.GoToAsync("//TabBar");
 
             base.OnStart();
         }

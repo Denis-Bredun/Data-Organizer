@@ -6,7 +6,7 @@ namespace Data_Organizer.Interfaces
     {
         event Action<string> OnTranscriptionUpdated;
         bool IsListening { get; }
-        Task StartListening(CultureInfo cultureInfo);
+        Task StartListeningAsync(CultureInfo cultureInfo);
         void StopListening();
     }
 }

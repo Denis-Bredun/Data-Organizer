@@ -2,7 +2,7 @@
 {
     public interface IClipboardService
     {
-        Task Add(string text);
-        Task<string?> GetLastData();
+        Task AddAsync(string text);
+        Task<string?> GetLastDataAsync();
     }
 }

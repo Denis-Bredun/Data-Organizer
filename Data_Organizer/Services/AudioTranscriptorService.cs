@@ -31,12 +31,12 @@ namespace Data_Organizer.Services
             IsListening = false;
         }
 
-        public async Task StartListening(CultureInfo culture)
+        public async Task StartListeningAsync(CultureInfo culture)
         {
-            if (!await CheckInternetConnection())
+            if (!await CheckInternetConnectionAsync())
                 return;
 
-            if (!await CheckPermissions())
+            if (!await CheckPermissionsAsync())
                 return;
 
             SetMainPageViewModelIfNecessary();
@@ -47,13 +47,13 @@ namespace Data_Organizer.Services
             {
                 IsListening = true;
                 SwitchPlayButtonImage();
-                await LaunchSpeechToTextService(culture);
+                await LaunchSpeechToTextServiceAsync(culture);
             }
             catch (Exception ex)
             {
                 IsListening = false;
                 SwitchPlayButtonImage();
-                await ShowNotificationWhenStoppedListening(
+                await ShowNotificationWhenStoppedListeningAsync(
                     _tokenSource.IsCancellationRequested,
                     ex.Message);
             }
@@ -77,7 +77,7 @@ namespace Data_Organizer.Services
 
         private bool IsConnectedToInternet() => Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
 
-        private async Task<bool> CheckInternetConnection()
+        private async Task<bool> CheckInternetConnectionAsync()
         {
             return await CheckConditionAsync(
                 async () => IsConnectedToInternet(),
@@ -85,7 +85,7 @@ namespace Data_Organizer.Services
             );
         }
 
-        private async Task<bool> CheckPermissions()
+        private async Task<bool> CheckPermissionsAsync()
         {
             return await CheckConditionAsync(
                 _speechToTextService.RequestPermissionsAsync,
@@ -105,7 +105,7 @@ namespace Data_Organizer.Services
 
         private void ResetCancellationTokenSource() => _tokenSource = new CancellationTokenSource();
 
-        private async Task LaunchSpeechToTextService(CultureInfo culture)
+        private async Task LaunchSpeechToTextServiceAsync(CultureInfo culture)
         {
             string baseText = "";
             bool addNewLine = false;
@@ -158,7 +158,7 @@ namespace Data_Organizer.Services
 
         private bool DoesntTransferToNewLine(string baseText) => !string.IsNullOrEmpty(baseText) && !baseText.EndsWith("\n");
 
-        private async Task ShowNotificationWhenStoppedListening(
+        private async Task ShowNotificationWhenStoppedListeningAsync(
             bool isCancellationRequested,
             string exceptionMessage)
         {

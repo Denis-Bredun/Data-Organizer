@@ -3,7 +3,12 @@ using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.Views;
 using Data_Organizer.Services;
+using Firebase.Auth;
+using Firebase.Auth.Providers;
+using Firebase.Auth.Repository;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Reflection;
 using UraniumUI;
 
 namespace Data_Organizer
@@ -19,6 +24,21 @@ namespace Data_Organizer
                 .UseUraniumUI()
                 .UseUraniumUIMaterial();
 
+            var appSettings = GetAppSettings();
+            var firebaseApiKey = GetFirebaseApiKey(appSettings);
+            var firebaseAuthDomain = GetFirebaseAuthDomain(appSettings);
+
+            builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
+            {
+                ApiKey = firebaseApiKey,
+                AuthDomain = firebaseAuthDomain,
+                Providers =
+                        [
+                            new EmailProvider()
+                        ],
+                UserRepository = new FileUserRepository("DataOrganizer")
+            }));
+
             builder.Services.AddTransient<IApplicationPreferencesService, ApplicationPreferencesService>();
             builder.Services.AddTransient<IEnumDescriptionResolverService, EnumDescriptionResolverService>();
             builder.Services.AddTransient<IPreferenceService, PreferenceService>();
@@ -28,6 +48,7 @@ namespace Data_Organizer
             builder.Services.AddTransient<ISpeechToTextService, Data_Organizer.Platforms.SpeechToTextService>();
             builder.Services.AddTransient<IAudioTranscriptorService, AudioTranscriptorService>();
             builder.Services.AddTransient<IClipboardService, ClipboardService>();
+            builder.Services.AddTransient<IGoogleAuthenticationService, GoogleAuthenticationService>();
             builder.Services.AddTransient<AppShell>();
             builder.Services.AddViewModel<WelcomeViewModel, WelcomePage>();
             builder.Services.AddViewModel<SignUpViewModel, SignUpPage>();
@@ -42,6 +63,29 @@ namespace Data_Organizer
 #endif
 
             return builder.Build();
+        }
+
+        private static IConfigurationRoot? GetAppSettings()
+        {
+            var executingAssembly = Assembly.GetExecutingAssembly();
+            using var stream = executingAssembly.GetManifestResourceStream("Data_Organizer.appsettings.json");
+            var config = new ConfigurationBuilder()
+            .AddJsonStream(stream)
+            .Build();
+
+            return config;
+        }
+
+        private static string? GetFirebaseApiKey(IConfigurationRoot? appSettings)
+        {
+            var firebaseApiKeySetting = appSettings?.GetRequiredSection("FIREBASE_API_KEY");
+            return firebaseApiKeySetting?.Value;
+        }
+
+        private static string? GetFirebaseAuthDomain(IConfigurationRoot? appSettings)
+        {
+            var firebaseAuthDomainSetting = appSettings?.GetRequiredSection("AUTH_DOMAIN");
+            return firebaseAuthDomainSetting?.Value;
         }
 
         private static void AddViewModel<TViewModel, TView>(this IServiceCollection services)

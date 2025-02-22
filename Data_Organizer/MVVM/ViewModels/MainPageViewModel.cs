@@ -61,7 +61,7 @@ namespace Data_Organizer.MVVM.ViewModels
             if (!AudioTranscriptorService.IsListening)
             {
                 var cultureInfo = CultureInfo.GetCultureInfo(SelectedLanguage.CultureCode);
-                AudioTranscriptorService.StartListening(cultureInfo);
+                AudioTranscriptorService.StartListeningAsync(cultureInfo);
             }
             else
                 AudioTranscriptorService.StopListening();
@@ -93,7 +93,7 @@ namespace Data_Organizer.MVVM.ViewModels
                 return;
             }
 
-            await _clipboardService.Add(OutputText);
+            await _clipboardService.AddAsync(OutputText);
 
             await _notificationService.ShowToastAsync("Дані були успішно скопійовані!");
         }
@@ -107,11 +107,11 @@ namespace Data_Organizer.MVVM.ViewModels
             {
                 case "Вставити в кінець":
                     OutputText += "\n";
-                    OutputText += await _clipboardService.GetLastData();
+                    OutputText += await _clipboardService.GetLastDataAsync();
                     await _notificationService.ShowToastAsync("Дані були успішно вставлені в кінець!");
                     break;
                 case "Замінити весь текст":
-                    OutputText = await _clipboardService.GetLastData();
+                    OutputText = await _clipboardService.GetLastDataAsync();
                     await _notificationService.ShowToastAsync("Дані успішно замінили весь текст!");
                     break;
                 default:
