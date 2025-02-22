@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              x:DataType="vm:SignInViewModel"
              x:Class="Data_Organizer.MVVM.Views.SignInPage"
              Style="{StaticResource PageStyle}">
@@ -58,6 +59,14 @@
                 Style="{StaticResource LinkButtonStyle}"
                 VerticalOptions="Start"
                 Command="{Binding NavigateToMainPageCommand}"/>
+        </Grid>
+
+        <Grid 
+            Grid.RowSpan="8" 
+            IsVisible="{Binding IsLoading, Mode=TwoWay}" 
+            Style="{StaticResource LoadingGridStyle}">
+
+            <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
         </Grid>
 
     </Grid>

@@ -14,6 +14,8 @@ namespace Data_Organizer.MVVM.ViewModels
         private string _email;
         [ObservableProperty]
         private string _password;
+        [ObservableProperty]
+        private bool _isLoading;
 
         public SignInViewModel(
             INotificationService notificationService,
@@ -43,7 +45,11 @@ namespace Data_Organizer.MVVM.ViewModels
             if (!await ValidateData())
                 return;
 
+            IsLoading = true;
+
             bool succeeded = await _googleAuthenticationService.SignInAsync(Email, Password);
+
+            IsLoading = false;
 
             if (succeeded)
                 await NavigateToMainPage();

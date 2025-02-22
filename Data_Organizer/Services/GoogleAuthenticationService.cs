@@ -63,6 +63,8 @@ namespace Data_Organizer.Services
 
                 if (errorMessage == "INVALID_LOGIN_CREDENTIALS")
                     await _notificationService.ShowToastAsync("Неправильно введені пошта або пароль!");
+                else if (errorMessage == "TOO_MANY_ATTEMPTS_TRY_LATER")
+                    await _notificationService.ShowToastAsync("Дуже багато спроб... Спробуйте пізніше!");
                 else
                     await _notificationService.ShowToastAsync(errorMessage);
 

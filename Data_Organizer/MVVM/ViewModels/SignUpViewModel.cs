@@ -20,6 +20,8 @@ namespace Data_Organizer.MVVM.ViewModels
         private string _confirmPassword;
         [ObservableProperty]
         private bool _isMetadataStored;
+        [ObservableProperty]
+        private bool _isLoading;
 
         public SignUpViewModel(
             IGoogleAuthenticationService googleAuthenticationService,
@@ -49,7 +51,11 @@ namespace Data_Organizer.MVVM.ViewModels
             if (!await ValidateData())
                 return;
 
+            IsLoading = true;
+
             bool succeeded = await _googleAuthenticationService.SignUpAsync(Email, Password, Username);
+
+            IsLoading = false;
 
             if (succeeded)
                 await NavigateToMainPage();
