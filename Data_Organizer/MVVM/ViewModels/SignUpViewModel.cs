@@ -34,6 +34,8 @@ namespace Data_Organizer.MVVM.ViewModels
         [RelayCommand]
         public async Task NavigateToSignInPage()
         {
+            IsLoading = true;
+
             await Shell.Current.GoToAsync("//SignInPage");
         }
 
@@ -41,6 +43,8 @@ namespace Data_Organizer.MVVM.ViewModels
         public async Task NavigateToMainPage()
         {
             // добавить сохранение куда-то того, что метаданные не собираются
+
+            IsLoading = true;
 
             await Shell.Current.GoToAsync("//TabBar");
         }
@@ -55,10 +59,10 @@ namespace Data_Organizer.MVVM.ViewModels
 
             bool succeeded = await _googleAuthenticationService.SignUpAsync(Email, Password, Username);
 
-            IsLoading = false;
-
             if (succeeded)
                 await NavigateToMainPage();
+            else
+                IsLoading = false;
 
             // добавить сохранение куда-то того, что метаданные собираются
         }
