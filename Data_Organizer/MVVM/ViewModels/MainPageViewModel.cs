@@ -9,6 +9,7 @@ namespace Data_Organizer.MVVM.ViewModels
     public partial class MainPageViewModel : ObservableObject, IDisposable
     {
         private readonly INotificationService _notificationService;
+        private readonly IOpenAIAPIRequestService _openAIAPIRequestService;
         private readonly IClipboardService _clipboardService;
         private Action<string>? _transcriptionUpdatedHandler;
 
@@ -24,6 +25,8 @@ namespace Data_Organizer.MVVM.ViewModels
         private string _editButtonImageSource;
         [ObservableProperty]
         private string _playButtonImageSource;
+        [ObservableProperty]
+        private bool _isLoading;
 
         public IFeatureService FeatureService { get; }
         public ICultureInfoService CultureInfoService { get; }
@@ -34,6 +37,7 @@ namespace Data_Organizer.MVVM.ViewModels
             ICultureInfoService cultureInfoService,
             INotificationService notificationService,
             IAudioTranscriptorService audioTranscriptorService,
+            IOpenAIAPIRequestService openAIAPIRequestService,
             IClipboardService clipboardService)
         {
             FeatureService = featureService;
@@ -41,6 +45,7 @@ namespace Data_Organizer.MVVM.ViewModels
             AudioTranscriptorService = audioTranscriptorService;
 
             _notificationService = notificationService;
+            _openAIAPIRequestService = openAIAPIRequestService;
             _clipboardService = clipboardService;
 
             SetDefaultProperties();
@@ -54,7 +59,33 @@ namespace Data_Organizer.MVVM.ViewModels
         }
 
         [RelayCommand]
-        public void PlayFeature()
+        public async Task PlayFeature()
+        {
+            if (SelectedFeature.Title.Contains("Транскрипція"))
+                PlayTranscription();
+            else if (SelectedFeature.Title.Contains("Конспект"))
+                await PlayAISummary();
+        }
+
+        private async Task PlayAISummary()
+        {
+            if (string.IsNullOrWhiteSpace(OutputText))
+            {
+                await _notificationService.ShowToastAsync("Тези не можуть бути зроблені з пустоти!");
+                return;
+            }
+
+            //IsLoading = true;
+
+            var responseResult = await _openAIAPIRequestService.GetSummaryAsync(OutputText);
+
+            OutputText += "\n-----------------------\n" +
+                          responseResult.Content;
+
+            //IsLoading = false;
+        }
+
+        private void PlayTranscription()
         {
             SetTranscriptionUpdatedHandlerIfNecessary();
 

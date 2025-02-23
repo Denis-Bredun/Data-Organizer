@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using Data_Organizer.APIRequestTools;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.Views;
@@ -8,6 +9,7 @@ using Firebase.Auth.Providers;
 using Firebase.Auth.Repository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Refit;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Reflection;
 using UraniumUI;
@@ -29,6 +31,7 @@ namespace Data_Organizer
             var appSettings = GetAppSettings();
             var firebaseApiKey = GetFirebaseApiKey(appSettings);
             var firebaseAuthDomain = GetFirebaseAuthDomain(appSettings);
+            var serverBaseURL = GetServerBaseURL(appSettings);
 
             builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
             {
@@ -41,6 +44,12 @@ namespace Data_Organizer
                 UserRepository = new FileUserRepository("DataOrganizer")
             }));
 
+            builder.Services.AddTransient<FirebaseAuthHttpMessageHandler>();
+
+            builder.Services.AddRefitClient<IGetSummaryFromChatGPTQuery>().
+                    ConfigureHttpClient(c => c.BaseAddress = new Uri(serverBaseURL)).
+                    AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
+
             builder.Services.AddTransient<IApplicationPreferencesService, ApplicationPreferencesService>();
             builder.Services.AddTransient<IEnumDescriptionResolverService, EnumDescriptionResolverService>();
             builder.Services.AddTransient<IPreferenceService, PreferenceService>();
@@ -51,6 +60,7 @@ namespace Data_Organizer
             builder.Services.AddTransient<IAudioTranscriptorService, AudioTranscriptorService>();
             builder.Services.AddTransient<IClipboardService, ClipboardService>();
             builder.Services.AddTransient<IGoogleAuthenticationService, GoogleAuthenticationService>();
+            builder.Services.AddTransient<IOpenAIAPIRequestService, OpenAIAPIRequestService>();
             builder.Services.AddTransient<AppShell>();
             builder.Services.AddViewModel<WelcomeViewModel, WelcomePage>();
             builder.Services.AddViewModel<SignUpViewModel, SignUpPage>();
@@ -88,6 +98,12 @@ namespace Data_Organizer
         {
             var firebaseAuthDomainSetting = appSettings?.GetRequiredSection("AUTH_DOMAIN");
             return firebaseAuthDomainSetting?.Value;
+        }
+
+        private static string? GetServerBaseURL(IConfigurationRoot? appSettings)
+        {
+            var serverBaseURLSetting = appSettings?.GetRequiredSection("SERVER_BASE_URL");
+            return serverBaseURLSetting?.Value;
         }
 
         private static void AddViewModel<TViewModel, TView>(this IServiceCollection services)

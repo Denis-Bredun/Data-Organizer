@@ -72,6 +72,11 @@ namespace Data_Organizer.Services
             }
         }
 
+        public async Task<string?> GetFreshToken()
+        {
+            return await _firebaseAuthClient?.User?.GetIdTokenAsync(true);
+        }
+
         private async Task<bool> CheckInternetConnectionAsync()
         {
             var isConnectedToInternet = IsConnectedToInternet();

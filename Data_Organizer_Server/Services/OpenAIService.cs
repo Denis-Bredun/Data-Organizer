@@ -12,7 +12,7 @@ namespace Data_Organizer_Server.Services
         private readonly HttpClient _httpClient;
         private readonly List<Message> _messages;
 
-        public const string ENDPOINT = "https://api.openai.com/v1/chat/completions/";
+        public const string ENDPOINT = "https://api.openai.com/v1/chat/completions";
 
         public OpenAIService(IConfiguration configuration)
         {

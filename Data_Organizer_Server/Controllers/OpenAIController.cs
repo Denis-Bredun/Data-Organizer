@@ -32,7 +32,8 @@ namespace Data_Organizer_Server.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Error = ex.Message });
+                request.Error = ex.Message;
+                return StatusCode(500, request);
             }
         }
     }

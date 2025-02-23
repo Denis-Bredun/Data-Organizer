@@ -17,7 +17,7 @@ namespace Data_Organizer.Services
         private string _transcription;
 
         [ObservableProperty]
-        private bool isListening;
+        private bool _isListening;
 
         public AudioTranscriptorService(
             ISpeechToTextService speechToTextService,

@@ -4,7 +4,7 @@ namespace Data_Organizer.MVVM.Models
 {
     public partial class FeatureModel : ObservableObject
     {
-        private const string SUBSCRIPTION_MARK = " ✖";
+        private const string SUBSCRIPTION_MARK = " ×";
         private readonly string _baseTitle;
 
         [ObservableProperty]

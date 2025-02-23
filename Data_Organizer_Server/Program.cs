@@ -1,4 +1,3 @@
-
 using Data_Organizer_Server.Interfaces;
 using Data_Organizer_Server.Services;
 using FirebaseAdmin;

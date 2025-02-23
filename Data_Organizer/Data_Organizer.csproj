@@ -70,6 +70,8 @@
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
 		<PackageReference Include="Prism.Core" Version="9.0.537" />
+		<PackageReference Include="Refit" Version="8.0.0" />
+		<PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
 		<PackageReference Include="UraniumUI.Material" Version="2.11.0" />
 	</ItemGroup>
@@ -113,6 +115,10 @@
 	  <EmbeddedResource Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Data_Organizer_Core\Data_Organizer_Core.csproj" />
 	</ItemGroup>
 
 </Project>
