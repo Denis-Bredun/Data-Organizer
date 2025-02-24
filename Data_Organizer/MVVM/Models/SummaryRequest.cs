@@ -1,4 +1,4 @@
-﻿namespace Data_Organizer_Core
+﻿namespace Data_Organizer.MVVM.Models
 {
     public class SummaryRequest
     {

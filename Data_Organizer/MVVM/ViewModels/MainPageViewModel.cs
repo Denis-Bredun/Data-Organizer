@@ -75,14 +75,16 @@ namespace Data_Organizer.MVVM.ViewModels
                 return;
             }
 
-            //IsLoading = true;
+            UnsubscribeFromTranscriptionUpdates();
+
+            IsLoading = true;
 
             var responseResult = await _openAIAPIRequestService.GetSummaryAsync(OutputText);
 
-            OutputText += "\n-----------------------\n" +
-                          responseResult.Content;
+            if (responseResult != null)
+                OutputText += $"\n-----------------------\n{responseResult.Result}";
 
-            //IsLoading = false;
+            IsLoading = false;
         }
 
         private void PlayTranscription()

@@ -19,6 +19,7 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<NullabilityInfoContextSupport>true</NullabilityInfoContextSupport>
 
 		<!-- Display name -->
 		<ApplicationTitle>Data_Organizer</ApplicationTitle>
@@ -115,10 +116,6 @@
 	  <EmbeddedResource Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\Data_Organizer_Core\Data_Organizer_Core.csproj" />
 	</ItemGroup>
 
 </Project>

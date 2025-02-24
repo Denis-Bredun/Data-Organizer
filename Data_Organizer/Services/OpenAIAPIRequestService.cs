@@ -1,38 +1,35 @@
 ﻿using Data_Organizer.APIRequestTools;
 using Data_Organizer.Interfaces;
-using Data_Organizer_Core;
+using Data_Organizer.MVVM.Models;
 
 namespace Data_Organizer.Services
 {
     public class OpenAIAPIRequestService : IOpenAIAPIRequestService
     {
+        private readonly INotificationService _notificationService;
         private readonly IGetSummaryFromChatGPTQuery _getSummaryFromChatGPTQuery;
 
         public OpenAIAPIRequestService(
+            INotificationService notificationService,
             IGetSummaryFromChatGPTQuery getSummaryFromChatGPTQuery)
         {
+            _notificationService = notificationService;
             _getSummaryFromChatGPTQuery = getSummaryFromChatGPTQuery;
         }
 
-        public async Task<SummaryRequest> GetSummaryAsync(string content)
+        public async Task<SummaryRequest?> GetSummaryAsync(string content)
         {
             var requestData = new SummaryRequest
             {
                 Content = content
             };
 
-            SummaryRequest response;
+            SummaryRequest response = await _getSummaryFromChatGPTQuery.Execute(requestData);
 
-            try
+            if (!string.IsNullOrWhiteSpace(response.Error))
             {
-                response = await _getSummaryFromChatGPTQuery.Execute(requestData);
-
-                if (!string.IsNullOrWhiteSpace(response.Error))
-                    throw new Exception(response.Error);
-            }
-            catch (Exception)
-            {
-                throw;
+                await _notificationService.ShowToastAsync($"Ошибка при запросе к OpenAI: {response.Error}");
+                return null;
             }
 
             return response;
