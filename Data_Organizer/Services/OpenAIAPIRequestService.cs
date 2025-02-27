@@ -17,8 +17,10 @@ namespace Data_Organizer.Services
             _getSummaryFromChatGPTQuery = getSummaryFromChatGPTQuery;
         }
 
-        public async Task<SummaryRequest?> GetSummaryAsync(string content)
+        public async Task<SummaryRequest?> GetSummaryAsync(string content, LanguageModel selectedLanguage)
         {
+            content = $"Мова виводу: {selectedLanguage.CultureCode}\n\n{content}";
+
             var requestData = new SummaryRequest
             {
                 Content = content

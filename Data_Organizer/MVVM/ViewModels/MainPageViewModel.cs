@@ -79,7 +79,7 @@ namespace Data_Organizer.MVVM.ViewModels
 
             IsLoading = true;
 
-            var responseResult = await _openAIAPIRequestService.GetSummaryAsync(OutputText);
+            var responseResult = await _openAIAPIRequestService.GetSummaryAsync(OutputText, SelectedLanguage);
 
             if (responseResult != null)
                 OutputText += $"\n-----------------------\n{responseResult.Result}";
