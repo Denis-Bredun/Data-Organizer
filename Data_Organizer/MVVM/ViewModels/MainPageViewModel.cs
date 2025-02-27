@@ -91,7 +91,11 @@ namespace Data_Organizer.MVVM.ViewModels
             if (responseResult != null)
             {
                 _wasLastFeatureGettingSummary = true;
-                OutputText += _lineToDivideOutput + responseResult.Result;
+
+                if (IsTextAddedAtTheEnd)
+                    OutputText += _lineToDivideOutput + responseResult.Result;
+                else
+                    OutputText = responseResult.Result;
             }
 
             IsLoading = false;
@@ -105,7 +109,12 @@ namespace Data_Organizer.MVVM.ViewModels
             {
                 var cultureInfo = CultureInfo.GetCultureInfo(SelectedLanguage.CultureCode);
 
-                if (_wasLastFeatureGettingSummary)
+                if (!IsTextAddedAtTheEnd)
+                {
+                    OutputText = "";
+                    SetTranscriptionFromOutputText();
+                }
+                else if (_wasLastFeatureGettingSummary)
                     SetTranscriptionFromOutputText(_lineToDivideOutput);
 
                 AudioTranscriptorService.StartListeningAsync(cultureInfo);

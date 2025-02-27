@@ -35,7 +35,7 @@
             Command="{Binding NavigateToSignInPageCommand}"/>
 
         <Button
-            AbsoluteLayout.LayoutBounds="0.5, 0.87, 240, 70" 
+            AbsoluteLayout.LayoutBounds="0.5, 0.84, 240, 50" 
             AbsoluteLayout.LayoutFlags="PositionProportional"
             Style="{StaticResource GoWithoutRegistrationButtonStyle}"
             Text="Увійти як гість"

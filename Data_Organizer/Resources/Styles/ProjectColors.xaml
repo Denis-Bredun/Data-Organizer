@@ -13,7 +13,6 @@
     <Color x:Key="ControlElementBackgroundColor">#2d302e</Color>
     <Color x:Key="PopupBackgroundColor">#80000000</Color>
     <Color x:Key="SignInButtonBackgroundColor">#326fa8</Color>
-    <Color x:Key="GoWithoutRegistrationButtonBackgroundColor">#434745</Color>
     <Color x:Key="PopupWindow">#393d3a</Color>
     
 </ResourceDictionary>
