@@ -32,7 +32,8 @@
                 Style="{StaticResource MainPageDropdownStyle}"/>
 
             <ImageButton Grid.Column="2" Source="settings.svg"
-                         Style="{StaticResource MainPageButtonStyle}"/>
+                         Style="{StaticResource MainPageButtonStyle}"
+                         Command="{Binding OpenCloseSettingsCommand}"/>
         </Grid>
 
         <Grid Grid.Row="1" ColumnDefinitions="0.8*, 0.2*" RowDefinitions="0.2*, 0.2*, 0.2*, 0.2*, 0.2*, 0.2*" ColumnSpacing="10" RowSpacing="10">

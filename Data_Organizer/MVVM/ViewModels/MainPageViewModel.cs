@@ -29,6 +29,8 @@ namespace Data_Organizer.MVVM.ViewModels
         private string _playButtonImageSource;
         [ObservableProperty]
         private bool _isLoading;
+        [ObservableProperty]
+        private bool _areSettingsOpen;
 
         public IFeatureService FeatureService { get; }
         public ICultureInfoService CultureInfoService { get; }
@@ -224,6 +226,12 @@ namespace Data_Organizer.MVVM.ViewModels
             IsReadOnly = true;
 
             await _notificationService.ShowToastAsync("Ви вийшли з режиму редагування!");
+        }
+
+        [RelayCommand]
+        public void OpenCloseSettings()
+        {
+            AreSettingsOpen = !AreSettingsOpen;
         }
 
         public void Dispose()
