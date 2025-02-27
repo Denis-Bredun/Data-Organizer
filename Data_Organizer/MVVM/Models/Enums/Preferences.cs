@@ -3,6 +3,7 @@
     public enum Preferences
     {
         LastSelectedFeature,
-        LastSelectedOutputLanguage
+        LastSelectedOutputLanguage,
+        IsTextAddedAtTheEnd
     }
 }

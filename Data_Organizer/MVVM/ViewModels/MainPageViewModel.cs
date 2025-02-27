@@ -61,7 +61,6 @@ namespace Data_Organizer.MVVM.ViewModels
         private void SetDefaultProperties()
         {
             IsReadOnly = true;
-            IsTextAddedAtTheEnd = true;
             EditButtonImageSource = "disabled_edit_mode.svg";
             PlayButtonImageSource = "start_record.svg";
         }

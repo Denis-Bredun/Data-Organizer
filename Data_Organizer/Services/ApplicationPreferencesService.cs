@@ -32,12 +32,14 @@ namespace Data_Organizer.Services
         {
             LoadLastSelectedFeature();
             LoadLastSelectedOutputLanguage();
+            LoadPreferenceIsTextAddedAtTheEnd();
         }
 
         private void SaveMainPagePreferences()
         {
             SaveLastSelectedFeature();
             SaveLastSelectedOutputLanguage();
+            SavePreferenceIsTextAddedAtTheEnd();
         }
 
         private void LoadLastSelectedFeature()
@@ -84,6 +86,25 @@ namespace Data_Organizer.Services
         {
             var key = AppEnums.Preferences.LastSelectedOutputLanguage;
             var value = _mainPageViewModel.SelectedLanguage;
+
+            _preferenceService.SetPreference(key, value);
+        }
+
+        private void LoadPreferenceIsTextAddedAtTheEnd()
+        {
+            var key = AppEnums.Preferences.IsTextAddedAtTheEnd;
+
+            var defaultValue = true;
+
+            string isTextAddedAtTheEnd = _preferenceService.GetPreference(key, defaultValue);
+
+            _mainPageViewModel.IsTextAddedAtTheEnd = bool.Parse(isTextAddedAtTheEnd);
+        }
+
+        private void SavePreferenceIsTextAddedAtTheEnd()
+        {
+            var key = AppEnums.Preferences.IsTextAddedAtTheEnd;
+            var value = _mainPageViewModel.IsTextAddedAtTheEnd;
 
             _preferenceService.SetPreference(key, value);
         }
