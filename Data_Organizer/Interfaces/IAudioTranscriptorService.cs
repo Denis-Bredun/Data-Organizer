@@ -8,5 +8,6 @@ namespace Data_Organizer.Interfaces
         bool IsListening { get; }
         Task StartListeningAsync(CultureInfo cultureInfo);
         void StopListening();
+        void SetTranscription(string outputText);
     }
 }

@@ -12,6 +12,8 @@ namespace Data_Organizer.MVVM.ViewModels
         private readonly IOpenAIAPIRequestService _openAIAPIRequestService;
         private readonly IClipboardService _clipboardService;
         private Action<string>? _transcriptionUpdatedHandler;
+        private bool _wasLastFeatureGettingSummary;
+        private string _lineToDivideOutput;
 
         [ObservableProperty]
         private FeatureModel _selectedFeature;
@@ -47,6 +49,7 @@ namespace Data_Organizer.MVVM.ViewModels
             _notificationService = notificationService;
             _openAIAPIRequestService = openAIAPIRequestService;
             _clipboardService = clipboardService;
+            _lineToDivideOutput = "\n-----------------------\n";
 
             SetDefaultProperties();
         }
@@ -82,7 +85,10 @@ namespace Data_Organizer.MVVM.ViewModels
             var responseResult = await _openAIAPIRequestService.GetSummaryAsync(OutputText, SelectedLanguage);
 
             if (responseResult != null)
-                OutputText += $"\n-----------------------\n{responseResult.Result}";
+            {
+                _wasLastFeatureGettingSummary = true;
+                OutputText += _lineToDivideOutput + responseResult.Result;
+            }
 
             IsLoading = false;
         }
@@ -94,10 +100,17 @@ namespace Data_Organizer.MVVM.ViewModels
             if (!AudioTranscriptorService.IsListening)
             {
                 var cultureInfo = CultureInfo.GetCultureInfo(SelectedLanguage.CultureCode);
+
+                if (_wasLastFeatureGettingSummary)
+                    SetTranscriptionFromOutputText(_lineToDivideOutput);
+
                 AudioTranscriptorService.StartListeningAsync(cultureInfo);
             }
             else
+            {
+                _wasLastFeatureGettingSummary = false;
                 AudioTranscriptorService.StopListening();
+            }
         }
 
         private void SetTranscriptionUpdatedHandlerIfNecessary()
@@ -105,8 +118,15 @@ namespace Data_Organizer.MVVM.ViewModels
             if (_transcriptionUpdatedHandler == null)
             {
                 _transcriptionUpdatedHandler = text => OutputText = text;
+                SetTranscriptionFromOutputText();
                 AudioTranscriptorService.OnTranscriptionUpdated += _transcriptionUpdatedHandler;
             }
+        }
+
+        private void SetTranscriptionFromOutputText(string textToAdd = "")
+        {
+            OutputText += textToAdd;
+            AudioTranscriptorService.SetTranscription(OutputText);
         }
 
         public void SwitchPlayButtonImage(bool isListening)

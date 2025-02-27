@@ -166,5 +166,10 @@ namespace Data_Organizer.Services
 
             await _notificationService.ShowToastAsync(notification);
         }
+
+        public void SetTranscription(string outputText)
+        {
+            _transcription = outputText;
+        }
     }
 }
