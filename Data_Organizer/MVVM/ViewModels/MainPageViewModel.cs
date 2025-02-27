@@ -31,6 +31,8 @@ namespace Data_Organizer.MVVM.ViewModels
         private bool _isLoading;
         [ObservableProperty]
         private bool _areSettingsOpen;
+        [ObservableProperty]
+        private bool _isTextAddedAtTheEnd;
 
         public IFeatureService FeatureService { get; }
         public ICultureInfoService CultureInfoService { get; }
@@ -59,6 +61,7 @@ namespace Data_Organizer.MVVM.ViewModels
         private void SetDefaultProperties()
         {
             IsReadOnly = true;
+            IsTextAddedAtTheEnd = true;
             EditButtonImageSource = "disabled_edit_mode.svg";
             PlayButtonImageSource = "start_record.svg";
         }
@@ -232,6 +235,12 @@ namespace Data_Organizer.MVVM.ViewModels
         public void OpenCloseSettings()
         {
             AreSettingsOpen = !AreSettingsOpen;
+        }
+
+        [RelayCommand]
+        public void ChangeSettingIsTextAddedAtTheEnd()
+        {
+            IsTextAddedAtTheEnd = !IsTextAddedAtTheEnd;
         }
 
         public void Dispose()

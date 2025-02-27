@@ -69,9 +69,42 @@
         <Grid 
             Grid.RowSpan="2" 
             IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-            Style="{StaticResource LoadingGridStyle}">
+            Style="{StaticResource TransparentGridStyle}">
 
             <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
+        </Grid>
+
+        <Grid 
+            Grid.RowSpan="2"
+            IsVisible="{Binding AreSettingsOpen, Mode=TwoWay}"
+            Style="{StaticResource TransparentGridStyle}">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OpenCloseSettingsCommand}"/>
+            </Grid.GestureRecognizers>
+
+            <AbsoluteLayout>
+                <Frame
+                    AbsoluteLayout.LayoutFlags="All" 
+                    AbsoluteLayout.LayoutBounds="1, 0.1, 0.7, 0.1"
+                    Style="{StaticResource PopupFrameStyle}">
+                    <Grid 
+                        RowDefinitions="Auto"       
+                        Padding="15">
+                        <StackLayout Orientation="Horizontal">
+                            <CheckBox 
+                                Color="White"
+                                IsChecked="{Binding IsTextAddedAtTheEnd, Mode=TwoWay}"/>
+                            <Label
+                                Text="Додавати в кінець"
+                                Style="{StaticResource LabelStyle}">
+                                <Label.GestureRecognizers>                                    
+                                    <TapGestureRecognizer Command="{Binding ChangeSettingIsTextAddedAtTheEndCommand}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+            </AbsoluteLayout>
         </Grid>
 
     </Grid>

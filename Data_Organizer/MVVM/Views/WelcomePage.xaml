@@ -43,7 +43,7 @@
 
         <Grid 
             IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-            Style="{StaticResource LoadingGridStyle}"
+            Style="{StaticResource TransparentGridStyle}"
             AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
             AbsoluteLayout.LayoutFlags="All">
             <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />

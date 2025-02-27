@@ -110,6 +110,10 @@
         <Setter Property="Padding" Value="0"/>
     </Style>
 
+    <Style TargetType="Frame" BasedOn="{StaticResource EntriesFrameStyle}" x:Key="PopupFrameStyle">
+        <Setter Property="BackgroundColor" Value="{StaticResource PopupWindow}" />
+    </Style>
+
     <Style TargetType="Entry" x:Key="EntryStyle">
         <Setter Property="ClearButtonVisibility" Value="WhileEditing"/>
         <Setter Property="FontSize" Value="{StaticResource FontSize}"/>
@@ -122,9 +126,8 @@
         <Setter Property="Placeholder" Value="Dmitry Azimov"/>
     </Style>
 
-    <Style x:Key="LoadingGridStyle" TargetType="Grid">
-        <Setter Property="BackgroundColor" Value="{StaticResource PageBackgroundColor}" />
-        <Setter Property="Opacity" Value=".8" />
+    <Style x:Key="TransparentGridStyle" TargetType="Grid">
+        <Setter Property="BackgroundColor" Value="{StaticResource PopupBackgroundColor}" />
     </Style>
 
     <Style x:Key="LoadingAnimationStyle" TargetType="skia:SKLottieView">

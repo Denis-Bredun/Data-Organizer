@@ -70,8 +70,7 @@
                 Grid.Column="1"
                 VerticalOptions="Center"
                 Text="Дати згоду на збір метаданих"
-                FontSize="{StaticResource FontSize}"
-                TextColor="{StaticResource TextColor}"/>
+                Style="{StaticResource LabelStyle}"/>
             <ImageButton 
                 x:Name="QuestionButton"
                 Grid.Column="2" 
@@ -107,7 +106,7 @@
         <Grid 
             Grid.RowSpan="8" 
             IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-            Style="{StaticResource LoadingGridStyle}">
+            Style="{StaticResource TransparentGridStyle}">
 
             <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
         </Grid>

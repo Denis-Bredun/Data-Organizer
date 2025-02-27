@@ -64,7 +64,7 @@
         <Grid 
             Grid.RowSpan="8" 
             IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-            Style="{StaticResource LoadingGridStyle}">
+            Style="{StaticResource TransparentGridStyle}">
 
             <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
         </Grid>
