@@ -11,6 +11,8 @@ namespace Data_Organizer.MVVM.ViewModels
         private readonly INotificationService _notificationService;
         private readonly IOpenAIAPIRequestService _openAIAPIRequestService;
         private readonly IClipboardService _clipboardService;
+        private readonly IFileServiceDecorator _fileService;
+
         private Action<string>? _transcriptionUpdatedHandler;
         private bool _wasLastFeatureGettingSummary;
         private string _lineToDivideOutput;
@@ -44,7 +46,8 @@ namespace Data_Organizer.MVVM.ViewModels
             INotificationService notificationService,
             IAudioTranscriptorService audioTranscriptorService,
             IOpenAIAPIRequestService openAIAPIRequestService,
-            IClipboardService clipboardService)
+            IClipboardService clipboardService,
+            IFileServiceDecorator fileService)
         {
             FeatureService = featureService;
             CultureInfoService = cultureInfoService;
@@ -53,6 +56,7 @@ namespace Data_Organizer.MVVM.ViewModels
             _notificationService = notificationService;
             _openAIAPIRequestService = openAIAPIRequestService;
             _clipboardService = clipboardService;
+            _fileService = fileService;
             _lineToDivideOutput = "\n-----------------------\n";
 
             SetDefaultProperties();
