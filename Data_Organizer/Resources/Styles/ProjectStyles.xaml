@@ -139,4 +139,21 @@
         <Setter Property="HeightRequest" Value="100" />
     </Style>
 
+    <Style x:Key="SeparatorLineStyle" TargetType="BoxView">
+        <Setter Property="BackgroundColor" Value="White"/>
+        <Setter Property="HeightRequest" Value="1"/>
+        <Setter Property="Margin" Value="0,5"/>
+    </Style>
+
+    <Style x:Key="MenuItemContainerStyle" TargetType="StackLayout">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+    </Style>
+
+    <Style x:Key="MenuButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+
 </ResourceDictionary>

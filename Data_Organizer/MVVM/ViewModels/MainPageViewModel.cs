@@ -255,6 +255,25 @@ namespace Data_Organizer.MVVM.ViewModels
             IsTextAddedAtTheEnd = !IsTextAddedAtTheEnd;
         }
 
+        [RelayCommand]
+        public async Task ImportFile()
+        {
+            IsLoading = true;
+
+            string importedText = await _fileService.ImportTextAsync();
+
+            if (importedText != null)
+                SetTranscriptionFromOutputText(importedText);
+
+            IsLoading = false;
+        }
+
+        [RelayCommand]
+        public async Task ExportFile()
+        {
+
+        }
+
         public void Dispose()
         {
             AudioTranscriptorService.StopListening();

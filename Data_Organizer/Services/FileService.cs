@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Storage;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models.Enums;
+using DocumentFormat.OpenXml.Packaging;
 using QuestPDF;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
@@ -32,19 +33,21 @@ namespace Data_Organizer.Services
                     {
                         DevicePlatform.Android, new[]
                         {
-                            "text/plain", // .txt
-                            "application/pdf", // .pdf
-                            "application/msword", // .doc
-                            "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
-                            "application/rtf", // .rtf
-                            "text/csv", // .csv
-                            "text/xml", // .xml
-                            "application/json", // .json
-                            "text/html", // .html
-                            "application/x-subrip", // .srt
-                            "text/x-vcard", // .vcf
-                            "application/x-yaml", // .yaml, .yml
-                            "application/x-markdown" // .md
+                            "text/plain",
+                            "application/rtf",
+                            "text/rtf",
+                            "application/pdf",
+                            "application/msword",
+                            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                            "text/csv",
+                            "text/xml",
+                            "application/json",
+                            "text/html",
+                            "application/x-subrip",
+                            "text/x-vcard",
+                            "application/x-yaml",
+                            "application/x-markdown",
+                            ".rtf"
                         }
                     }
                 });
@@ -57,9 +60,44 @@ namespace Data_Organizer.Services
 
             if (result == null) return null;
 
-            await using var stream = await result.OpenReadAsync();
-            using var reader = new StreamReader(stream);
-            return await reader.ReadToEndAsync();
+            if (result.FileName.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+            {
+                await using var stream = await result.OpenReadAsync();
+                return ExtractTextFromPdf(stream);
+            }
+
+            if (result.FileName.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
+            {
+                using var stream = await result.OpenReadAsync();
+                using var doc = WordprocessingDocument.Open(stream, false);
+                return doc.MainDocumentPart?.Document.Body?.InnerText;
+            }
+
+            if (result.FileName.EndsWith(".rtf", StringComparison.OrdinalIgnoreCase))
+            {
+                await using var stream = await result.OpenReadAsync();
+                using var reader = new StreamReader(stream);
+                return await reader.ReadToEndAsync();
+            }
+
+            await using var textStream = await result.OpenReadAsync();
+            using var textReader = new StreamReader(textStream);
+            return await textReader.ReadToEndAsync();
+        }
+
+        private string ExtractTextFromPdf(Stream pdfStream)
+        {
+            var text = new StringBuilder();
+
+            using (var pdfDocument = UglyToad.PdfPig.PdfDocument.Open(pdfStream))
+            {
+                foreach (var page in pdfDocument.GetPages())
+                {
+                    text.AppendLine(page.Text);
+                }
+            }
+
+            return text.ToString();
         }
 
         public async Task ExportTextAsync(string text, TextFileFormat textFileFormat)

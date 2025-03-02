@@ -85,23 +85,51 @@
             <AbsoluteLayout>
                 <Frame
                     AbsoluteLayout.LayoutFlags="All" 
-                    AbsoluteLayout.LayoutBounds="1, 0.1, 0.7, 0.1"
+                    AbsoluteLayout.LayoutBounds="1, 0.1, 0.7, 0.3"
                     Style="{StaticResource PopupFrameStyle}">
                     <Grid 
-                        RowDefinitions="Auto"       
-                        Padding="15">
-                        <StackLayout Orientation="Horizontal">
+                        RowDefinitions="*, 1, *, 1, *"       
+                        Padding="15"
+                        HorizontalOptions="Start">
+                        
+                        <StackLayout 
+                            Style="{StaticResource MenuItemContainerStyle}">
+
                             <CheckBox 
                                 Color="White"
                                 IsChecked="{Binding IsTextAddedAtTheEnd, Mode=TwoWay}"/>
+
                             <Label
                                 Text="Додавати в кінець"
                                 Style="{StaticResource LabelStyle}">
-                                <Label.GestureRecognizers>                                    
+                                <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding ChangeSettingIsTextAddedAtTheEndCommand}"/>
                                 </Label.GestureRecognizers>
                             </Label>
                         </StackLayout>
+
+                        <BoxView 
+                            Grid.Row="1" 
+                            Style="{StaticResource SeparatorLineStyle}"/>
+
+                        <Button 
+                            Grid.Row="2" 
+                            ImageSource="import_file.png" 
+                            Text="Імпорт файлу"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Command="{Binding ImportFileCommand}"/>
+
+                        <BoxView 
+                            Grid.Row="3" 
+                            Style="{StaticResource SeparatorLineStyle}"/>
+
+                        <Button 
+                            Grid.Row="4" 
+                            ImageSource="export_file.png" 
+                            Text="Експорт файлу"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Command="{Binding ExportFileCommand}"/>
+
                     </Grid>
                 </Frame>
             </AbsoluteLayout>
