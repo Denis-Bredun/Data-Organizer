@@ -37,7 +37,7 @@
         <Button
             AbsoluteLayout.LayoutBounds="0.5, 0.84, 240, 50" 
             AbsoluteLayout.LayoutFlags="PositionProportional"
-            Style="{StaticResource GoWithoutRegistrationButtonStyle}"
+            Style="{StaticResource LinkButtonStyle}"
             Text="Увійти як гість"
             Command="{Binding NavigateToMainPageCommand}"/>
 

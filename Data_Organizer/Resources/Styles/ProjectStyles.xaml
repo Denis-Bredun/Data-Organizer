@@ -73,10 +73,6 @@
         <Setter Property="BackgroundColor" Value="{StaticResource SignInButtonBackgroundColor}" />
     </Style>
 
-    <Style TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}" x:Key="GoWithoutRegistrationButtonStyle">
-        <Setter Property="BackgroundColor" Value="Transparent" />
-    </Style>
-
     <Style TargetType="Button" x:Key="LinkButtonStyle">
         <Setter Property="FontSize" Value="{StaticResource LinkFontSize}" />
         <Setter Property="TextColor" Value="{StaticResource TextColor}" />
