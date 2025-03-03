@@ -23,6 +23,10 @@ namespace Data_Organizer
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .ConfigureFonts(fonts =>
+                {
+                    fonts.AddFont("arialuni.ttf", "ArialUnicode");
+                })
                 .UseSkiaSharp()
                 .UseMauiCommunityToolkit()
                 .UseUraniumUI()
