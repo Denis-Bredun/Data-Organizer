@@ -2,10 +2,8 @@
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models.Enums;
 using DocumentFormat.OpenXml.Packaging;
-using QuestPDF;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
+using iText.Kernel.Pdf;
+using iText.Layout.Element;
 using System.Text;
 using Xceed.Words.NET;
 
@@ -120,22 +118,21 @@ namespace Data_Organizer.Services
                     break;
 
                 case TextFileFormat.PDF:
-                    Settings.License = LicenseType.Community;
-                    var document = Document.Create(container =>
+                    byte[] pdfBytes;
+                    using (var pdfStream = new MemoryStream())
                     {
-                        container.Page(page =>
+                        using (var writer = new PdfWriter(pdfStream))
+                        using (var pdf = new PdfDocument(writer))
+                        using (var document = new iText.Layout.Document(pdf))
                         {
-                            page.Size(PageSizes.A4);
-                            page.Margin(2, Unit.Centimetre);
-                            page.Content().Text(text);
-                        });
-                    });
-                    document.GeneratePdf(stream);
-                    break;
+                            document.Add(new Paragraph(text));
+                        }
 
-                case TextFileFormat.RTF:
-                    var rtfContent = @"{\rtf1\ansi " + text.Replace("\n", @"\par ") + "}";
-                    stream.Write(Encoding.ASCII.GetBytes(rtfContent));
+                        pdfBytes = pdfStream.ToArray();
+                    }
+
+                    await stream.WriteAsync(pdfBytes, 0, pdfBytes.Length);
+                    stream.Position = 0;
                     break;
             }
 

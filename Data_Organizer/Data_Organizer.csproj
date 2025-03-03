@@ -67,6 +67,8 @@
 		<PackageReference Include="DocumentFormat.OpenXml" Version="3.2.0" />
 		<PackageReference Include="DocX" Version="4.0.25103.5784" />
 		<PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
+		<PackageReference Include="itext.bouncy-castle-adapter" Version="9.1.0" />
+		<PackageReference Include="itext7" Version="9.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
@@ -74,7 +76,6 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
 		<PackageReference Include="PdfPig" Version="0.1.9" />
 		<PackageReference Include="Prism.Core" Version="9.0.537" />
-		<PackageReference Include="QuestPDF" Version="2025.1.4" />
 		<PackageReference Include="Refit" Version="8.0.0" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
@@ -112,7 +113,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Resources\Fonts\" />
 	  <Folder Include="Resources\Raw\" />
 	</ItemGroup>
 

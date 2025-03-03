@@ -4,7 +4,6 @@
     {
         TXT,
         DOCX,
-        PDF,
-        RTF
+        PDF
     }
 }

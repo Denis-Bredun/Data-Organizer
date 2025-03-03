@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
+using Data_Organizer.MVVM.Models.Enums;
 using System.Globalization;
 
 namespace Data_Organizer.MVVM.ViewModels
@@ -271,7 +272,29 @@ namespace Data_Organizer.MVVM.ViewModels
         [RelayCommand]
         public async Task ExportFile()
         {
+            IsLoading = true;
 
+            const string
+                pdf = "PDF",
+                docx = "DOCX",
+                txt = "TXT";
+
+            var answer = await _notificationService.ShowActionSheetAsync("В якому розширенні бажаєте експортувати?", pdf, docx, txt);
+
+            switch (answer)
+            {
+                case pdf:
+                    await _fileService.ExportTextAsync(OutputText, TextFileFormat.PDF);
+                    break;
+                case docx:
+                    await _fileService.ExportTextAsync(OutputText, TextFileFormat.DOCX);
+                    break;
+                case txt:
+                    await _fileService.ExportTextAsync(OutputText, TextFileFormat.TXT);
+                    break;
+            }
+
+            IsLoading = false;
         }
 
         public void Dispose()
