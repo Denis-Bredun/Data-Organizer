@@ -64,7 +64,6 @@ namespace Data_Organizer
             builder.Services.AddTransient<IAudioTranscriptorService, AudioTranscriptorService>();
             builder.Services.AddTransient<IFileService, FileService>();
             builder.Services.AddTransient<IFileServiceDecorator, FileServiceDecorator>();
-            builder.Services.AddSingleton<IClipboardWrapper, MauiClipboardWrapper>();
             builder.Services.AddTransient<IClipboardService, ClipboardService>();
             builder.Services.AddTransient<IGoogleAuthenticationService, GoogleAuthenticationService>();
             builder.Services.AddTransient<IOpenAIAPIRequestService, OpenAIAPIRequestService>();
