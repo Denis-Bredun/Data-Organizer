@@ -60,7 +60,9 @@ namespace Data_Organizer
             builder.Services.AddTransient<IFeatureService, FeatureService>();
             builder.Services.AddTransient<ICultureInfoService, CultureInfoService>();
             builder.Services.AddTransient<INotificationService, NotificationService>();
-            builder.Services.AddTransient<ISpeechToTextService, Data_Organizer.Platforms.SpeechToTextService>();
+#if ANDROID
+            builder.Services.AddTransient<ISpeechToTextService, Platforms.SpeechToTextService>();
+#endif
             builder.Services.AddTransient<IAudioTranscriptorService, AudioTranscriptorService>();
             builder.Services.AddTransient<IFileService, FileService>();
             builder.Services.AddTransient<IFileServiceDecorator, FileServiceDecorator>();
