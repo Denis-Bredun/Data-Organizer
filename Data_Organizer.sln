@@ -5,6 +5,8 @@ VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data_Organizer", "Data_Organizer\Data_Organizer.csproj", "{FE8DE1FD-E906-453F-8290-F4DB3D587208}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data_Organizer.Tests", "Data_Organizer.Tests\Data_Organizer.Tests.csproj", "{81D0A5EB-0041-441E-9574-7DC65A469D16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,8 +19,15 @@ Global
 		{FE8DE1FD-E906-453F-8290-F4DB3D587208}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE8DE1FD-E906-453F-8290-F4DB3D587208}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE8DE1FD-E906-453F-8290-F4DB3D587208}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{81D0A5EB-0041-441E-9574-7DC65A469D16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81D0A5EB-0041-441E-9574-7DC65A469D16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81D0A5EB-0041-441E-9574-7DC65A469D16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81D0A5EB-0041-441E-9574-7DC65A469D16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DD42F3E1-8C82-44B3-9957-6F613100A321}
 	EndGlobalSection
 EndGlobal
