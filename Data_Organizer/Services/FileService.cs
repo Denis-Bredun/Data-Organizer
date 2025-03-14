@@ -143,10 +143,12 @@ namespace Data_Organizer.Services
                 using (var pdf = new PdfDocument(writer))
                 using (var document = new iText.Layout.Document(pdf))
                 {
-                    var fontPath = "arialuni.ttf";
+                    var fontData = await LoadFontFromResources("arialuni.ttf");
+
                     PdfFont font = PdfFontFactory.CreateFont(
-                            await LoadFontFromAssets(fontPath),
-                            PdfEncodings.IDENTITY_H);
+                        fontData,
+                        PdfEncodings.IDENTITY_H,
+                        PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
 
                     document.SetFont(font);
                     document.Add(new Paragraph(text).SetFont(font));
@@ -159,13 +161,12 @@ namespace Data_Organizer.Services
             stream.Position = 0;
         }
 
-        private async Task<byte[]> LoadFontFromAssets(string fontPath)
+        private async Task<byte[]> LoadFontFromResources(string fontFileName)
         {
-            using var stream = await FileSystem.OpenAppPackageFileAsync(fontPath);
+            using var stream = await FileSystem.OpenAppPackageFileAsync(fontFileName);
             using var memoryStream = new MemoryStream();
             await stream.CopyToAsync(memoryStream);
             return memoryStream.ToArray();
         }
-
     }
 }

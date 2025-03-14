@@ -119,10 +119,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiFont Include="Resources\Raw\arialuni.ttf" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiFont Update="Resources\Fonts\arialuni.ttf">
 	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 	  </MauiFont>
