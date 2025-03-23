@@ -15,7 +15,7 @@ namespace Data_Organizer.MVVM.ViewModels
         private readonly IFileServiceDecorator _fileService;
 
         private Action<string>? _transcriptionUpdatedHandler;
-        private bool _wasLastFeatureGettingSummary;
+        private bool _wasInfluenceOnOutputText;
         private string _lineToDivideOutput;
 
         [ObservableProperty]
@@ -87,20 +87,14 @@ namespace Data_Organizer.MVVM.ViewModels
                 return;
             }
 
-            UnsubscribeFromTranscriptionUpdates();
-
             IsLoading = true;
 
             var responseResult = await _openAIAPIRequestService.GetSummaryAsync(OutputText, SelectedLanguage);
 
             if (responseResult != null)
             {
-                _wasLastFeatureGettingSummary = true;
-
-                if (IsTextAddedAtTheEnd)
-                    OutputText += _lineToDivideOutput + responseResult.Result;
-                else
-                    OutputText = responseResult.Result;
+                _wasInfluenceOnOutputText = true;
+                SetOutputText(responseResult.Result);
             }
 
             IsLoading = false;
@@ -119,14 +113,14 @@ namespace Data_Organizer.MVVM.ViewModels
                     OutputText = "";
                     SetTranscriptionFromOutputText();
                 }
-                else if (_wasLastFeatureGettingSummary)
+                else if (_wasInfluenceOnOutputText)
                     SetTranscriptionFromOutputText(_lineToDivideOutput);
 
                 AudioTranscriptorService.StartListeningAsync(cultureInfo);
             }
             else
             {
-                _wasLastFeatureGettingSummary = false;
+                _wasInfluenceOnOutputText = false;
                 AudioTranscriptorService.StopListening();
             }
         }
@@ -199,6 +193,8 @@ namespace Data_Organizer.MVVM.ViewModels
                 return;
 
             OutputText = "";
+            _wasInfluenceOnOutputText = false;
+            UnsubscribeFromTranscriptionUpdates();
 
             await _notificationService.ShowToastAsync("Текстове поле було очищено!");
         }
@@ -264,7 +260,10 @@ namespace Data_Organizer.MVVM.ViewModels
             string importedText = await _fileService.ImportTextAsync();
 
             if (importedText != null)
-                SetTranscriptionFromOutputText(importedText);
+            {
+                _wasInfluenceOnOutputText = true;
+                SetOutputText(importedText);
+            }
 
             IsLoading = false;
         }
@@ -300,7 +299,34 @@ namespace Data_Organizer.MVVM.ViewModels
         [RelayCommand]
         public async Task ImportAudioFile()
         {
+            IsLoading = true;
 
+            var languageOptions = CultureInfoService.Languages.Select(l => l.DisplayName).ToArray();
+            var answer = await _notificationService.ShowActionSheetAsync("Яка мова в аудіофайлі?", languageOptions);
+
+            if (answer != "Нічого" && !string.IsNullOrEmpty(answer))
+            {
+                var selectedLanguage = CultureInfoService.Languages.FirstOrDefault(l => l.DisplayName == answer);
+                string transcribedText = await _fileService.ImportAudiofileAsync(selectedLanguage);
+
+                if (transcribedText != null)
+                {
+                    _wasInfluenceOnOutputText = true;
+                    SetOutputText(transcribedText);
+                }
+            }
+
+            IsLoading = false;
+        }
+
+        private void SetOutputText(string newText)
+        {
+            UnsubscribeFromTranscriptionUpdates();
+
+            if (IsTextAddedAtTheEnd && !string.IsNullOrEmpty(OutputText))
+                OutputText += _lineToDivideOutput + newText;
+            else
+                OutputText = newText;
         }
 
         public void Dispose()

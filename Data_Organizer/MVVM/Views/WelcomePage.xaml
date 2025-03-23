@@ -18,7 +18,7 @@
             AbsoluteLayout.LayoutBounds="0.5, 0.45, 400, 130"
             AbsoluteLayout.LayoutFlags="PositionProportional"
             Style="{StaticResource GreetingTextStyle}"
-            Text="Вітаємо у застосунку ShortNotes! З його допомогою виділяти тези з аудіо та зберігати їх стане набагато простіше ;)"/>
+            Text="Вітаємо у застосунку Data Organizer! З його допомогою виділяти тези з аудіо та зберігати їх стане набагато простіше ;)"/>
 
         <Button
             AbsoluteLayout.LayoutBounds="0.5, 0.63, 240, 70" 

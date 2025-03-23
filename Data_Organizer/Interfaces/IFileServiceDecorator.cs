@@ -1,4 +1,5 @@
-﻿using Data_Organizer.MVVM.Models.Enums;
+﻿using Data_Organizer.MVVM.Models;
+using Data_Organizer.MVVM.Models.Enums;
 
 namespace Data_Organizer.Interfaces
 {
@@ -6,5 +7,6 @@ namespace Data_Organizer.Interfaces
     {
         Task<string> ImportTextAsync();
         Task ExportTextAsync(string text, TextFileFormat textFileFormat);
+        Task<string> ImportAudiofileAsync(LanguageModel selectedLanguage);
     }
 }

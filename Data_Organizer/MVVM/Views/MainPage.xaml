@@ -85,7 +85,7 @@
             <AbsoluteLayout>
                 <Frame
                     AbsoluteLayout.LayoutFlags="All" 
-                    AbsoluteLayout.LayoutBounds="1, 0.1, 0.75, 0.25"
+                    AbsoluteLayout.LayoutBounds="1, 0.1, 0.75, 0.31"
                     Style="{StaticResource PopupFrameStyle}">
                     <ScrollView
                         x:Name="SettingsScrollView"

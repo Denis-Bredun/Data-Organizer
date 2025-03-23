@@ -54,6 +54,10 @@ namespace Data_Organizer
                     ConfigureHttpClient(c => c.BaseAddress = new Uri(serverBaseURL)).
                     AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
 
+            builder.Services.AddRefitClient<IGetTranscriptionFromAudiofileQuery>().
+                    ConfigureHttpClient(c => c.BaseAddress = new Uri(serverBaseURL)).
+                    AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
+
             builder.Services.AddTransient<IApplicationPreferencesService, ApplicationPreferencesService>();
             builder.Services.AddTransient<IEnumDescriptionResolverService, EnumDescriptionResolverService>();
             builder.Services.AddTransient<IPreferenceService, PreferenceService>();

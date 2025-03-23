@@ -1,4 +1,5 @@
 ﻿using Data_Organizer.Interfaces;
+using Data_Organizer.MVVM.Models;
 using Data_Organizer.MVVM.Models.Enums;
 
 namespace Data_Organizer.Services
@@ -71,6 +72,35 @@ namespace Data_Organizer.Services
             catch (Exception ex)
             {
                 await _notificationService.ShowToastAsync($"Помилка експорту: {ex.Message}");
+            }
+        }
+
+        public async Task<string> ImportAudiofileAsync(LanguageModel selectedLanguage)
+        {
+            try
+            {
+                if (!await _fileService.RequestPermissionsStorageReadAsync())
+                {
+                    await _notificationService.ShowToastAsync("Доступ до читання не надано");
+                    return null;
+                }
+
+                var transcription = await _fileService.ImportAudiofileAsync(selectedLanguage);
+
+                if (transcription == null)
+                {
+                    await _notificationService.ShowToastAsync("Файл не обрано або помилка транскрипції");
+                    return null;
+                }
+
+                await _notificationService.ShowToastAsync(
+                    $"Успішно транскрибовано {transcription.Length} символів");
+                return transcription;
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка транскрипції: {ex.Message}");
+                return null;
             }
         }
     }

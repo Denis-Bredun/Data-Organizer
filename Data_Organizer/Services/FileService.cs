@@ -1,11 +1,16 @@
 ﻿using CommunityToolkit.Maui.Storage;
+using Data_Organizer.APIRequestTools;
 using Data_Organizer.Interfaces;
+using Data_Organizer.MVVM.Models;
 using Data_Organizer.MVVM.Models.Enums;
 using DocumentFormat.OpenXml.Packaging;
 using iText.IO.Font;
 using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout.Element;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
+using Refit;
 using System.Text;
 using Xceed.Words.NET;
 
@@ -13,6 +18,13 @@ namespace Data_Organizer.Services
 {
     public class FileService : IFileService
     {
+        private readonly IGetTranscriptionFromAudiofileQuery _getTranscriptionFromAudiofileQuery;
+
+        public FileService(IGetTranscriptionFromAudiofileQuery getTranscriptionFromAudiofileQuery)
+        {
+            _getTranscriptionFromAudiofileQuery = getTranscriptionFromAudiofileQuery;
+        }
+
         public async Task<bool> RequestPermissionsStorageReadAsync()
         {
             var status = await Permissions.RequestAsync<Permissions.StorageRead>();
@@ -167,6 +179,87 @@ namespace Data_Organizer.Services
             using var memoryStream = new MemoryStream();
             await stream.CopyToAsync(memoryStream);
             return memoryStream.ToArray();
+        }
+
+        public async Task<string> ImportAudiofileAsync(LanguageModel selectedLanguage)
+        {
+            var result = await PickAudioFileAsync();
+            if (result == null) return null;
+
+            return await TranscribeAudiofile(result, selectedLanguage.CultureCode);
+        }
+
+        private async Task<FileResult> PickAudioFileAsync()
+        {
+            var customFileType = new FilePickerFileType(
+                new Dictionary<DevicePlatform, IEnumerable<string>>
+                {
+                    { DevicePlatform.Android, new[] { "audio/*" } }
+                });
+
+            var options = new PickOptions
+            {
+                PickerTitle = "Будь ласка, виберіть аудіофайл",
+                FileTypes = customFileType,
+            };
+
+            return await FilePicker.PickAsync(options);
+        }
+
+        private async Task<string> TranscribeAudiofile(FileResult fileResult, string languageCode)
+        {
+            Stream fileStream = null;
+            try
+            {
+                fileStream = await fileResult.OpenReadAsync();
+                var streamPart = new StreamPart(fileStream, fileResult.FileName, fileResult.ContentType);
+
+                var response = await _getTranscriptionFromAudiofileQuery.Execute(streamPart, languageCode);
+
+                if (!string.IsNullOrWhiteSpace(response.Error))
+                {
+                    throw new Exception(response.Error);
+                }
+
+                return response.Transcription;
+            }
+            catch (ApiException apiEx)
+            {
+                if (apiEx.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    string errorMessage = await apiEx.GetContentAsAsync<string>();
+                    if (errorMessage.Contains("File size exceeds"))
+                        throw new Exception("Розмір файлу перевищує допустимий ліміт 100 МБ.", apiEx);
+                    if (errorMessage.Contains("Please upload an audio file"))
+                        throw new Exception("Будь ласка, завантажте аудіофайл.", apiEx);
+
+                    throw new Exception("Помилка запиту: " + errorMessage, apiEx);
+                }
+                throw new Exception("Помилка запиту до сервера: " + apiEx.Message, apiEx);
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception("Помилка підключення до сервісу розпізнавання мови. Спробуйте пізніше.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new Exception("Помилка конфігурації сервісу. Зверніться до адміністратора.", ex);
+            }
+            catch (ArgumentException ex)
+            {
+                throw new Exception("Некоректні дані для транскрипції: " + ex.Message, ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Сталася помилка при обробці запиту. Спробуйте пізніше.", ex);
+            }
+            finally
+            {
+                if (fileStream != null)
+                {
+                    await fileStream.DisposeAsync();
+                }
+            }
         }
     }
 }
