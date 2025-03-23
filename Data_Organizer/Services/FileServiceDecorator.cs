@@ -1,6 +1,5 @@
 ﻿using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
-using Data_Organizer.MVVM.Models.Enums;
 
 namespace Data_Organizer.Services
 {
@@ -46,7 +45,7 @@ namespace Data_Organizer.Services
             }
         }
 
-        public async Task ExportTextAsync(string text, TextFileFormat textFileFormat)
+        public async Task ExportTextAsync(string text, AppEnums.TextFileFormat textFileFormat)
         {
             try
             {

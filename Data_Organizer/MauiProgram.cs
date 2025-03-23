@@ -21,71 +21,61 @@ namespace Data_Organizer
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+            
+            ConfigureAppEssentials(builder);
+            
+            var config = LoadConfiguration();
+            
+            RegisterFirebase(builder.Services, config);
+            
+            builder.Services
+                .AddApiClients(config["SERVER_BASE_URL"])
+                .AddAppServices()
+                .AddViewModels();
+                
+            ConfigurePlatformSpecifics();
+            
+            return builder.Build();
+        }
+
+        private static void ConfigureAppEssentials(MauiAppBuilder builder)
+        {
             builder
                 .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("arialuni.ttf", "ArialUnicode");
-                })
+                .ConfigureFonts(fonts => fonts.AddFont("arialuni.ttf", "ArialUnicode"))
                 .UseSkiaSharp()
                 .UseMauiCommunityToolkit()
                 .UseUraniumUI()
                 .UseUraniumUIMaterial();
-
-            var appSettings = GetAppSettings();
-            var firebaseApiKey = GetFirebaseApiKey(appSettings);
-            var firebaseAuthDomain = GetFirebaseAuthDomain(appSettings);
-            var serverBaseURL = GetServerBaseURL(appSettings);
-
-            builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
-            {
-                ApiKey = firebaseApiKey,
-                AuthDomain = firebaseAuthDomain,
-                Providers =
-                        [
-                            new EmailProvider()
-                        ],
-                UserRepository = new FileUserRepository("DataOrganizer")
-            }));
-
-            builder.Services.AddTransient<FirebaseAuthHttpMessageHandler>();
-
-            builder.Services.AddRefitClient<IGetSummaryFromChatGPTQuery>().
-                    ConfigureHttpClient(c => c.BaseAddress = new Uri(serverBaseURL)).
-                    AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
-
-            builder.Services.AddRefitClient<IGetTranscriptionFromAudiofileQuery>().
-                    ConfigureHttpClient(c => c.BaseAddress = new Uri(serverBaseURL)).
-                    AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
-
-            builder.Services.AddTransient<IApplicationPreferencesService, ApplicationPreferencesService>();
-            builder.Services.AddTransient<IEnumDescriptionResolverService, EnumDescriptionResolverService>();
-            builder.Services.AddTransient<IPreferenceService, PreferenceService>();
-            builder.Services.AddTransient<IFeatureService, FeatureService>();
-            builder.Services.AddTransient<ICultureInfoService, CultureInfoService>();
-            builder.Services.AddTransient<INotificationService, NotificationService>();
-#if ANDROID
-            builder.Services.AddTransient<ISpeechToTextService, Platforms.SpeechToTextService>();
-#endif
-            builder.Services.AddTransient<IAudioTranscriptorService, AudioTranscriptorService>();
-            builder.Services.AddTransient<IFileService, FileService>();
-            builder.Services.AddTransient<IFileServiceDecorator, FileServiceDecorator>();
-            builder.Services.AddTransient<IClipboardService, ClipboardService>();
-            builder.Services.AddTransient<IGoogleAuthenticationService, GoogleAuthenticationService>();
-            builder.Services.AddTransient<IOpenAIAPIRequestService, OpenAIAPIRequestService>();
-            builder.Services.AddTransient<AppShell>();
-            builder.Services.AddViewModel<WelcomeViewModel, WelcomePage>();
-            builder.Services.AddViewModel<SignUpViewModel, SignUpPage>();
-            builder.Services.AddViewModel<SignInViewModel, SignInPage>();
-            builder.Services.AddViewModel<MainPageViewModel, MainPage>();
-            builder.Services.AddViewModel<MainPageViewModel, MainPage>();
-            builder.Services.AddTransient<SavedNotesPage>();
-            builder.Services.AddTransient<SettingsPage>();
-
+                
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
+        }
 
+        private static IConfigurationRoot LoadConfiguration()
+        {
+            var executingAssembly = Assembly.GetExecutingAssembly();
+            using var stream = executingAssembly.GetManifestResourceStream("Data_Organizer.appsettings.json");
+            return new ConfigurationBuilder().AddJsonStream(stream).Build();
+        }
+
+        private static void RegisterFirebase(IServiceCollection services, IConfigurationRoot config)
+        {
+            var firebaseApiKey = config["FIREBASE_API_KEY"];
+            var firebaseAuthDomain = config["AUTH_DOMAIN"];
+            
+            services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig
+            {
+                ApiKey = firebaseApiKey,
+                AuthDomain = firebaseAuthDomain,
+                Providers = [new EmailProvider()],
+                UserRepository = new FileUserRepository("DataOrganizer")
+            }));
+        }
+
+        private static void ConfigurePlatformSpecifics()
+        {
 #if ANDROID
             Microsoft.Maui.Handlers.ScrollViewHandler.Mapper.ModifyMapping("HorizontalScrollBarVisibility", (handler, view, args) =>
             {
@@ -99,45 +89,67 @@ namespace Data_Organizer
                 handler.PlatformView.ScrollBarFadeDuration = 0;
             });
 #endif
-
-            return builder.Build();
         }
+    }
 
-        private static IConfigurationRoot? GetAppSettings()
+    public static class ServiceCollectionExtensions
+    {
+        public static IServiceCollection AddApiClients(this IServiceCollection services, string baseUrl)
         {
-            var executingAssembly = Assembly.GetExecutingAssembly();
-            using var stream = executingAssembly.GetManifestResourceStream("Data_Organizer.appsettings.json");
-            var config = new ConfigurationBuilder()
-            .AddJsonStream(stream)
-            .Build();
-
-            return config;
+            services.AddTransient<FirebaseAuthHttpMessageHandler>();
+            
+            services.AddRefitClient<IGetSummaryFromChatGPTQuery>()
+                    .ConfigureHttpClient(c => c.BaseAddress = new Uri(baseUrl))
+                    .AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
+                    
+            services.AddRefitClient<IGetTranscriptionFromAudiofileQuery>()
+                    .ConfigureHttpClient(c => c.BaseAddress = new Uri(baseUrl))
+                    .AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
+                    
+            return services;
         }
-
-        private static string? GetFirebaseApiKey(IConfigurationRoot? appSettings)
+        
+        public static IServiceCollection AddAppServices(this IServiceCollection services)
         {
-            var firebaseApiKeySetting = appSettings?.GetRequiredSection("FIREBASE_API_KEY");
-            return firebaseApiKeySetting?.Value;
+            services.AddTransient<IApplicationPreferencesService, ApplicationPreferencesService>();
+            services.AddTransient<IEnumDescriptionResolverService, EnumDescriptionResolverService>();
+            services.AddTransient<IPreferenceService, PreferenceService>();
+            services.AddTransient<IFeatureService, FeatureService>();
+            services.AddTransient<ICultureInfoService, CultureInfoService>();
+            services.AddTransient<INotificationService, NotificationService>();
+#if ANDROID
+            services.AddTransient<ISpeechToTextService, Platforms.SpeechToTextService>();
+#endif
+            services.AddTransient<IAudioTranscriptorService, AudioTranscriptorService>();
+            services.AddTransient<IFileService, FileService>();
+            services.AddTransient<IFileServiceDecorator, FileServiceDecorator>();
+            services.AddTransient<IClipboardService, ClipboardService>();
+            services.AddTransient<IGoogleAuthenticationService, GoogleAuthenticationService>();
+            services.AddTransient<IOpenAIAPIRequestService, OpenAIAPIRequestService>();
+            
+            services.AddTransient<AppShell>();
+            services.AddTransient<SavedNotesPage>();
+            services.AddTransient<SettingsPage>();
+            
+            return services;
         }
-
-        private static string? GetFirebaseAuthDomain(IConfigurationRoot? appSettings)
+        
+        public static IServiceCollection AddViewModels(this IServiceCollection services)
         {
-            var firebaseAuthDomainSetting = appSettings?.GetRequiredSection("AUTH_DOMAIN");
-            return firebaseAuthDomainSetting?.Value;
+            services.AddViewModel<WelcomeViewModel, WelcomePage>();
+            services.AddViewModel<SignUpViewModel, SignUpPage>();
+            services.AddViewModel<SignInViewModel, SignInPage>();
+            services.AddViewModel<MainPageViewModel, MainPage>();
+            
+            return services;
         }
-
-        private static string? GetServerBaseURL(IConfigurationRoot? appSettings)
-        {
-            var serverBaseURLSetting = appSettings?.GetRequiredSection("SERVER_BASE_URL");
-            return serverBaseURLSetting?.Value;
-        }
-
-        private static void AddViewModel<TViewModel, TView>(this IServiceCollection services)
+        
+        public static void AddViewModel<TViewModel, TView>(this IServiceCollection services)
             where TView : ContentPage, new()
             where TViewModel : class
         {
             services.AddSingleton<TViewModel>();
-            services.AddTransient<TView>(s => new TView() { BindingContext = s.GetRequiredService<TViewModel>() });
+            services.AddTransient<TView>(s => new TView { BindingContext = s.GetRequiredService<TViewModel>() });
         }
     }
 }

@@ -2,14 +2,11 @@
 using Data_Organizer.APIRequestTools;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
-using Data_Organizer.MVVM.Models.Enums;
 using DocumentFormat.OpenXml.Packaging;
 using iText.IO.Font;
 using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout.Element;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using Refit;
 using System.Text;
 using Xceed.Words.NET;
@@ -107,7 +104,7 @@ namespace Data_Organizer.Services
             return await reader.ReadToEndAsync();
         }
 
-        public async Task ExportTextAsync(string text, TextFileFormat textFileFormat)
+        public async Task ExportTextAsync(string text, AppEnums.TextFileFormat textFileFormat)
         {
             var fileName = $"document.{textFileFormat.ToString().ToLower()}";
             using var stream = new MemoryStream();
@@ -121,19 +118,19 @@ namespace Data_Organizer.Services
                 throw fileSaverResult.Exception ?? new Exception("Не вдалося зберігти файл(");
         }
 
-        private async Task WriteTextToStreamAsync(MemoryStream stream, string text, TextFileFormat format)
+        private async Task WriteTextToStreamAsync(MemoryStream stream, string text, AppEnums.TextFileFormat format)
         {
             switch (format)
             {
-                case TextFileFormat.TXT:
+                case AppEnums.TextFileFormat.TXT:
                     stream.Write(Encoding.UTF8.GetBytes(text));
                     break;
 
-                case TextFileFormat.DOCX:
+                case AppEnums.TextFileFormat.DOCX:
                     WriteDocxToStream(stream, text);
                     break;
 
-                case TextFileFormat.PDF:
+                case AppEnums.TextFileFormat.PDF:
                     await WritePdfToStreamAsync(stream, text);
                     break;
             }

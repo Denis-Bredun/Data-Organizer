@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
-using Data_Organizer.MVVM.Models.Enums;
 using System.Globalization;
 
 namespace Data_Organizer.MVVM.ViewModels
@@ -283,13 +282,13 @@ namespace Data_Organizer.MVVM.ViewModels
             switch (answer)
             {
                 case pdf:
-                    await _fileService.ExportTextAsync(OutputText, TextFileFormat.PDF);
+                    await _fileService.ExportTextAsync(OutputText, AppEnums.TextFileFormat.PDF);
                     break;
                 case docx:
-                    await _fileService.ExportTextAsync(OutputText, TextFileFormat.DOCX);
+                    await _fileService.ExportTextAsync(OutputText, AppEnums.TextFileFormat.DOCX);
                     break;
                 case txt:
-                    await _fileService.ExportTextAsync(OutputText, TextFileFormat.TXT);
+                    await _fileService.ExportTextAsync(OutputText, AppEnums.TextFileFormat.TXT);
                     break;
             }
 
