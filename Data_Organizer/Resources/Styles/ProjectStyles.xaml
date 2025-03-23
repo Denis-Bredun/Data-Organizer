@@ -150,6 +150,12 @@
         <Setter Property="FontSize" Value="{StaticResource FontSize}" />
         <Setter Property="TextColor" Value="{StaticResource TextColor}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="HeightRequest" Value="{StaticResource MenuImageHeight}" />
+    </Style>
+
+    <Style TargetType="ScrollView">
+        <Setter Property="VerticalScrollBarVisibility" Value="Default" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Never" />
     </Style>
 
 </ResourceDictionary>

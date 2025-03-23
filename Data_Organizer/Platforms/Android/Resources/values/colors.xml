@@ -4,9 +4,27 @@
 	<color name="colorPrimaryDark">#000000</color>
 	<color name="colorAccent">#ffffff</color>
 
-    <style name="AppTheme" parent="Maui.SplashTheme">
+	<color name="scrollbar_thumb">#ffffff</color>
+	<color name="scrollbar_track">#00000000</color>
+
+	<style name="AppTheme" parent="Maui.SplashTheme">
 		<item name="android:textColor">#ffffff</item>
 		<item name="android:itemBackground">#393d3a</item>
+
+		<item name="android:scrollbarThumbVertical">@color/scrollbar_thumb</item>
+		<item name="android:scrollbarThumbHorizontal">@color/scrollbar_thumb</item>
+		<item name="android:scrollbarTrackVertical">@color/scrollbar_track</item>
+		<item name="android:scrollbarTrackHorizontal">@color/scrollbar_track</item>
+		<item name="android:scrollbarSize">2dp</item>
+		<item name="android:fadeScrollbars">false</item>
 	</style>
-    
+
+	<style name="Maui.MainTheme" parent="Theme.MaterialComponents.DayNight">
+		<item name="android:scrollbarThumbVertical">@android:color/white</item>
+		<item name="android:scrollbarThumbHorizontal">@android:color/white</item>
+		<item name="android:scrollbarTrackVertical">@android:color/transparent</item>
+		<item name="android:scrollbarTrackHorizontal">@android:color/transparent</item>
+		<item name="android:scrollbarSize">2dp</item>
+		<item name="android:fadeScrollbars">false</item>
+	</style>
 </resources>

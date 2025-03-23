@@ -82,6 +82,20 @@ namespace Data_Organizer
             builder.Logging.AddDebug();
 #endif
 
+#if ANDROID
+            Microsoft.Maui.Handlers.ScrollViewHandler.Mapper.ModifyMapping("HorizontalScrollBarVisibility", (handler, view, args) =>
+            {
+                handler.PlatformView.HorizontalScrollBarEnabled = true;
+                handler.PlatformView.ScrollBarFadeDuration = 0;
+            });
+
+            Microsoft.Maui.Handlers.ScrollViewHandler.Mapper.ModifyMapping("VerticalScrollBarVisibility", (handler, view, args) =>
+            {
+                handler.PlatformView.VerticalScrollBarEnabled = true;
+                handler.PlatformView.ScrollBarFadeDuration = 0;
+            });
+#endif
+
             return builder.Build();
         }
 

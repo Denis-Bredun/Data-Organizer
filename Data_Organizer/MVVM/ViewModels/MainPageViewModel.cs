@@ -297,6 +297,12 @@ namespace Data_Organizer.MVVM.ViewModels
             IsLoading = false;
         }
 
+        [RelayCommand]
+        public async Task ImportAudioFile()
+        {
+
+        }
+
         public void Dispose()
         {
             AudioTranscriptorService.StopListening();
