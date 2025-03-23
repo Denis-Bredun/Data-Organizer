@@ -319,6 +319,12 @@ namespace Data_Organizer.MVVM.ViewModels
             IsLoading = false;
         }
 
+        [RelayCommand]
+        public async Task ShowHelpInformation()
+        {
+
+        }
+
         private void SetOutputText(string newText)
         {
             UnsubscribeFromTranscriptionUpdates();

@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Data_Organizer.Interfaces;
-using System.Text.RegularExpressions;
 
 namespace Data_Organizer.MVVM.ViewModels
 {
@@ -46,10 +45,13 @@ namespace Data_Organizer.MVVM.ViewModels
         [RelayCommand]
         public async Task SignIn()
         {
-            if (!await ValidateData())
+            if (!await ValidateDataForEmptiness())
                 return;
 
             IsLoading = true;
+
+            Email = Email?.Trim();
+            Password = Password?.Trim();
 
             bool succeeded = await _googleAuthenticationService.SignInAsync(Email, Password);
 
@@ -59,13 +61,6 @@ namespace Data_Organizer.MVVM.ViewModels
                 IsLoading = false;
 
             // подгрузка о том, чи собираем метаданные
-        }
-
-        private async Task<bool> ValidateData()
-        {
-            return await ValidateDataForEmptiness() &&
-                   await ValidateEmail() &&
-                   await ValidatePassword();
         }
 
         private async Task<bool> ValidateDataForEmptiness()
@@ -79,28 +74,6 @@ namespace Data_Organizer.MVVM.ViewModels
             if (string.IsNullOrWhiteSpace(Password))
             {
                 await _notificationService.ShowToastAsync("Потрібно ввести пароль!");
-                return false;
-            }
-
-            return true;
-        }
-
-        private async Task<bool> ValidateEmail()
-        {
-            if (!Regex.IsMatch(Email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
-            {
-                await _notificationService.ShowToastAsync("Невірний формат електронної пошти!");
-                return false;
-            }
-
-            return true;
-        }
-
-        private async Task<bool> ValidatePassword()
-        {
-            if (!Regex.IsMatch(Password, @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_]).{6,}$"))
-            {
-                await _notificationService.ShowToastAsync("Пароль повинен містити щонайменше 6 символів, включаючи хоча б одну літеру, одну цифру та один спеціальний символ.");
                 return false;
             }
 

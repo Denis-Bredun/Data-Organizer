@@ -151,6 +151,8 @@
         <Setter Property="TextColor" Value="{StaticResource TextColor}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="HeightRequest" Value="{StaticResource MenuImageHeight}" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="VerticalOptions" Value="Center" />
     </Style>
 
     <Style TargetType="ScrollView">

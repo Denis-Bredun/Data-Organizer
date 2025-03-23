@@ -128,15 +128,17 @@ namespace Data_Organizer.MVVM.ViewModels
                 return true;
             }
 
-            if (!Regex.IsMatch(Username, "^[A-Za-z][A-Za-z0-9_]{2,}$"))
-            {
-                await _notificationService.ShowToastAsync("Ім'я користувача повинно починатися з літери, містити щонайменше 3 символи, з яких мінімум 2 — літери. Допустимі символи: англійські літери, цифри та нижнє підкреслення. Пробіли заборонені.");
-                return false;
-            }
+            Username = Username.Trim();
 
             if (Username.Contains(" "))
             {
                 await _notificationService.ShowToastAsync("Ім'я користувача не повинно містити пробілів.");
+                return false;
+            }
+
+            if (!Regex.IsMatch(Username, "^[A-Za-z][A-Za-z0-9_]{2,}$"))
+            {
+                await _notificationService.ShowToastAsync("Ім'я користувача повинно починатися з літери, містити щонайменше 3 символи, з яких мінімум 2 — літери. Допустимі символи: англійські літери, цифри та нижнє підкреслення.");
                 return false;
             }
 
@@ -152,6 +154,14 @@ namespace Data_Organizer.MVVM.ViewModels
 
         private async Task<bool> ValidateEmail()
         {
+            Email = Email.Trim();
+
+            if (Email.Contains(" "))
+            {
+                await _notificationService.ShowToastAsync("Адреса електронної пошти не повинна містити пробілів.");
+                return false;
+            }
+
             if (!Regex.IsMatch(Email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
             {
                 await _notificationService.ShowToastAsync("Невірний формат електронної пошти!");
