@@ -5,6 +5,7 @@
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              xmlns:converters="clr-namespace:Data_Organizer.Converters"
              xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
+             xmlns:controls="clr-namespace:Data_Organizer.MVVM.Views.Controls"
              x:DataType="vm:MainPageViewModel"
              x:Class="Data_Organizer.MVVM.Views.MainPage"
              Style="{StaticResource PageStyle}">
@@ -14,154 +15,13 @@
     </ContentPage.Resources>
 
     <Grid RowDefinitions="0.08*, *" Margin="15" RowSpacing="15">
+        <controls:HeaderBar />
 
-        <Grid ColumnDefinitions="0.4*, 0.1*, 0.1*" ColumnSpacing="10">
-            <uranium:Dropdown 
-                ItemsSource="{Binding FeatureService.Features}" 
-                SelectedItem="{Binding SelectedFeature, Mode=TwoWay, Converter={StaticResource SelectedFeatureFormatConverter}}"
-                TextColor="{StaticResource TextColor}"
-                BackgroundColor="{StaticResource ControlElementBackgroundColor}"
-                Style="{StaticResource MainPageDropdownStyle}"/>
+        <controls:EditorSection Grid.Row="1" />
 
-            <uranium:Dropdown 
-                Grid.Column="1"
-                ItemsSource="{Binding CultureInfoService.Languages}" 
-                SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
-                TextColor="{StaticResource TextColor}"
-                BackgroundColor="{StaticResource ControlElementBackgroundColor}"
-                Style="{StaticResource MainPageDropdownStyle}"/>
+        <controls:LoadingOverlay Grid.RowSpan="2" />
 
-            <ImageButton Grid.Column="2" Source="settings.svg"
-                         Style="{StaticResource MainPageButtonStyle}"
-                         Command="{Binding OpenCloseSettingsCommand}"/>
-        </Grid>
-
-        <Grid Grid.Row="1" ColumnDefinitions="0.8*, 0.2*" RowDefinitions="0.2*, 0.2*, 0.2*, 0.2*, 0.2*, 0.2*" ColumnSpacing="10" RowSpacing="10">
-            <Border Grid.RowSpan="6">
-                <ScrollView x:Name="MyScrollView">
-                    <Editor
-                        x:Name="MyEditor"
-                        Text="{Binding OutputText, Mode=TwoWay}" 
-                        IsReadOnly="{Binding IsReadOnly, Mode=TwoWay}" 
-                        Style="{StaticResource MainPageEditorStyle}"
-                        TextChanged="OnEditorTextChanged"/>
-                </ScrollView>
-            </Border>
-
-            <ImageButton Grid.Column="1" Grid.Row="0" Source="{Binding PlayButtonImageSource}"
-                         Command="{Binding PlayFeatureCommand}"/>
-            <ImageButton Grid.Column="1" Grid.Row="1" Source="copy.svg" 
-                         Style="{StaticResource MainPageButtonStyle}"
-                         Command="{Binding CopyOutputTextCommand}"/>
-            <ImageButton Grid.Column="1" Grid.Row="2" Source="paste.svg" 
-                         Style="{StaticResource MainPageButtonStyle}"
-                         Command="{Binding PasteTextCommand}"/>
-            <ImageButton Grid.Column="1" Grid.Row="3" Source="{Binding EditButtonImageSource}" 
-                         Style="{StaticResource MainPageButtonStyle}"
-                         Command="{Binding SwitchEditModeCommand}"/>
-            <ImageButton Grid.Column="1" Grid.Row="4" Source="clean.svg" 
-                         Style="{StaticResource MainPageButtonStyle}"
-                         Command="{Binding CleanEditorCommand}"/>
-            <ImageButton Grid.Column="1" Grid.Row="5" Source="save.svg" 
-                         Style="{StaticResource MainPageButtonStyle}"/>
-        </Grid>
-
-        <Grid 
-            Grid.RowSpan="2" 
-            IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-            Style="{StaticResource TransparentGridStyle}">
-
-            <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
-        </Grid>
-
-        <Grid 
-            Grid.RowSpan="2"
-            IsVisible="{Binding AreSettingsOpen, Mode=TwoWay}"
-            Style="{StaticResource TransparentGridStyle}">
-            <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding OpenCloseSettingsCommand}"/>
-            </Grid.GestureRecognizers>
-
-            <AbsoluteLayout>
-                <Frame
-                    AbsoluteLayout.LayoutFlags="All" 
-                    AbsoluteLayout.LayoutBounds="1, 0.1, 0.75, 0.33"
-                    Style="{StaticResource PopupFrameStyle}">
-                    <ScrollView
-                        x:Name="SettingsScrollView"
-                        VerticalScrollBarVisibility="Always">
-                        <Grid 
-                        RowDefinitions="*, 1, *, 1, *, 1, *, 1, *"       
-                        Padding="15"
-                        HorizontalOptions="Start">
-
-                            <Button 
-                            ImageSource="help_info.svg" 
-                            Text="Довідка"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Command="{Binding ShowHelpInformationCommand}"/>
-
-                            <BoxView 
-                            Grid.Row="1" 
-                            Style="{StaticResource SeparatorLineStyle}"/>
-                            
-                            <StackLayout 
-                            Grid.Row="2"
-                            Style="{StaticResource MenuItemContainerStyle}">
-
-                                <CheckBox 
-                                Color="White"
-                                IsChecked="{Binding IsTextAddedAtTheEnd, Mode=TwoWay}"/>
-
-                                <Label
-                                Text="Додавати в кінець"
-                                VerticalOptions="Center"
-                                Style="{StaticResource LabelStyle}">
-                                    <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding ChangeSettingIsTextAddedAtTheEndCommand}"/>
-                                    </Label.GestureRecognizers>
-                                </Label>
-                            </StackLayout>
-
-                            <BoxView 
-                            Grid.Row="3" 
-                            Style="{StaticResource SeparatorLineStyle}"/>
-
-                            <Button 
-                            Grid.Row="4" 
-                            ImageSource="import_file.svg" 
-                            Text="Імпорт файлу"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Command="{Binding ImportFileCommand}"/>
-
-                            <BoxView 
-                            Grid.Row="5" 
-                            Style="{StaticResource SeparatorLineStyle}"/>
-
-                            <Button 
-                            Grid.Row="6" 
-                            ImageSource="export_file.svg" 
-                            Text="Експорт файлу"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Command="{Binding ExportFileCommand}"/>
-
-                            <BoxView 
-                            Grid.Row="7" 
-                            Style="{StaticResource SeparatorLineStyle}"/>
-
-                            <Button 
-                            Grid.Row="8" 
-                            ImageSource="import_audiofile.svg" 
-                            Text="Імпорт аудіофайлу"
-                            Style="{StaticResource MenuButtonStyle}"
-                            Command="{Binding ImportAudioFileCommand}"/>
-
-                        </Grid>
-                    </ScrollView>
-                </Frame>
-            </AbsoluteLayout>
-        </Grid>
-
+        <controls:SettingsPopup Grid.RowSpan="2" />
     </Grid>
 
 </ContentPage>
