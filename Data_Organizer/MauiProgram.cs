@@ -2,6 +2,9 @@
 using Data_Organizer.APIRequestTools;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.ViewModels;
+using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
+using Data_Organizer.MVVM.ViewModels.SignInViewModel;
+using Data_Organizer.MVVM.ViewModels.SignUpViewModel;
 using Data_Organizer.MVVM.Views;
 using Data_Organizer.Services;
 using Firebase.Auth;
@@ -21,20 +24,20 @@ namespace Data_Organizer
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-            
+
             ConfigureAppEssentials(builder);
-            
+
             var config = LoadConfiguration();
-            
+
             RegisterFirebase(builder.Services, config);
-            
+
             builder.Services
                 .AddApiClients(config["SERVER_BASE_URL"])
                 .AddAppServices()
                 .AddViewModels();
-                
+
             ConfigurePlatformSpecifics();
-            
+
             return builder.Build();
         }
 
@@ -47,7 +50,7 @@ namespace Data_Organizer
                 .UseMauiCommunityToolkit()
                 .UseUraniumUI()
                 .UseUraniumUIMaterial();
-                
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
@@ -64,7 +67,7 @@ namespace Data_Organizer
         {
             var firebaseApiKey = config["FIREBASE_API_KEY"];
             var firebaseAuthDomain = config["AUTH_DOMAIN"];
-            
+
             services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig
             {
                 ApiKey = firebaseApiKey,
@@ -97,18 +100,18 @@ namespace Data_Organizer
         public static IServiceCollection AddApiClients(this IServiceCollection services, string baseUrl)
         {
             services.AddTransient<FirebaseAuthHttpMessageHandler>();
-            
+
             services.AddRefitClient<IGetSummaryFromChatGPTQuery>()
                     .ConfigureHttpClient(c => c.BaseAddress = new Uri(baseUrl))
                     .AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
-                    
+
             services.AddRefitClient<IGetTranscriptionFromAudiofileQuery>()
                     .ConfigureHttpClient(c => c.BaseAddress = new Uri(baseUrl))
                     .AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
-                    
+
             return services;
         }
-        
+
         public static IServiceCollection AddAppServices(this IServiceCollection services)
         {
             services.AddTransient<IApplicationPreferencesService, ApplicationPreferencesService>();
@@ -126,24 +129,24 @@ namespace Data_Organizer
             services.AddTransient<IClipboardService, ClipboardService>();
             services.AddTransient<IGoogleAuthenticationService, GoogleAuthenticationService>();
             services.AddTransient<IOpenAIAPIRequestService, OpenAIAPIRequestService>();
-            
+
             services.AddTransient<AppShell>();
             services.AddTransient<SavedNotesPage>();
             services.AddTransient<SettingsPage>();
-            
+
             return services;
         }
-        
+
         public static IServiceCollection AddViewModels(this IServiceCollection services)
         {
             services.AddViewModel<WelcomeViewModel, WelcomePage>();
             services.AddViewModel<SignUpViewModel, SignUpPage>();
             services.AddViewModel<SignInViewModel, SignInPage>();
             services.AddViewModel<MainPageViewModel, MainPage>();
-            
+
             return services;
         }
-        
+
         public static void AddViewModel<TViewModel, TView>(this IServiceCollection services)
             where TView : ContentPage, new()
             where TViewModel : class

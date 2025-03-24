@@ -1,7 +1,6 @@
 using CommunityToolkit.Mvvm.Input;
-using System.Threading.Tasks;
 
-namespace Data_Organizer.MVVM.ViewModels
+namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
 {
     public partial class MainPageViewModel
     {
@@ -23,4 +22,4 @@ namespace Data_Organizer.MVVM.ViewModels
             // Implementation for showing help information
         }
     }
-} 
+}

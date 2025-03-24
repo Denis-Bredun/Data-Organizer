@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Threading.Tasks;
 
-namespace Data_Organizer.MVVM.ViewModels
+namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
 {
     public partial class SignUpViewModel
     {

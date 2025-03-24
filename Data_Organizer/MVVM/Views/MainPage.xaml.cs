@@ -1,4 +1,4 @@
-using Data_Organizer.MVVM.ViewModels;
+using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
 namespace Data_Organizer.MVVM.Views;
 
 public partial class MainPage : ContentPage

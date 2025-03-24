@@ -4,7 +4,7 @@
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              xmlns:converters="clr-namespace:Data_Organizer.Converters"
-             xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
+             xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels.MainPageViewModel"
              xmlns:controls="clr-namespace:Data_Organizer.MVVM.Views.Controls"
              x:DataType="vm:MainPageViewModel"
              x:Class="Data_Organizer.MVVM.Views.MainPage"

@@ -1,7 +1,6 @@
 using CommunityToolkit.Mvvm.Input;
-using System.Threading.Tasks;
 
-namespace Data_Organizer.MVVM.ViewModels
+namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
 {
     public partial class SignInViewModel
     {
@@ -20,4 +19,4 @@ namespace Data_Organizer.MVVM.ViewModels
             await Shell.Current.GoToAsync("//TabBar");
         }
     }
-} 
+}

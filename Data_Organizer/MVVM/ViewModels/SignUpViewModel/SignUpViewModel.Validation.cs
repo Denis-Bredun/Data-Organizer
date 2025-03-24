@@ -1,8 +1,6 @@
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Linq;
 
-namespace Data_Organizer.MVVM.ViewModels
+namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
 {
     public partial class SignUpViewModel
     {
@@ -110,4 +108,4 @@ namespace Data_Organizer.MVVM.ViewModels
             return true;
         }
     }
-} 
+}

@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Data_Organizer.Interfaces;
-using Data_Organizer.MVVM.ViewModels;
+using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
 using System.Globalization;
 
 namespace Data_Organizer.Services

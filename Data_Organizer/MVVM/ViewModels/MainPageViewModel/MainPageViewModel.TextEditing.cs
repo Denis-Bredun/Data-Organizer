@@ -1,7 +1,6 @@
 using CommunityToolkit.Mvvm.Input;
-using System.Threading.Tasks;
 
-namespace Data_Organizer.MVVM.ViewModels
+namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
 {
     public partial class MainPageViewModel
     {
@@ -96,4 +95,4 @@ namespace Data_Organizer.MVVM.ViewModels
             await _notificationService.ShowToastAsync("Ви вийшли з режиму редагування!");
         }
     }
-} 
+}

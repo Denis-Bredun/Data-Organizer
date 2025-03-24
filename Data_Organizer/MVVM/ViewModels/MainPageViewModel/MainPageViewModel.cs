@@ -2,7 +2,7 @@
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
 
-namespace Data_Organizer.MVVM.ViewModels
+namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
 {
     public partial class MainPageViewModel : ObservableObject, IDisposable
     {

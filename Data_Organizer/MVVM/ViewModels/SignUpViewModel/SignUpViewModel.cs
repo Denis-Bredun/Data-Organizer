@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Data_Organizer.Interfaces;
 
-namespace Data_Organizer.MVVM.ViewModels
+namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
 {
     public partial class SignUpViewModel : ObservableObject
     {

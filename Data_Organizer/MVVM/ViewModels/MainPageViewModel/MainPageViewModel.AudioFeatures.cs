@@ -2,7 +2,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Globalization;
 using System.Threading.Tasks;
 
-namespace Data_Organizer.MVVM.ViewModels
+namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
 {
     public partial class MainPageViewModel
     {
