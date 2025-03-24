@@ -75,13 +75,6 @@
                 Command="{Binding NavigateToMainPageCommand}"/>
         </VerticalStackLayout>
 
-        <Grid 
-            Grid.RowSpan="8" 
-            IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-            Style="{StaticResource TransparentGridStyle}">
-
-            <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
-        </Grid>
-
+        <controls:LoadingOverlay Grid.RowSpan="8" />
     </Grid>
 </ContentPage>

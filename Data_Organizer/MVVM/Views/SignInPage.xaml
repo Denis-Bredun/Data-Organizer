@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels.SignInViewModel"
              xmlns:controls="clr-namespace:Data_Organizer.MVVM.Views.Controls"
-             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              x:DataType="vm:SignInViewModel"
              x:Class="Data_Organizer.MVVM.Views.SignInPage"
              Style="{StaticResource PageStyle}">
@@ -46,12 +45,7 @@
                 Command="{Binding NavigateToMainPageCommand}"/>
         </VerticalStackLayout>
 
-        <Grid 
-            Grid.RowSpan="8" 
-            IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-            Style="{StaticResource TransparentGridStyle}">
-            <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
-        </Grid>
+        <controls:LoadingOverlay Grid.RowSpan="8" />
     </Grid>
     
 </ContentPage>

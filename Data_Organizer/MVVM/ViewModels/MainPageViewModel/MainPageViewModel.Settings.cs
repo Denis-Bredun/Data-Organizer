@@ -17,9 +17,15 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
         }
 
         [RelayCommand]
-        public async Task ShowHelpInformation()
+        public void ShowHelpInformation()
         {
-            // Implementation for showing help information
+            IsHelpOpen = true;
+        }
+
+        [RelayCommand]
+        public void CloseHelp()
+        {
+            IsHelpOpen = false;
         }
     }
 }

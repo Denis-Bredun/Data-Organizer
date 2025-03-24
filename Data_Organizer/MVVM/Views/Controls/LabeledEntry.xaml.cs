@@ -34,6 +34,5 @@ public partial class LabeledEntry : ContentView
     public LabeledEntry()
     {
         InitializeComponent();
-        BindingContext = this;
     }
 } 

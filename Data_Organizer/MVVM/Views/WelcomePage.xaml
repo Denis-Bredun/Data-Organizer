@@ -2,44 +2,42 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
-             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             xmlns:controls="clr-namespace:Data_Organizer.MVVM.Views.Controls"
              x:DataType="vm:WelcomeViewModel"
              x:Class="Data_Organizer.MVVM.Views.WelcomePage"
              Style="{StaticResource PageStyle}">
 
-    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20" Padding="30">
-        <Image 
-            Source="icon.png"
-            WidthRequest="250"
-            HeightRequest="250"
-            HorizontalOptions="Center"/>
+    <Grid>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20" Padding="30">
+            <Image 
+                Source="icon.png"
+                WidthRequest="250"
+                HeightRequest="250"
+                HorizontalOptions="Center"/>
 
-        <Label
-            Style="{StaticResource GreetingTextStyle}"
-            Text="Вітаємо у застосунку Data Organizer! З його допомогою виділяти тези з аудіо та зберігати їх стане набагато простіше ;)"/>
+            <Label
+                Style="{StaticResource GreetingTextStyle}"
+                Text="Вітаємо у застосунку Data Organizer! З його допомогою виділяти тези з аудіо та зберігати їх стане набагато простіше ;)"/>
 
-        <VerticalStackLayout Spacing="10">
-            <Button
-                Style="{StaticResource BaseButtonStyle}"
-                Text="Зареєструватись"
-                Command="{Binding NavigateToSignUpPageCommand}"/>
+            <VerticalStackLayout Spacing="10">
+                <Button
+                    Style="{StaticResource BaseButtonStyle}"
+                    Text="Зареєструватись"
+                    Command="{Binding NavigateToSignUpPageCommand}"/>
 
-            <Button
-                Style="{StaticResource SignInButtonStyle}"
-                Text="Увійти"
-                Command="{Binding NavigateToSignInPageCommand}"/>
+                <Button
+                    Style="{StaticResource SignInButtonStyle}"
+                    Text="Увійти"
+                    Command="{Binding NavigateToSignInPageCommand}"/>
 
-            <Button
-                Style="{StaticResource LinkButtonStyle}"
-                Text="Увійти як гість"
-                Command="{Binding NavigateToMainPageCommand}"/>
-        </VerticalStackLayout>
-
-        <Grid 
-            IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-            Style="{StaticResource TransparentGridStyle}">
-            <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
-        </Grid>
-    </StackLayout>
+                <Button
+                    Style="{StaticResource LinkButtonStyle}"
+                    Text="Увійти як гість"
+                    Command="{Binding NavigateToMainPageCommand}"/>
+            </VerticalStackLayout>
+        </StackLayout>
+        
+        <controls:LoadingOverlay />
+    </Grid>
     
 </ContentPage>

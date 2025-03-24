@@ -22,6 +22,8 @@
         <controls:LoadingOverlay Grid.RowSpan="2" />
 
         <controls:SettingsPopup Grid.RowSpan="2" />
+        
+        <controls:HelpPopup Grid.RowSpan="2" />
     </Grid>
 
 </ContentPage>
