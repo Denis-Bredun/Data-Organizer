@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
+             xmlns:controls="clr-namespace:Data_Organizer.MVVM.Views.Controls"
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              x:DataType="vm:SignInViewModel"
              x:Class="Data_Organizer.MVVM.Views.SignInPage"
@@ -12,30 +13,16 @@
                Text="Авторизація"
                Style="{StaticResource PageTitleStyle}"/>
 
-        <Grid Grid.Row="1" RowDefinitions="*,*" Margin="30,0,30,0">
-            <Label 
-                Text="Пошта"
-                Style="{StaticResource EntriesTitleStyle}"/>
-            <Frame Grid.Row="1" 
-                   Style="{StaticResource EntriesFrameStyle}">
-                <Entry 
-                    Style="{StaticResource EntryStyle}"
-                    Text="{Binding Email, Mode=TwoWay}"/>
-            </Frame>
-        </Grid>
+        <controls:LabeledEntry 
+            Grid.Row="1"
+            LabelText="Пошта"
+            EntryText="{Binding Email, Mode=TwoWay}"/>
 
-        <Grid Grid.Row="2" RowDefinitions="*,*" Margin="30,0,30,0">
-            <Label 
-                Text="Пароль"
-                Style="{StaticResource EntriesTitleStyle}"/>
-            <Frame Grid.Row="1" 
-                   Style="{StaticResource EntriesFrameStyle}">
-                <Entry 
-                    Style="{StaticResource EntryStyle}"
-                    IsPassword="True"
-                    Text="{Binding Password, Mode=TwoWay}"/>
-            </Frame>
-        </Grid>
+        <controls:LabeledEntry 
+            Grid.Row="2"
+            LabelText="Пароль"
+            EntryText="{Binding Password, Mode=TwoWay}"
+            IsPassword="True"/>
 
         <Button 
             Grid.Row="4"
@@ -45,30 +32,26 @@
             Text="Авторизуватись"
             Command="{Binding SignInCommand}"/>
 
-        <Grid Grid.Row="5" RowDefinitions="*,*" Margin="25,0,25,30">
-
+        <VerticalStackLayout 
+            Grid.Row="5" 
+            Margin="25,0,25,30">
             <Button
                 Text="Немає акаунту? Зареєструйтесь."
                 Style="{StaticResource LinkButtonStyle}"
-                VerticalOptions="Start"
                 Command="{Binding NavigateToSignUpPageCommand}"/>
 
             <Button
-                Grid.Row="1"
                 Text="Увійти як гість"
                 Style="{StaticResource LinkButtonStyle}"
-                VerticalOptions="Start"
                 Command="{Binding NavigateToMainPageCommand}"/>
-        </Grid>
+        </VerticalStackLayout>
 
         <Grid 
             Grid.RowSpan="8" 
             IsVisible="{Binding IsLoading, Mode=TwoWay}" 
             Style="{StaticResource TransparentGridStyle}">
-
             <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
         </Grid>
-
     </Grid>
     
 </ContentPage>

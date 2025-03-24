@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
+             xmlns:controls="clr-namespace:Data_Organizer.MVVM.Views.Controls"
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              x:DataType="vm:SignUpViewModel"
              x:Class="Data_Organizer.MVVM.Views.SignUpPage"
@@ -12,55 +13,27 @@
             Text="Реєстрація"
             Style="{StaticResource PageTitleStyle}"/>
 
-        <Grid Grid.Row="1" RowDefinitions="*,*" Margin="30,0,30,0">
-            <Label 
-                Text="Відображуване ім'я"
-                Style="{StaticResource EntriesTitleStyle}"/>
-            <Frame Grid.Row="1" 
-                   Style="{StaticResource EntriesFrameStyle}">
-                <Entry 
-                    Style="{StaticResource UsernameEntryStyle}"
-                    Text="{Binding Username, Mode=TwoWay}"/>
-            </Frame>
-        </Grid>
+        <controls:LabeledEntry 
+            Grid.Row="1"
+            LabelText="Відображуване ім'я"
+            EntryText="{Binding Username, Mode=TwoWay}"/>
 
-        <Grid Grid.Row="2" RowDefinitions="*,*" Margin="30,0,30,0">
-            <Label 
-                Text="Пошта *"
-                Style="{StaticResource EntriesTitleStyle}"/>
-            <Frame Grid.Row="1" 
-                   Style="{StaticResource EntriesFrameStyle}">
-                <Entry 
-                    Style="{StaticResource EntryStyle}"
-                    Text="{Binding Email, Mode=TwoWay}"/>
-            </Frame>
-        </Grid>
+        <controls:LabeledEntry 
+            Grid.Row="2"
+            LabelText="Пошта *"
+            EntryText="{Binding Email, Mode=TwoWay}"/>
 
-        <Grid Grid.Row="3" RowDefinitions="*,*" Margin="30,0,30,0">
-            <Label 
-                Text="Пароль *"
-                Style="{StaticResource EntriesTitleStyle}"/>
-            <Frame Grid.Row="1" 
-                   Style="{StaticResource EntriesFrameStyle}">
-                <Entry 
-                    Style="{StaticResource EntryStyle}"
-                    IsPassword="True"
-                    Text="{Binding Password, Mode=TwoWay}"/>
-            </Frame>
-        </Grid>
+        <controls:LabeledEntry 
+            Grid.Row="3"
+            LabelText="Пароль *"
+            EntryText="{Binding Password, Mode=TwoWay}"
+            IsPassword="True"/>
 
-        <Grid Grid.Row="4" RowDefinitions="*,*" Margin="30,0,30,0">
-            <Label 
-                Text="Підтвердження паролю *"
-                Style="{StaticResource EntriesTitleStyle}"/>
-            <Frame Grid.Row="1" 
-                   Style="{StaticResource EntriesFrameStyle}">
-                <Entry 
-                    Style="{StaticResource EntryStyle}"
-                    IsPassword="True"
-                    Text="{Binding ConfirmPassword, Mode=TwoWay}"/>
-            </Frame>
-        </Grid>
+        <controls:LabeledEntry 
+            Grid.Row="4"
+            LabelText="Підтвердження паролю *"
+            EntryText="{Binding ConfirmPassword, Mode=TwoWay}"
+            IsPassword="True"/>
 
         <Grid Grid.Row="5" ColumnDefinitions="0.1*,*,0.1*" Margin="25,0,25,0">
             <CheckBox 
@@ -87,21 +60,20 @@
             Text="Зареєструватись"
             Command="{Binding SignUpCommand}"/>
 
-        <Grid Grid.Row="7" RowDefinitions="*,*" Margin="25,0,25,30">
-
+        <VerticalStackLayout 
+            Grid.Row="7" 
+            Margin="25,0,25,30">
+            
             <Button
                 Text="Маєте акаунт? Увійдіть."
                 Style="{StaticResource LinkButtonStyle}"
-                VerticalOptions="Start"
                 Command="{Binding NavigateToSignInPageCommand}"/>
 
             <Button
-                Grid.Row="1"
                 Text="Увійти як гість"
                 Style="{StaticResource LinkButtonStyle}"
-                VerticalOptions="Start"
                 Command="{Binding NavigateToMainPageCommand}"/>
-        </Grid>
+        </VerticalStackLayout>
 
         <Grid 
             Grid.RowSpan="8" 

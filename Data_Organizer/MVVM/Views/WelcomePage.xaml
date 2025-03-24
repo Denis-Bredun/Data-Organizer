@@ -7,48 +7,39 @@
              x:Class="Data_Organizer.MVVM.Views.WelcomePage"
              Style="{StaticResource PageStyle}">
 
-    <AbsoluteLayout>
-
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20" Padding="30">
         <Image 
             Source="icon.png"
-            AbsoluteLayout.LayoutBounds="0.5, 0.05, 250, 250"
-            AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"/>
+            WidthRequest="250"
+            HeightRequest="250"
+            HorizontalOptions="Center"/>
 
         <Label
-            AbsoluteLayout.LayoutBounds="0.5, 0.45, 400, 130"
-            AbsoluteLayout.LayoutFlags="PositionProportional"
             Style="{StaticResource GreetingTextStyle}"
             Text="Вітаємо у застосунку Data Organizer! З його допомогою виділяти тези з аудіо та зберігати їх стане набагато простіше ;)"/>
 
-        <Button
-            AbsoluteLayout.LayoutBounds="0.5, 0.63, 240, 70" 
-            AbsoluteLayout.LayoutFlags="PositionProportional" 
-            Style="{StaticResource BaseButtonStyle}"
-            Text="Зареєструватись"
-            Command="{Binding NavigateToSignUpPageCommand}"/>
+        <VerticalStackLayout Spacing="10">
+            <Button
+                Style="{StaticResource BaseButtonStyle}"
+                Text="Зареєструватись"
+                Command="{Binding NavigateToSignUpPageCommand}"/>
 
-        <Button
-            AbsoluteLayout.LayoutBounds="0.5, 0.75, 240, 70" 
-            AbsoluteLayout.LayoutFlags="PositionProportional"
-            Style="{StaticResource SignInButtonStyle}"
-            Text="Увійти"
-            Command="{Binding NavigateToSignInPageCommand}"/>
+            <Button
+                Style="{StaticResource SignInButtonStyle}"
+                Text="Увійти"
+                Command="{Binding NavigateToSignInPageCommand}"/>
 
-        <Button
-            AbsoluteLayout.LayoutBounds="0.5, 0.84, 240, 50" 
-            AbsoluteLayout.LayoutFlags="PositionProportional"
-            Style="{StaticResource LinkButtonStyle}"
-            Text="Увійти як гість"
-            Command="{Binding NavigateToMainPageCommand}"/>
+            <Button
+                Style="{StaticResource LinkButtonStyle}"
+                Text="Увійти як гість"
+                Command="{Binding NavigateToMainPageCommand}"/>
+        </VerticalStackLayout>
 
         <Grid 
             IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-            Style="{StaticResource TransparentGridStyle}"
-            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-            AbsoluteLayout.LayoutFlags="All">
+            Style="{StaticResource TransparentGridStyle}">
             <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
         </Grid>
-
-    </AbsoluteLayout>
+    </StackLayout>
     
 </ContentPage>
