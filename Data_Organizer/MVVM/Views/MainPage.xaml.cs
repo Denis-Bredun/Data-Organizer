@@ -8,6 +8,14 @@ public partial class MainPage : ContentPage
         InitializeComponent();
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (VersionTracking.IsFirstLaunchEver)
+            ((MainPageViewModel)BindingContext).IsHelpOpen = true;
+    }
+
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
