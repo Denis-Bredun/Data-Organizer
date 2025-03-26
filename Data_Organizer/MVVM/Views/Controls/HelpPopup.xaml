@@ -30,8 +30,419 @@
                             HorizontalOptions="End"/>
                 </Grid>
 
-                <ScrollView Grid.Row="1" Margin="0,10,0,0">
+                <ScrollView Grid.Row="1" Margin="10,10,10,0">
                     <StackLayout>
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="Є 3 вкладки:&#10;- головна сторінка;&#10;- сторінка збережених записів;&#10;- сторінка налаштувань."
+                            Margin="0,0,0,15"/>
+                        
+                        <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text="Головна сторінка"
+                                FontAttributes="Bold"
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Source="home_page.svg"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                VerticalOptions="Center"/>
+                                
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text=":"
+                                FontAttributes="Bold"
+                                VerticalOptions="Center"/>
+                        </StackLayout>
+                        
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="На головній сторінці доступні два режими роботи:"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Транскрипція — дозволяє в реальному часі робити запис аудіо та відразу перетворювати його на текст"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Конспект — створення тез на основі введеного тексту (доступний тільки з преміум-підпискою)"/>
+                            
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label 
+                                Grid.Column="0"
+                                Style="{StaticResource LabelStyle}"
+                                Text="Для запуску режиму &#10;натисніть кнопку - "
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Grid.Column="1"
+                                Source="start_record.svg"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+                        </Grid>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="При відсутності голосу протягом 10 секунд у режимі Транскрипції запис автоматично зупиняється"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="У верхній частині екрану можна вибрати мову (UA, EN, RU):"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="  — для Транскрипції це мова, якою ви говорите;"
+                            Margin="5,0,0,0"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="  — для Конспекту це мова виводу тез."
+                            Margin="5,0,0,0"/>
+                            
+                        <Grid Margin="0,10,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label 
+                                Grid.Column="0"
+                                Style="{StaticResource LabelStyle}"
+                                Text="Зверху також можна &#10;викликати меню за &#10;допомогою кнопки - "
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Grid.Column="1"
+                                Source="settings.svg"
+                                HeightRequest="25"
+                                WidthRequest="25"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="У меню доступні функції:"/>
+                            
+                        <Grid Margin="5,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label 
+                                Grid.Column="0"
+                                Style="{StaticResource LabelStyle}"
+                                Text="• Довідка "
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Grid.Column="1"
+                                Source="help_info.svg"
+                                HeightRequest="25"
+                                WidthRequest="25"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+                        </Grid>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Додавати в кінець — вказує: замінювати або додавати текст в кінець при запуску режимів або імпорті файлів"
+                            Margin="5,0,0,0"/>
+                            
+                        <Grid Margin="5,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label 
+                                Grid.Column="0"
+                                Style="{StaticResource LabelStyle}"
+                                Text="• Імпорт файлу "
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Grid.Column="1"
+                                Source="import_file.svg"
+                                HeightRequest="25"
+                                WidthRequest="25"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <Grid Margin="5,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label 
+                                Grid.Column="0"
+                                Style="{StaticResource LabelStyle}"
+                                Text="• Експорт файлу "
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Grid.Column="1"
+                                Source="export_file.svg"
+                                HeightRequest="25"
+                                WidthRequest="25"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <Grid Margin="5,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label 
+                                Grid.Column="0"
+                                Style="{StaticResource LabelStyle}"
+                                Text="• Імпорт аудіофайлу "
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Grid.Column="1"
+                                Source="import_audiofile.svg"
+                                HeightRequest="25"
+                                WidthRequest="25"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Інші налаштування для зручності праці"
+                            Margin="5,0,0,0"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="Важливо: експорт та імпорт файлів доступні тільки для користувачів з преміум-підпискою."
+                            Margin="0,10,0,0"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="Також на головній сторінці доступні наступні кнопки:"
+                            Margin="0,10,0,5"/>
+                            
+                        <Grid Margin="5,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label 
+                                Grid.Column="0"
+                                Style="{StaticResource LabelStyle}"
+                                Text="• Копіювати "
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Grid.Column="1"
+                                Source="copy.svg"
+                                HeightRequest="25"
+                                WidthRequest="25"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <Grid Margin="5,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label 
+                                Grid.Column="0"
+                                Style="{StaticResource LabelStyle}"
+                                Text="• Вставити "
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Grid.Column="1"
+                                Source="paste.svg"
+                                HeightRequest="25"
+                                WidthRequest="25"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <Grid Margin="5,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label 
+                                Grid.Column="0"
+                                Style="{StaticResource LabelStyle}"
+                                Text="• Режим редагування "
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Grid.Column="1"
+                                Source="disabled_edit_mode.svg"
+                                HeightRequest="25"
+                                WidthRequest="25"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <Grid Margin="5,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label 
+                                Grid.Column="0"
+                                Style="{StaticResource LabelStyle}"
+                                Text="• Очистити "
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Grid.Column="1"
+                                Source="clean.svg"
+                                HeightRequest="25"
+                                WidthRequest="25"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <Grid Margin="5,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label 
+                                Grid.Column="0"
+                                Style="{StaticResource LabelStyle}"
+                                Text="• Зберегти "
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Grid.Column="1"
+                                Source="save.svg"
+                                HeightRequest="25"
+                                WidthRequest="25"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="Примітка: функція збереження доступна тільки для авторизованих користувачів."
+                            Margin="5,0,0,10"/>
+                            
+                        <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text="Сторінка збережених &#10;записів"
+                                FontAttributes="Bold"
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Source="saved_notes_page.svg"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                VerticalOptions="Center"/>
+                                
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text=":"
+                                FontAttributes="Bold"
+                                VerticalOptions="Center"/>
+                        </StackLayout>
+                        
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="На сторінці збережених записів ви можете:"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Переглядати раніше збережені записи"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Редагувати кожен запис окремо"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Видаляти непотрібні записи"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Експортувати записи в різні формати"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Сортувати записи за датою створення"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Шукати записи за назвою"/>
+                            
+                        <Label
+                            Style="{StaticResource LabelStyle}"
+                            Text="Важливо: записи доступні тільки авторизованим користувачам."
+                            Margin="0,10,0,0"/>
+                            
+                        <Label
+                            Style="{StaticResource LabelStyle}"
+                            Text="Без преміум-підписки можна зберегти максимум 10 записів."/>
+                            
+                        <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text="Сторінка налаштувань"
+                                FontAttributes="Bold"
+                                VerticalOptions="Center"/>
+                                
+                            <Image 
+                                Source="settings_page.svg"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                VerticalOptions="Center"/>
+                                
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text=":"
+                                FontAttributes="Bold"
+                                VerticalOptions="Center"/>
+                        </StackLayout>
+                        
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="На сторінці налаштувань ви можете:"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Авторизуватись у системі або вийти з облікового запису"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Придбати преміум-підписку або відмовитись від неї"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Змінити пароль для захисту ваших даних"/>
+                            
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="• Відключити або включити збір метаданих"/>
                     </StackLayout>
                 </ScrollView>
             </Grid>
