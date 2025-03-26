@@ -31,49 +31,42 @@
                 </Grid>
 
                 <ScrollView Grid.Row="1" Margin="10,10,10,0">
-                    <StackLayout Spacing="8">
-                        <!-- Вступ -->
-                        <Frame BackgroundColor="{StaticResource ControlElementBackgroundColor}" Padding="15,10" CornerRadius="8" HasShadow="False">
+                    <StackLayout Style="{StaticResource HelpContentStackStyle}">
+                        <Frame Style="{StaticResource HelpStandardFrameStyle}">
                             <Label 
                                 Style="{StaticResource LabelStyle}"
                                 Text="Є 3 вкладки:&#10;- головна сторінка;&#10;- сторінка збережених записів;&#10;- сторінка налаштувань."
                                 Margin="0"/>
                         </Frame>
                         
-                        <!-- ГОЛОВНА СТОРІНКА -->
                         <BoxView Style="{StaticResource SeparatorLineStyle}" Margin="0,15,0,8"/>
                         
-                        <StackLayout Orientation="Horizontal" Margin="0,8,0,12">
+                        <StackLayout Style="{StaticResource HelpSectionHeaderStyle}">
                             <Label 
                                 Style="{StaticResource LabelStyle}"
                                 Text="Головна сторінка"
                                 FontAttributes="Bold"
-                                FontSize="16"
+                                FontSize="{StaticResource HelpSectionTitleFontSize}"
                                 VerticalOptions="Center"/>
                                 
                             <Image 
                                 Source="home_page.svg"
-                                HeightRequest="30"
-                                WidthRequest="30"
-                                VerticalOptions="Center"/>
+                                Style="{StaticResource HelpSectionIconStyle}"/>
                                 
                             <Label 
                                 Style="{StaticResource LabelStyle}"
                                 Text=":"
                                 FontAttributes="Bold"
-                                FontSize="16"
+                                FontSize="{StaticResource HelpSectionTitleFontSize}"
                                 VerticalOptions="Center"/>
                         </StackLayout>
                         
-                        <!-- Режими роботи -->
                         <Label 
-                            Style="{StaticResource LabelStyle}"
-                            Text="На головній сторінці доступні два режими роботи:"
-                            FontAttributes="Bold"
-                            Margin="5,0,0,5"/>
+                            Style="{StaticResource HelpSectionTitleStyle}"
+                            Text="На головній сторінці доступні два режими роботи:"/>
                             
-                        <Frame Style="{StaticResource FrameStyle}" Padding="15,10" CornerRadius="8" HasShadow="False" Margin="5,0,5,5">
-                            <StackLayout Spacing="8">
+                        <Frame Style="{StaticResource HelpStandardFrameStyle}">
+                            <StackLayout Style="{StaticResource HelpContentStackStyle}">
                                 <Label 
                                     Style="{StaticResource LabelStyle}"
                                     Text="• Транскрипція — дозволяє в реальному часі робити запис аудіо та відразу перетворювати його на текст"/>
@@ -93,31 +86,27 @@
                             <Label 
                                 Grid.Column="0"
                                 Style="{StaticResource LabelStyle}"
-                                Text="Для запуску режиму натисніть кнопку - "
+                                Text="Для запуску режиму &#10;натисніть кнопку - "
                                 VerticalOptions="Center"/>
                                 
                             <Image 
                                 Grid.Column="1"
                                 Source="start_record.svg"
-                                HeightRequest="30"
-                                WidthRequest="30"
-                                HorizontalOptions="Start"
-                                VerticalOptions="Center"/>
+                                Style="{StaticResource HelpSectionIconStyle}"
+                                HorizontalOptions="Start"/>
                         </Grid>
                             
                         <Label 
                             Style="{StaticResource LabelStyle}"
                             Text="При відсутності голосу протягом 10 секунд у режимі Транскрипції запис автоматично зупиняється"
                             Margin="5,0,0,0"/>
-                        
-                        <!-- Вибір мови -->    
+                          
                         <Label 
-                            Style="{StaticResource LabelStyle}"
+                            Style="{StaticResource HelpSectionTitleStyle}"
                             Text="У верхній частині екрану можна вибрати мову (UA, EN, RU):"
-                            FontAttributes="Bold"
                             Margin="5,12,0,5"/>
                             
-                        <Frame Style="{StaticResource FrameStyle}" Padding="15,8" CornerRadius="8" HasShadow="False" Margin="5,0,5,5">
+                        <Frame Style="{StaticResource HelpStandardFrameStyle}">
                             <StackLayout Spacing="5">
                                 <Label 
                                     Style="{StaticResource LabelStyle}"
@@ -129,7 +118,6 @@
                             </StackLayout>
                         </Frame>
                         
-                        <!-- Меню кнопки -->
                         <Grid Margin="5,12,0,8">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -139,26 +127,21 @@
                             <Label 
                                 Grid.Column="0"
                                 Style="{StaticResource LabelStyle}"
-                                Text="Зверху також можна викликати меню за допомогою кнопки - "
+                                Text="Зверху також можна &#10;викликати меню за &#10;допомогою кнопки - "
                                 VerticalOptions="Center"/>
                                 
                             <Image 
                                 Grid.Column="1"
                                 Source="settings.svg"
-                                HeightRequest="25"
-                                WidthRequest="25"
-                                HorizontalOptions="Start"
-                                VerticalOptions="Center"/>
+                                Style="{StaticResource HelpMenuIconStyle}"/>
                         </Grid>
                         
                         <Label 
-                            Style="{StaticResource LabelStyle}"
-                            Text="У меню доступні функції:"
-                            FontAttributes="Bold"
-                            Margin="5,5,0,5"/>
+                            Style="{StaticResource HelpSectionTitleStyle}"
+                            Text="У меню доступні функції:"/>
                             
-                        <Frame Style="{StaticResource FrameStyle}" Padding="10,8" CornerRadius="8" HasShadow="False" Margin="5,0,5,5">
-                            <StackLayout Spacing="10">
+                        <Frame Style="{StaticResource HelpIconFrameStyle}">
+                            <StackLayout Style="{StaticResource HelpIconStackStyle}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -174,10 +157,7 @@
                                     <Image 
                                         Grid.Column="1"
                                         Source="help_info.svg"
-                                        HeightRequest="25"
-                                        WidthRequest="25"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Center"/>
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
                                 </Grid>
                                 
                                 <Label 
@@ -199,10 +179,7 @@
                                     <Image 
                                         Grid.Column="1"
                                         Source="import_file.svg"
-                                        HeightRequest="25"
-                                        WidthRequest="25"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Center"/>
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
                                 </Grid>
                                 
                                 <Grid>
@@ -220,10 +197,7 @@
                                     <Image 
                                         Grid.Column="1"
                                         Source="export_file.svg"
-                                        HeightRequest="25"
-                                        WidthRequest="25"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Center"/>
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
                                 </Grid>
                                 
                                 <Grid>
@@ -241,10 +215,7 @@
                                     <Image 
                                         Grid.Column="1"
                                         Source="import_audiofile.svg"
-                                        HeightRequest="25"
-                                        WidthRequest="25"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Center"/>
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
                                 </Grid>
                                 
                                 <Label 
@@ -253,7 +224,7 @@
                             </StackLayout>
                         </Frame>
                         
-                        <Frame Style="{StaticResource FrameStyle}" BackgroundColor="#3c3325" Padding="15,10" CornerRadius="8" HasShadow="False" Margin="5,5,5,10">
+                        <Frame Style="{StaticResource HelpImportantFrameStyle}" Margin="5,5,5,10">
                             <Label 
                                 Style="{StaticResource LabelStyle}"
                                 FontAttributes="Bold"
@@ -261,15 +232,12 @@
                                 Margin="0"/>
                         </Frame>
                             
-                        <!-- Кнопки -->
                         <Label 
-                            Style="{StaticResource LabelStyle}"
-                            Text="Також на головній сторінці доступні наступні кнопки:"
-                            FontAttributes="Bold"
-                            Margin="5,0,0,5"/>
+                            Style="{StaticResource HelpSectionTitleStyle}"
+                            Text="Також на головній сторінці доступні наступні кнопки:"/>
                             
-                        <Frame Style="{StaticResource FrameStyle}" Padding="10,8" CornerRadius="8" HasShadow="False" Margin="5,0,5,5">
-                            <StackLayout Spacing="10">
+                        <Frame Style="{StaticResource HelpIconFrameStyle}">
+                            <StackLayout Style="{StaticResource HelpIconStackStyle}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -285,10 +253,7 @@
                                     <Image 
                                         Grid.Column="1"
                                         Source="copy.svg"
-                                        HeightRequest="25"
-                                        WidthRequest="25"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Center"/>
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
                                 </Grid>
                                 
                                 <Grid>
@@ -306,10 +271,7 @@
                                     <Image 
                                         Grid.Column="1"
                                         Source="paste.svg"
-                                        HeightRequest="25"
-                                        WidthRequest="25"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Center"/>
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
                                 </Grid>
                                 
                                 <Grid>
@@ -327,10 +289,7 @@
                                     <Image 
                                         Grid.Column="1"
                                         Source="disabled_edit_mode.svg"
-                                        HeightRequest="25"
-                                        WidthRequest="25"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Center"/>
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
                                 </Grid>
                                 
                                 <Grid>
@@ -348,10 +307,7 @@
                                     <Image 
                                         Grid.Column="1"
                                         Source="clean.svg"
-                                        HeightRequest="25"
-                                        WidthRequest="25"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Center"/>
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
                                 </Grid>
                                 
                                 <Grid>
@@ -369,54 +325,46 @@
                                     <Image 
                                         Grid.Column="1"
                                         Source="save.svg"
-                                        HeightRequest="25"
-                                        WidthRequest="25"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Center"/>
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
                                 </Grid>
                             </StackLayout>
                         </Frame>
                         
-                        <Frame Style="{StaticResource FrameStyle}" BackgroundColor="#3c3325" Padding="15,10" CornerRadius="8" HasShadow="False" Margin="5,0,5,5">
+                        <Frame Style="{StaticResource HelpImportantFrameStyle}" Margin="5,0,5,5">
                             <Label 
                                 Style="{StaticResource LabelStyle}"
                                 Text="Примітка: функція збереження доступна тільки для авторизованих користувачів."
                                 Margin="0"/>
                         </Frame>
                         
-                        <!-- СТОРІНКА ЗБЕРЕЖЕНИХ ЗАПИСІВ -->
                         <BoxView Style="{StaticResource SeparatorLineStyle}" Margin="0,15,0,8"/>
                         
-                        <StackLayout Orientation="Horizontal" Margin="0,8,0,12">
+                        <StackLayout Style="{StaticResource HelpSectionHeaderStyle}">
                             <Label 
                                 Style="{StaticResource LabelStyle}"
-                                Text="Сторінка збережених записів"
+                                Text="Сторінка збережених &#10;записів"
                                 FontAttributes="Bold"
-                                FontSize="16"
+                                FontSize="{StaticResource HelpSectionTitleFontSize}"
                                 VerticalOptions="Center"/>
                                 
                             <Image 
                                 Source="saved_notes_page.svg"
-                                HeightRequest="30"
-                                WidthRequest="30"
-                                VerticalOptions="Center"/>
+                                Style="{StaticResource HelpSectionIconStyle}"/>
                                 
                             <Label 
                                 Style="{StaticResource LabelStyle}"
                                 Text=":"
                                 FontAttributes="Bold"
-                                FontSize="16"
+                                FontSize="{StaticResource HelpSectionTitleFontSize}"
                                 VerticalOptions="Center"/>
                         </StackLayout>
                         
                         <Label 
-                            Style="{StaticResource LabelStyle}"
-                            Text="На сторінці збережених записів ви можете:"
-                            FontAttributes="Bold"
-                            Margin="5,0,0,5"/>
+                            Style="{StaticResource HelpSectionTitleStyle}"
+                            Text="На сторінці збережених записів ви можете:"/>
                             
-                        <Frame Style="{StaticResource FrameStyle}" Padding="15,10" CornerRadius="8" HasShadow="False" Margin="5,0,5,5">
-                            <StackLayout Spacing="8">
+                        <Frame Style="{StaticResource HelpStandardFrameStyle}">
+                            <StackLayout Style="{StaticResource HelpContentStackStyle}">
                                 <Label 
                                     Style="{StaticResource LabelStyle}"
                                     Text="• Переглядати раніше збережені записи"/>
@@ -443,7 +391,7 @@
                             </StackLayout>
                         </Frame>
                             
-                        <Frame Style="{StaticResource FrameStyle}" BackgroundColor="#3c3325" Padding="15,10" CornerRadius="8" HasShadow="False" Margin="5,5,5,10">
+                        <Frame Style="{StaticResource HelpImportantFrameStyle}" Margin="5,5,5,10">
                             <StackLayout Spacing="5">
                                 <Label
                                     Style="{StaticResource LabelStyle}"
@@ -457,39 +405,34 @@
                             </StackLayout>
                         </Frame>
                             
-                        <!-- СТОРІНКА НАЛАШТУВАНЬ -->
                         <BoxView Style="{StaticResource SeparatorLineStyle}" Margin="0,8,0,8"/>
                         
-                        <StackLayout Orientation="Horizontal" Margin="0,8,0,12">
+                        <StackLayout Style="{StaticResource HelpSectionHeaderStyle}">
                             <Label 
                                 Style="{StaticResource LabelStyle}"
                                 Text="Сторінка налаштувань"
                                 FontAttributes="Bold"
-                                FontSize="16"
+                                FontSize="{StaticResource HelpSectionTitleFontSize}"
                                 VerticalOptions="Center"/>
                                 
                             <Image 
                                 Source="settings_page.svg"
-                                HeightRequest="30"
-                                WidthRequest="30"
-                                VerticalOptions="Center"/>
+                                Style="{StaticResource HelpSectionIconStyle}"/>
                                 
                             <Label 
                                 Style="{StaticResource LabelStyle}"
                                 Text=":"
                                 FontAttributes="Bold"
-                                FontSize="16"
+                                FontSize="{StaticResource HelpSectionTitleFontSize}"
                                 VerticalOptions="Center"/>
                         </StackLayout>
                         
                         <Label 
-                            Style="{StaticResource LabelStyle}"
-                            Text="На сторінці налаштувань ви можете:"
-                            FontAttributes="Bold"
-                            Margin="5,0,0,5"/>
+                            Style="{StaticResource HelpSectionTitleStyle}"
+                            Text="На сторінці налаштувань ви можете:"/>
                             
-                        <Frame Style="{StaticResource FrameStyle}" Padding="15,10" CornerRadius="8" HasShadow="False" Margin="5,0,5,20">
-                            <StackLayout Spacing="8">
+                        <Frame Style="{StaticResource HelpStandardFrameStyle}" Margin="5,0,5,20">
+                            <StackLayout Style="{StaticResource HelpContentStackStyle}">
                                 <Label 
                                     Style="{StaticResource LabelStyle}"
                                     Text="• Авторизуватись у системі або вийти з облікового запису"/>

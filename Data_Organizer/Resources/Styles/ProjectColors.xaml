@@ -14,5 +14,6 @@
     <Color x:Key="PopupBackgroundColor">#80000000</Color>
     <Color x:Key="SignInButtonBackgroundColor">#326fa8</Color>
     <Color x:Key="PopupWindow">#393d3a</Color>
+    <Color x:Key="ImportantNoteBackgroundColor">#3c3325</Color>
     
 </ResourceDictionary>

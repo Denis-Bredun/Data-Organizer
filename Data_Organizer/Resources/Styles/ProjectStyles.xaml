@@ -172,4 +172,51 @@
         <Setter Property="Margin" Value="0,-10,0,0"/>
     </Style>
 
+    <Style x:Key="HelpContentStackStyle" TargetType="StackLayout">
+        <Setter Property="Spacing" Value="8" />
+    </Style>
+    
+    <Style x:Key="HelpSectionTitleStyle" TargetType="Label" BasedOn="{StaticResource LabelStyle}">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="{StaticResource HelpSectionTitleSize}" />
+        <Setter Property="Margin" Value="5,0,0,5" />
+    </Style>
+    
+    <Style x:Key="HelpStandardFrameStyle" TargetType="Frame" BasedOn="{StaticResource FrameStyle}">
+        <Setter Property="CornerRadius" Value="{StaticResource HelpFrameRadius}" />
+        <Setter Property="HasShadow" Value="False" />
+        <Setter Property="Padding" Value="15,10" />
+        <Setter Property="Margin" Value="5,0,5,5" />
+    </Style>
+    
+    <Style x:Key="HelpIconFrameStyle" TargetType="Frame" BasedOn="{StaticResource HelpStandardFrameStyle}">
+        <Setter Property="Padding" Value="10,8" />
+    </Style>
+    
+    <Style x:Key="HelpImportantFrameStyle" TargetType="Frame" BasedOn="{StaticResource HelpStandardFrameStyle}">
+        <Setter Property="BackgroundColor" Value="{StaticResource ImportantNoteBackgroundColor}" />
+    </Style>
+    
+    <Style x:Key="HelpSectionHeaderStyle" TargetType="StackLayout">
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="Margin" Value="0,8,0,12" />
+    </Style>
+    
+    <Style x:Key="HelpIconStackStyle" TargetType="StackLayout">
+        <Setter Property="Spacing" Value="10" />
+    </Style>
+    
+    <Style x:Key="HelpSectionIconStyle" TargetType="Image">
+        <Setter Property="HeightRequest" Value="{StaticResource HelpSectionIconSize}" />
+        <Setter Property="WidthRequest" Value="{StaticResource HelpSectionIconSize}" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+    
+    <Style x:Key="HelpMenuIconStyle" TargetType="Image">
+        <Setter Property="HeightRequest" Value="{StaticResource HelpIconSize}" />
+        <Setter Property="WidthRequest" Value="{StaticResource HelpIconSize}" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
 </ResourceDictionary>
