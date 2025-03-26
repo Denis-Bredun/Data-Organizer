@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Data_Organizer.MVVM.Views.Controls.SavedNotesHelpSection">
+    <StackLayout>
+        <BoxView Style="{StaticResource SeparatorLineStyle}" Margin="0,15,0,8"/>
+        
+        <StackLayout Style="{StaticResource HelpSectionHeaderStyle}">
+            <Label 
+                Style="{StaticResource LabelStyle}"
+                Text="Сторінка збережених &#10;записів"
+                FontAttributes="Bold"
+                FontSize="{StaticResource HelpSectionTitleFontSize}"
+                VerticalOptions="Center"/>
+                
+            <Image 
+                Source="saved_notes_page.svg"
+                Style="{StaticResource HelpSectionIconStyle}"/>
+                
+            <Label 
+                Style="{StaticResource LabelStyle}"
+                Text=":"
+                FontAttributes="Bold"
+                FontSize="{StaticResource HelpSectionTitleFontSize}"
+                VerticalOptions="Center"/>
+        </StackLayout>
+        
+        <Label 
+            Style="{StaticResource HelpSectionTitleStyle}"
+            Text="На сторінці збережених записів ви можете:"/>
+            
+        <Frame Style="{StaticResource HelpStandardFrameStyle}">
+            <StackLayout Style="{StaticResource HelpContentStackStyle}">
+                <Label 
+                    Style="{StaticResource LabelStyle}"
+                    Text="• Переглядати раніше збережені записи"/>
+                    
+                <Label 
+                    Style="{StaticResource LabelStyle}"
+                    Text="• Редагувати кожен запис окремо"/>
+                    
+                <Label 
+                    Style="{StaticResource LabelStyle}"
+                    Text="• Видаляти непотрібні записи"/>
+                    
+                <Label 
+                    Style="{StaticResource LabelStyle}"
+                    Text="• Експортувати записи в різні формати"/>
+                    
+                <Label 
+                    Style="{StaticResource LabelStyle}"
+                    Text="• Сортувати записи за датою створення"/>
+                    
+                <Label 
+                    Style="{StaticResource LabelStyle}"
+                    Text="• Шукати записи за назвою"/>
+            </StackLayout>
+        </Frame>
+            
+        <Frame Style="{StaticResource HelpImportantFrameStyle}" Margin="5,5,5,10">
+            <StackLayout Spacing="5">
+                <Label
+                    Style="{StaticResource LabelStyle}"
+                    FontAttributes="Bold"
+                    Text="Важливо: записи доступні тільки авторизованим користувачам."/>
+                    
+                <Label
+                    Style="{StaticResource LabelStyle}"
+                    FontAttributes="Bold"
+                    Text="Без преміум-підписки можна зберегти максимум 10 записів."/>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentView> 
