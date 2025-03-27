@@ -12,6 +12,7 @@ using Firebase.Auth.Providers;
 using Firebase.Auth.Repository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
 using Refit;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Reflection;
@@ -46,6 +47,15 @@ namespace Data_Organizer
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts => fonts.AddFont("arialuni.ttf", "ArialUnicode"))
+                .ConfigureLifecycleEvents(events =>
+                {
+#if ANDROID
+                    events.AddAndroid(android => android.OnCreate((activity, bundle) =>
+                    {
+                        Firebase.FirebaseApp.InitializeApp(activity);
+                    }));
+#endif
+                })
                 .UseSkiaSharp()
                 .UseMauiCommunityToolkit()
                 .UseUraniumUI()
@@ -152,7 +162,7 @@ namespace Data_Organizer
             where TViewModel : class
         {
             services.AddSingleton<TViewModel>();
-            services.AddScoped<TView>(s => new TView { BindingContext = s.GetRequiredService<TViewModel>() });
+            services.AddTransient<TView>(s => new TView { BindingContext = s.GetRequiredService<TViewModel>() });
         }
     }
 }
