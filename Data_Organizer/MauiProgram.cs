@@ -99,7 +99,7 @@ namespace Data_Organizer
     {
         public static IServiceCollection AddApiClients(this IServiceCollection services, string baseUrl)
         {
-            services.AddTransient<FirebaseAuthHttpMessageHandler>();
+            services.AddScoped<FirebaseAuthHttpMessageHandler>();
 
             services.AddRefitClient<IGetSummaryFromChatGPTQuery>()
                     .ConfigureHttpClient(c => c.BaseAddress = new Uri(baseUrl))
@@ -114,25 +114,25 @@ namespace Data_Organizer
 
         public static IServiceCollection AddAppServices(this IServiceCollection services)
         {
-            services.AddTransient<IApplicationPreferencesService, ApplicationPreferencesService>();
-            services.AddTransient<IEnumDescriptionResolverService, EnumDescriptionResolverService>();
-            services.AddTransient<IPreferenceService, PreferenceService>();
-            services.AddTransient<IFeatureService, FeatureService>();
-            services.AddTransient<ICultureInfoService, CultureInfoService>();
-            services.AddTransient<INotificationService, NotificationService>();
+            services.AddScoped<IApplicationPreferencesService, ApplicationPreferencesService>();
+            services.AddScoped<IEnumDescriptionResolverService, EnumDescriptionResolverService>();
+            services.AddScoped<IPreferenceService, PreferenceService>();
+            services.AddScoped<IFeatureService, FeatureService>();
+            services.AddScoped<ICultureInfoService, CultureInfoService>();
+            services.AddScoped<INotificationService, NotificationService>();
 #if ANDROID
-            services.AddTransient<ISpeechToTextService, Platforms.SpeechToTextService>();
+            services.AddScoped<ISpeechToTextService, Platforms.SpeechToTextService>();
 #endif
-            services.AddTransient<IAudioTranscriptorService, AudioTranscriptorService>();
-            services.AddTransient<IFileService, FileService>();
-            services.AddTransient<IFileServiceDecorator, FileServiceDecorator>();
-            services.AddTransient<IClipboardService, ClipboardService>();
-            services.AddTransient<IGoogleAuthenticationService, GoogleAuthenticationService>();
-            services.AddTransient<IOpenAIAPIRequestService, OpenAIAPIRequestService>();
+            services.AddScoped<IAudioTranscriptorService, AudioTranscriptorService>();
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IFileServiceDecorator, FileServiceDecorator>();
+            services.AddScoped<IClipboardService, ClipboardService>();
+            services.AddScoped<IGoogleAuthenticationService, GoogleAuthenticationService>();
+            services.AddScoped<IOpenAIAPIRequestService, OpenAIAPIRequestService>();
 
-            services.AddTransient<AppShell>();
-            services.AddTransient<SavedNotesPage>();
-            services.AddTransient<SettingsPage>();
+            services.AddScoped<AppShell>();
+            services.AddScoped<SavedNotesPage>();
+            services.AddScoped<SettingsPage>();
 
             return services;
         }
@@ -152,7 +152,7 @@ namespace Data_Organizer
             where TViewModel : class
         {
             services.AddSingleton<TViewModel>();
-            services.AddTransient<TView>(s => new TView { BindingContext = s.GetRequiredService<TViewModel>() });
+            services.AddScoped<TView>(s => new TView { BindingContext = s.GetRequiredService<TViewModel>() });
         }
     }
 }
