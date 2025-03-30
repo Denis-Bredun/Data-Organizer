@@ -148,21 +148,8 @@ namespace Data_Organizer
             services.AddViewModel<SignUpViewModel, SignUpPage>();
             services.AddViewModel<SignInViewModel, SignInPage>();
 
-            services.AddSingleton<MainPageViewModel>();
-            services.AddScoped<MainPage>(sp =>
-            {
-                var page = new MainPage(sp);
-                page.BindingContext = sp.GetRequiredService<MainPageViewModel>();
-                return page;
-            });
-
-            services.AddSingleton<HelpPageViewModel>();
-            services.AddScoped<HelpPage>(sp =>
-            {
-                var page = new HelpPage(sp);
-                page.BindingContext = sp.GetRequiredService<HelpPageViewModel>();
-                return page;
-            });
+            services.AddViewModelWithServiceProvider<MainPageViewModel, MainPage>();
+            services.AddViewModelWithServiceProvider<HelpPageViewModel, HelpPage>();
 
             return services;
         }
@@ -173,6 +160,19 @@ namespace Data_Organizer
         {
             services.AddSingleton<TViewModel>();
             services.AddScoped<TView>(s => new TView { BindingContext = s.GetRequiredService<TViewModel>() });
+        }
+
+        public static void AddViewModelWithServiceProvider<TViewModel, TView>(this IServiceCollection services)
+            where TView : ContentPage
+            where TViewModel : class
+        {
+            services.AddSingleton<TViewModel>();
+            services.AddScoped<TView>(sp =>
+            {
+                var page = (TView)Activator.CreateInstance(typeof(TView), sp);
+                page.BindingContext = sp.GetRequiredService<TViewModel>();
+                return page;
+            });
         }
     }
 }
