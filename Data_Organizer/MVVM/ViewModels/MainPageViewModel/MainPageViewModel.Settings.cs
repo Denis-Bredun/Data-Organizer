@@ -17,15 +17,11 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
         }
 
         [RelayCommand]
-        public void ShowHelpInformation()
+        public async Task ShowHelpInformation()
         {
-            IsHelpOpen = true;
-        }
+            IsLoading = true;
 
-        [RelayCommand]
-        public void CloseHelp()
-        {
-            IsHelpOpen = false;
+            await Shell.Current.GoToAsync("//HelpPage");
         }
     }
 }

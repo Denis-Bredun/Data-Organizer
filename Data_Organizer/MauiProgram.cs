@@ -143,6 +143,7 @@ namespace Data_Organizer
             services.AddViewModel<SignUpViewModel, SignUpPage>();
             services.AddViewModel<SignInViewModel, SignInPage>();
             services.AddViewModel<MainPageViewModel, MainPage>();
+            services.AddViewModel<HelpPageViewModel, HelpPage>();
 
             return services;
         }

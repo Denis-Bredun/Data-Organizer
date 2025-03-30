@@ -13,8 +13,8 @@ namespace Data_Organizer.Services
         public ApplicationPreferencesService(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
-            _preferenceService = _serviceProvider.GetRequiredService<IPreferenceService>(); ;
-            _enumDescriptionResolverService = _serviceProvider.GetRequiredService<IEnumDescriptionResolverService>(); ;
+            _preferenceService = _serviceProvider.GetRequiredService<IPreferenceService>();
+            _enumDescriptionResolverService = _serviceProvider.GetRequiredService<IEnumDescriptionResolverService>();
             _mainPageViewModel = _serviceProvider.GetRequiredService<MainPageViewModel>();
         }
 
@@ -33,6 +33,7 @@ namespace Data_Organizer.Services
             LoadLastSelectedFeature();
             LoadLastSelectedOutputLanguage();
             LoadPreferenceIsTextAddedAtTheEnd();
+            LoadHasVisitedMainPage();
         }
 
         private void SaveMainPagePreferences()
@@ -40,6 +41,7 @@ namespace Data_Organizer.Services
             SaveLastSelectedFeature();
             SaveLastSelectedOutputLanguage();
             SavePreferenceIsTextAddedAtTheEnd();
+            SaveHasVisitedMainPage();
         }
 
         private void LoadLastSelectedFeature()
@@ -105,6 +107,24 @@ namespace Data_Organizer.Services
         {
             var key = AppEnums.Preferences.IsTextAddedAtTheEnd;
             var value = _mainPageViewModel.IsTextAddedAtTheEnd;
+
+            _preferenceService.SetPreference(key, value);
+        }
+
+        private void LoadHasVisitedMainPage()
+        {
+            var key = AppEnums.Preferences.HasVisitedMainPage;
+            var defaultValue = false;
+
+            string hasVisitedMainPage = _preferenceService.GetPreference(key, defaultValue);
+
+            _mainPageViewModel.HasVisitedMainPage = bool.Parse(hasVisitedMainPage);
+        }
+
+        private void SaveHasVisitedMainPage()
+        {
+            var key = AppEnums.Preferences.HasVisitedMainPage;
+            var value = _mainPageViewModel.HasVisitedMainPage;
 
             _preferenceService.SetPreference(key, value);
         }

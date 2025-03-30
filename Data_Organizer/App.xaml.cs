@@ -1,10 +1,13 @@
 ﻿using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Views;
+using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
+using Data_Organizer.MVVM.ViewModels;
 
 namespace Data_Organizer
 {
     public partial class App : Application
     {
+        private readonly IServiceProvider _serviceProvider;
         private readonly IApplicationPreferencesService _applicationPreferencesService;
 
         public App(IServiceProvider serviceProvider)
@@ -16,6 +19,7 @@ namespace Data_Organizer
             var appShell = serviceProvider.GetRequiredService<AppShell>();
             MainPage = appShell;
 
+            _serviceProvider = serviceProvider;
             _applicationPreferencesService = serviceProvider.GetRequiredService<IApplicationPreferencesService>();
         }
 
@@ -30,7 +34,9 @@ namespace Data_Organizer
         {
             _applicationPreferencesService.LoadPreferences();
 
-            if (!VersionTracking.IsFirstLaunchEver)
+            var mainPageViewModel = _serviceProvider.GetRequiredService<MainPageViewModel>();
+
+            if (mainPageViewModel.HasVisitedMainPage)
                 await Shell.Current.GoToAsync("//TabBar");
 
             base.OnStart();

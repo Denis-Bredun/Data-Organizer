@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             x:DataType="vm:HelpPageViewModel"
+             x:Class="Data_Organizer.MVVM.Views.HelpPage"
+             Style="{StaticResource PageStyle}">
+
+    <Grid>
+        <Frame Style="{StaticResource PopupFrameStyle}"
+               Margin="20"
+               VerticalOptions="Center"
+               HorizontalOptions="Center">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Label Text="Довідка" 
+                           Style="{StaticResource PageTitleStyle}"
+                           HorizontalOptions="Center"/>
+                    <Button Text="✕"
+                            Command="{Binding CloseHelpAndNavigateToMainPageCommand}"
+                            Style="{StaticResource CloseButtonStyle}"
+                            HorizontalOptions="End"/>
+                </Grid>
+
+                <ScrollView Grid.Row="1" Margin="10,10,10,0">
+                    <StackLayout Style="{StaticResource HelpContentStackStyle}">
+                        <Frame Style="{StaticResource HelpStandardFrameStyle}">
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text="Є 3 вкладки:&#10;- головна сторінка;&#10;- сторінка збережених записів;&#10;- сторінка налаштувань."
+                                Margin="0"/>
+                        </Frame>
+
+                        <!--Головна сторінка-->
+
+                        <BoxView Style="{StaticResource SeparatorLineStyle}" Margin="0,15,0,8"/>
+
+                        <StackLayout Style="{StaticResource HelpSectionHeaderStyle}">
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text="Головна сторінка"
+                                FontAttributes="Bold"
+                                FontSize="{StaticResource HelpSectionTitleFontSize}"
+                                VerticalOptions="Center"/>
+
+                            <Image 
+                                Source="home_page.svg"
+                                Style="{StaticResource HelpSectionIconStyle}"/>
+
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text=":"
+                                FontAttributes="Bold"
+                                FontSize="{StaticResource HelpSectionTitleFontSize}"
+                                VerticalOptions="Center"/>
+                        </StackLayout>
+
+                        <Label 
+                            Style="{StaticResource HelpSectionTitleStyle}"
+                            Text="На головній сторінці доступні два режими роботи:"/>
+
+                        <Frame Style="{StaticResource HelpStandardFrameStyle}">
+                            <StackLayout Style="{StaticResource HelpContentStackStyle}">
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Транскрипція — дозволяє в реальному часі робити запис аудіо та відразу перетворювати його на текст"/>
+
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Конспект — створення тез на основі введеного тексту (доступний тільки з преміум-підпискою)"/>
+                            </StackLayout>
+                        </Frame>
+
+                        <Grid Margin="5,8,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label 
+                                Grid.Column="0"
+                                Style="{StaticResource LabelStyle}"
+                                Text="Для запуску режиму &#10;натисніть кнопку - "
+                                VerticalOptions="Center"/>
+
+                            <Image 
+                                Grid.Column="1"
+                                Source="start_record.svg"
+                                Style="{StaticResource HelpSectionIconStyle}"
+                                HorizontalOptions="Start"/>
+                        </Grid>
+
+                        <Label 
+                            Style="{StaticResource LabelStyle}"
+                            Text="При відсутності голосу протягом 10 секунд у режимі Транскрипції запис автоматично зупиняється"
+                            Margin="5,0,0,0"/>
+
+                        <Label 
+                            Style="{StaticResource HelpSectionTitleStyle}"
+                            Text="У верхній частині екрану можна вибрати мову (UA, EN, RU):"
+                            Margin="5,12,0,5"/>
+
+                        <Frame Style="{StaticResource HelpStandardFrameStyle}">
+                            <StackLayout Spacing="5">
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="— для Транскрипції це мова, якою ви говорите;"/>
+
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="— для Конспекту це мова виводу тез."/>
+                            </StackLayout>
+                        </Frame>
+
+                        <Grid Margin="5,12,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label 
+                                Grid.Column="0"
+                                Style="{StaticResource LabelStyle}"
+                                Text="Зверху також можна &#10;викликати меню за &#10;допомогою кнопки - "
+                                VerticalOptions="Center"/>
+
+                            <Image 
+                                Grid.Column="1"
+                                Source="settings.svg"
+                                Style="{StaticResource HelpMenuIconStyle}"/>
+                        </Grid>
+
+                        <Label 
+                            Style="{StaticResource HelpSectionTitleStyle}"
+                            Text="У меню доступні функції:"/>
+
+                        <Frame Style="{StaticResource HelpIconFrameStyle}">
+                            <StackLayout Style="{StaticResource HelpIconStackStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label 
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelStyle}"
+                                        Text="• Довідка "
+                                        VerticalOptions="Center"/>
+
+                                    <Image 
+                                        Grid.Column="1"
+                                        Source="help_info.svg"
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
+                                </Grid>
+
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Додавати в кінець — вказує: замінювати або додавати текст в кінець при запуску режимів або імпорті файлів"/>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label 
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelStyle}"
+                                        Text="• Імпорт файлу "
+                                        VerticalOptions="Center"/>
+
+                                    <Image 
+                                        Grid.Column="1"
+                                        Source="import_file.svg"
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
+                                </Grid>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label 
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelStyle}"
+                                        Text="• Експорт файлу "
+                                        VerticalOptions="Center"/>
+
+                                    <Image 
+                                        Grid.Column="1"
+                                        Source="export_file.svg"
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
+                                </Grid>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label 
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelStyle}"
+                                        Text="• Імпорт аудіофайлу "
+                                        VerticalOptions="Center"/>
+
+                                    <Image 
+                                        Grid.Column="1"
+                                        Source="import_audiofile.svg"
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
+                                </Grid>
+
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Інші налаштування для зручності праці"/>
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame Style="{StaticResource HelpImportantFrameStyle}" Margin="5,5,5,10">
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                FontAttributes="Bold"
+                                Text="Важливо: експорт та імпорт файлів доступні тільки для користувачів з преміум-підпискою."
+                                Margin="0"/>
+                        </Frame>
+
+                        <Label 
+                            Style="{StaticResource HelpSectionTitleStyle}"
+                            Text="Також на головній сторінці доступні наступні кнопки:"/>
+
+                        <Frame Style="{StaticResource HelpIconFrameStyle}">
+                            <StackLayout Style="{StaticResource HelpIconStackStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label 
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelStyle}"
+                                        Text="• Копіювати "
+                                        VerticalOptions="Center"/>
+
+                                    <Image 
+                                        Grid.Column="1"
+                                        Source="copy.svg"
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
+                                </Grid>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label 
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelStyle}"
+                                        Text="• Вставити "
+                                        VerticalOptions="Center"/>
+
+                                    <Image 
+                                        Grid.Column="1"
+                                        Source="paste.svg"
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
+                                </Grid>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label 
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelStyle}"
+                                        Text="• Режим редагування "
+                                        VerticalOptions="Center"/>
+
+                                    <Image 
+                                        Grid.Column="1"
+                                        Source="disabled_edit_mode.svg"
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
+                                </Grid>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label 
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelStyle}"
+                                        Text="• Очистити "
+                                        VerticalOptions="Center"/>
+
+                                    <Image 
+                                        Grid.Column="1"
+                                        Source="clean.svg"
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
+                                </Grid>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label 
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelStyle}"
+                                        Text="• Зберегти "
+                                        VerticalOptions="Center"/>
+
+                                    <Image 
+                                        Grid.Column="1"
+                                        Source="save.svg"
+                                        Style="{StaticResource HelpMenuIconStyle}"/>
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame Style="{StaticResource HelpImportantFrameStyle}" Margin="5,0,5,5">
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text="Примітка: функція збереження доступна тільки для авторизованих користувачів."
+                                Margin="0"/>
+                        </Frame>
+
+
+                        <!--Сторінка збережених записів-->
+
+                        <BoxView Style="{StaticResource SeparatorLineStyle}" Margin="0,15,0,8"/>
+
+                        <StackLayout Style="{StaticResource HelpSectionHeaderStyle}">
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text="Сторінка збережених &#10;записів"
+                                FontAttributes="Bold"
+                                FontSize="{StaticResource HelpSectionTitleFontSize}"
+                                VerticalOptions="Center"/>
+
+                            <Image 
+                                Source="saved_notes_page.svg"
+                                Style="{StaticResource HelpSectionIconStyle}"/>
+
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text=":"
+                                FontAttributes="Bold"
+                                FontSize="{StaticResource HelpSectionTitleFontSize}"
+                                VerticalOptions="Center"/>
+                        </StackLayout>
+
+                        <Label 
+                            Style="{StaticResource HelpSectionTitleStyle}"
+                            Text="На сторінці збережених записів ви можете:"/>
+
+                        <Frame Style="{StaticResource HelpStandardFrameStyle}">
+                            <StackLayout Style="{StaticResource HelpContentStackStyle}">
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Переглядати раніше збережені записи"/>
+
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Редагувати кожен запис окремо"/>
+
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Видаляти непотрібні записи"/>
+
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Експортувати записи в різні формати"/>
+
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Сортувати записи за датою створення"/>
+
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Шукати записи за назвою"/>
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame Style="{StaticResource HelpImportantFrameStyle}" Margin="5,5,5,10">
+                            <StackLayout Spacing="5">
+                                <Label
+                                    Style="{StaticResource LabelStyle}"
+                                    FontAttributes="Bold"
+                                    Text="Важливо: записи доступні тільки авторизованим користувачам."/>
+
+                                <Label
+                                    Style="{StaticResource LabelStyle}"
+                                    FontAttributes="Bold"
+                                    Text="Без преміум-підписки можна зберегти максимум 10 записів."/>
+                            </StackLayout>
+                        </Frame>
+
+                        <!--Сторінка налаштувань-->
+
+                        <BoxView Style="{StaticResource SeparatorLineStyle}" Margin="0,8,0,8"/>
+
+                        <StackLayout Style="{StaticResource HelpSectionHeaderStyle}">
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text="Сторінка налаштувань"
+                                FontAttributes="Bold"
+                                FontSize="{StaticResource HelpSectionTitleFontSize}"
+                                VerticalOptions="Center"/>
+
+                            <Image 
+                                Source="settings_page.svg"
+                                Style="{StaticResource HelpSectionIconStyle}"/>
+
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text=":"
+                                FontAttributes="Bold"
+                                FontSize="{StaticResource HelpSectionTitleFontSize}"
+                                VerticalOptions="Center"/>
+                        </StackLayout>
+
+                        <Label 
+                            Style="{StaticResource HelpSectionTitleStyle}"
+                            Text="На сторінці налаштувань ви можете:"/>
+
+                        <Frame Style="{StaticResource HelpStandardFrameStyle}" Margin="5,0,5,20">
+                            <StackLayout Style="{StaticResource HelpContentStackStyle}">
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Авторизуватись у системі або вийти з облікового запису"/>
+
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Придбати преміум-підписку або відмовитись від неї"/>
+
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Змінити пароль для захисту ваших даних"/>
+
+                                <Label 
+                                    Style="{StaticResource LabelStyle}"
+                                    Text="• Відключити або включити збір метаданих"/>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+        </Frame>
+
+        <Grid Grid.RowSpan="2"
+              IsVisible="{Binding IsLoading, Mode=TwoWay}" 
+              Style="{StaticResource TransparentGridStyle}">
+            <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
+        </Grid>
+    </Grid>
+
+</ContentPage> 

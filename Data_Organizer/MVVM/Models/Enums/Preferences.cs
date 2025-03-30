@@ -4,6 +4,7 @@
     {
         LastSelectedFeature,
         LastSelectedOutputLanguage,
-        IsTextAddedAtTheEnd
+        IsTextAddedAtTheEnd,
+        HasVisitedMainPage
     }
 }

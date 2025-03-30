@@ -24,7 +24,7 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
         [ObservableProperty] private bool _isLoading;
         [ObservableProperty] private bool _areSettingsOpen;
         [ObservableProperty] private bool _isTextAddedAtTheEnd;
-        [ObservableProperty] private bool _isHelpOpen;
+        [ObservableProperty] private bool _hasVisitedMainPage;
 
         public IFeatureService FeatureService { get; }
         public ICultureInfoService CultureInfoService { get; }
