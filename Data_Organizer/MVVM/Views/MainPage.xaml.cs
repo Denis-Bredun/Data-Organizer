@@ -7,31 +7,7 @@ public partial class MainPage : ContentPage
 
     public MainPage()
     {
-        try
-        {
-            InitializeComponent();
-            
-            this.Loaded += (s, e) => {
-                try
-                {
-                    foreach (var child in this.GetVisualTreeDescendants())
-                    {
-                        if (child is ContentView contentView)
-                        {
-                            contentView.BindingContext = this.BindingContext;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Error setting binding context: {ex}");
-                }
-            };
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Error in MainPage constructor: {ex}");
-        }
+        InitializeComponent();
     }
 
     protected override void OnAppearing()

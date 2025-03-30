@@ -6,7 +6,6 @@ using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
 using Data_Organizer.MVVM.ViewModels.SignInViewModel;
 using Data_Organizer.MVVM.ViewModels.SignUpViewModel;
 using Data_Organizer.MVVM.Views;
-using Data_Organizer.MVVM.Views.Controls;
 using Data_Organizer.Services;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
@@ -141,19 +140,9 @@ namespace Data_Organizer
             services.AddScoped<IGoogleAuthenticationService, GoogleAuthenticationService>();
             services.AddScoped<IOpenAIAPIRequestService, OpenAIAPIRequestService>();
 
-            services.AddTransient<AppShell>();
-            services.AddTransient<SavedNotesPage>();
-            services.AddTransient<SettingsPage>();
-
-            services.AddTransient<EditorSection>();
-            services.AddTransient<HeaderBar>();
-            services.AddTransient<LoadingOverlay>();
-            services.AddTransient<SettingsPopup>();
-            services.AddTransient<HelpPopup>();
-            services.AddTransient<LabeledEntry>();
-            services.AddTransient<SettingsHelpSection>();
-            services.AddTransient<SavedNotesHelpSection>();
-            services.AddTransient<HomePageHelpSection>();
+            services.AddScoped<AppShell>();
+            services.AddScoped<SavedNotesPage>();
+            services.AddScoped<SettingsPage>();
 
             return services;
         }
@@ -169,27 +158,11 @@ namespace Data_Organizer
         }
 
         public static void AddViewModel<TViewModel, TView>(this IServiceCollection services)
-            where TView : ContentPage
+            where TView : ContentPage, new()
             where TViewModel : class
         {
             services.AddSingleton<TViewModel>();
-            services.AddTransient<TView>(serviceProvider => {
-                try
-                {
-                    var viewModel = serviceProvider.GetRequiredService<TViewModel>();
-                    var page = (TView)Activator.CreateInstance(typeof(TView));
-                    if (page != null)
-                    {
-                        page.BindingContext = viewModel;
-                    }
-                    return page;
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Error creating {typeof(TView).Name}: {ex}");
-                    throw;
-                }
-            });
+            services.AddScoped<TView>(s => new TView { BindingContext = s.GetRequiredService<TViewModel>() });
         }
     }
 }
