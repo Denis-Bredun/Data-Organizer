@@ -5,26 +5,29 @@ using Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;
 
 public partial class MainPage : ContentPage
 {
+    private readonly IServiceProvider _serviceProvider;
+    private HelpPageViewModel _helpPageViewModel;
+    private MainPageViewModel _mainPageViewModel;
     private bool _wasHelpPageClosed;
 
-    public MainPage()
+    public MainPage(IServiceProvider serviceProvider)
     {
-        VersionTracking.Track();   
-
         InitializeComponent();
+        _serviceProvider = serviceProvider;
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        var mainPageViewModel = (MainPageViewModel)BindingContext;
-        mainPageViewModel.IsLoading = false;
-        mainPageViewModel.HasVisitedMainPage = true;
+        if (_mainPageViewModel == null)
+            _mainPageViewModel = (MainPageViewModel)BindingContext;
+        _mainPageViewModel.IsLoading = false;
+        _mainPageViewModel.HasVisitedMainPage = true;
 
         ConfigurePlatformSpecifics();
-        
-        await CheckAndShowHelpIfNeeded(mainPageViewModel);
+
+        await CheckAndShowHelpIfNeeded();
     }
 
     private void ConfigurePlatformSpecifics()
@@ -36,13 +39,13 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private async Task CheckAndShowHelpIfNeeded(MainPageViewModel viewModel)
+    private async Task CheckAndShowHelpIfNeeded()
     {
-        if (VersionTracking.IsFirstLaunchEver && !_wasHelpPageClosed)
-        {
-            await viewModel.ShowHelpInformation();
-            _wasHelpPageClosed = true;
-        }
+        if (_helpPageViewModel == null)
+            _helpPageViewModel = _serviceProvider.GetRequiredService<HelpPageViewModel>();
+
+        if (!_helpPageViewModel.HasBeenClosedOnce)
+            await _mainPageViewModel.ShowHelpInformation();
     }
 
     private async void OnEditorTextChanged(object sender, TextChangedEventArgs e)

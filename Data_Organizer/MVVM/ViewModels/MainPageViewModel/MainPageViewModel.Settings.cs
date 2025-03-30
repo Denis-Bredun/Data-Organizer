@@ -22,6 +22,8 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
             IsLoading = true;
 
             await Shell.Current.GoToAsync("//HelpPage");
+
+            IsLoading = false;
         }
     }
 }

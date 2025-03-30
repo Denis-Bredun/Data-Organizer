@@ -7,7 +7,9 @@ namespace Data_Organizer.MVVM.ViewModels
     {
         [ObservableProperty]
         private bool _isLoading;
-        
+        [ObservableProperty]
+        private bool _hasBeenClosedOnce;
+
         public event EventHandler ShowHomeHelpRequested;
         public event EventHandler ShowSavedNotesHelpRequested;
         public event EventHandler ShowSettingsHelpRequested;
@@ -20,25 +22,26 @@ namespace Data_Organizer.MVVM.ViewModels
         public async Task CloseHelpAndNavigateToMainPage()
         {
             IsLoading = true;
+            HasBeenClosedOnce = true;
             await Shell.Current.GoToAsync("//TabBar");
         }
-        
+
         [RelayCommand]
         public void ShowHomeHelp()
         {
             ShowHomeHelpRequested?.Invoke(this, EventArgs.Empty);
         }
-        
+
         [RelayCommand]
         public void ShowSavedNotesHelp()
         {
             ShowSavedNotesHelpRequested?.Invoke(this, EventArgs.Empty);
         }
-        
+
         [RelayCommand]
         public void ShowSettingsHelp()
         {
             ShowSettingsHelpRequested?.Invoke(this, EventArgs.Empty);
         }
     }
-} 
+}

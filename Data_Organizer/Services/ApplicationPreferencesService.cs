@@ -1,4 +1,5 @@
 ﻿using Data_Organizer.Interfaces;
+using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
 
 namespace Data_Organizer.Services
@@ -9,6 +10,7 @@ namespace Data_Organizer.Services
         private readonly IPreferenceService _preferenceService;
         private readonly IEnumDescriptionResolverService _enumDescriptionResolverService;
         private readonly MainPageViewModel _mainPageViewModel;
+        private readonly HelpPageViewModel _helpPageViewModel;
 
         public ApplicationPreferencesService(IServiceProvider serviceProvider)
         {
@@ -16,16 +18,19 @@ namespace Data_Organizer.Services
             _preferenceService = _serviceProvider.GetRequiredService<IPreferenceService>();
             _enumDescriptionResolverService = _serviceProvider.GetRequiredService<IEnumDescriptionResolverService>();
             _mainPageViewModel = _serviceProvider.GetRequiredService<MainPageViewModel>();
+            _helpPageViewModel = _serviceProvider.GetRequiredService<HelpPageViewModel>();
         }
 
         public void LoadPreferences()
         {
             LoadMainPagePreferences();
+            LoadHelpPagePreferences();
         }
 
         public void SavePreferences()
         {
             SaveMainPagePreferences();
+            SaveHelpPagePreferences();
         }
 
         private void LoadMainPagePreferences()
@@ -42,6 +47,16 @@ namespace Data_Organizer.Services
             SaveLastSelectedOutputLanguage();
             SavePreferenceIsTextAddedAtTheEnd();
             SaveHasVisitedMainPage();
+        }
+
+        private void LoadHelpPagePreferences()
+        {
+            LoadHelpPopupHasBeenClosedOnce();
+        }
+
+        private void SaveHelpPagePreferences()
+        {
+            SaveHelpPopupHasBeenClosedOnce();
         }
 
         private void LoadLastSelectedFeature()
@@ -125,6 +140,24 @@ namespace Data_Organizer.Services
         {
             var key = AppEnums.Preferences.HasVisitedMainPage;
             var value = _mainPageViewModel.HasVisitedMainPage;
+
+            _preferenceService.SetPreference(key, value);
+        }
+
+        private void LoadHelpPopupHasBeenClosedOnce()
+        {
+            var key = AppEnums.Preferences.HelpPopupHasBeenClosedOnce;
+            var defaultValue = false;
+
+            string helpPopupHasBeenClosedOnce = _preferenceService.GetPreference(key, defaultValue);
+
+            _helpPageViewModel.HasBeenClosedOnce = bool.Parse(helpPopupHasBeenClosedOnce);
+        }
+
+        private void SaveHelpPopupHasBeenClosedOnce()
+        {
+            var key = AppEnums.Preferences.HelpPopupHasBeenClosedOnce;
+            var value = _helpPageViewModel.HasBeenClosedOnce;
 
             _preferenceService.SetPreference(key, value);
         }

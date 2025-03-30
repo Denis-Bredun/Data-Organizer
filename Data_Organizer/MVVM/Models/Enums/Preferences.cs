@@ -5,6 +5,7 @@
         LastSelectedFeature,
         LastSelectedOutputLanguage,
         IsTextAddedAtTheEnd,
-        HasVisitedMainPage
+        HasVisitedMainPage,
+        HelpPopupHasBeenClosedOnce
     }
 }

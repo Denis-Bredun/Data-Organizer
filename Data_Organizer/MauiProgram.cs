@@ -147,10 +147,18 @@ namespace Data_Organizer
             services.AddViewModel<WelcomeViewModel, WelcomePage>();
             services.AddViewModel<SignUpViewModel, SignUpPage>();
             services.AddViewModel<SignInViewModel, SignInPage>();
-            services.AddViewModel<MainPageViewModel, MainPage>();
-            
+
+            services.AddSingleton<MainPageViewModel>();
+            services.AddScoped<MainPage>(sp =>
+            {
+                var page = new MainPage(sp);
+                page.BindingContext = sp.GetRequiredService<MainPageViewModel>();
+                return page;
+            });
+
             services.AddSingleton<HelpPageViewModel>();
-            services.AddScoped<HelpPage>(sp => {
+            services.AddScoped<HelpPage>(sp =>
+            {
                 var page = new HelpPage(sp);
                 page.BindingContext = sp.GetRequiredService<HelpPageViewModel>();
                 return page;
