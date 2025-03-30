@@ -3,8 +3,6 @@ namespace Data_Organizer.MVVM.Views;
 
 public partial class MainPage : ContentPage
 {
-    private static bool _isHelpShown = false;
-
     public MainPage()
     {
         InitializeComponent();
@@ -14,11 +12,8 @@ public partial class MainPage : ContentPage
     {
         base.OnAppearing();
 
-        if (VersionTracking.IsFirstLaunchEver && !_isHelpShown)
-        {
+        if (VersionTracking.IsFirstLaunchEver)
             ((MainPageViewModel)BindingContext).IsHelpOpen = true;
-            _isHelpShown = true;
-        }
     }
 
     protected override void OnDisappearing()

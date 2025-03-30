@@ -162,7 +162,7 @@ namespace Data_Organizer
             where TViewModel : class
         {
             services.AddSingleton<TViewModel>();
-            services.AddScoped<TView>(s => new TView { BindingContext = s.GetRequiredService<TViewModel>() });
+            services.AddTransient<TView>(s => new TView { BindingContext = s.GetRequiredService<TViewModel>() });
         }
     }
 }
