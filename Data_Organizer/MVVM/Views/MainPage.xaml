@@ -17,7 +17,7 @@
 
         <!--HeaderBar-->
 
-        <Grid ColumnDefinitions="0.4*, 0.1*, 0.1*" ColumnSpacing="10">
+        <Grid ColumnDefinitions="0.4*, 0.15*, 0.1*" ColumnSpacing="10">
             <uranium:Dropdown 
         ItemsSource="{Binding FeatureService.Features}" 
         SelectedItem="{Binding SelectedFeature, Mode=TwoWay, Converter={StaticResource SelectedFeatureFormatConverter}}"
