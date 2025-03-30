@@ -6,6 +6,7 @@ using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
 using Data_Organizer.MVVM.ViewModels.SignInViewModel;
 using Data_Organizer.MVVM.ViewModels.SignUpViewModel;
 using Data_Organizer.MVVM.Views;
+using Data_Organizer.MVVM.Views.Controls;
 using Data_Organizer.Services;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
@@ -130,6 +131,10 @@ namespace Data_Organizer
             services.AddScoped<IGoogleAuthenticationService, GoogleAuthenticationService>();
             services.AddScoped<IOpenAIAPIRequestService, OpenAIAPIRequestService>();
 
+            services.AddScoped<HomePageHelpSection>();
+            services.AddScoped<SavedNotesHelpSection>();
+            services.AddScoped<SettingsHelpSection>();
+
             services.AddScoped<AppShell>();
             services.AddScoped<SavedNotesPage>();
             services.AddScoped<SettingsPage>();
@@ -143,7 +148,13 @@ namespace Data_Organizer
             services.AddViewModel<SignUpViewModel, SignUpPage>();
             services.AddViewModel<SignInViewModel, SignInPage>();
             services.AddViewModel<MainPageViewModel, MainPage>();
-            services.AddViewModel<HelpPageViewModel, HelpPage>();
+            
+            services.AddSingleton<HelpPageViewModel>();
+            services.AddScoped<HelpPage>(sp => {
+                var page = new HelpPage(sp);
+                page.BindingContext = sp.GetRequiredService<HelpPageViewModel>();
+                return page;
+            });
 
             return services;
         }

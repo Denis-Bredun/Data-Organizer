@@ -211,12 +211,34 @@
         <Setter Property="WidthRequest" Value="{StaticResource HelpSectionIconSize}" />
         <Setter Property="VerticalOptions" Value="Center" />
     </Style>
-    
+
     <Style x:Key="HelpMenuIconStyle" TargetType="Image">
         <Setter Property="HeightRequest" Value="{StaticResource HelpIconSize}" />
         <Setter Property="WidthRequest" Value="{StaticResource HelpIconSize}" />
         <Setter Property="HorizontalOptions" Value="Start" />
         <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="HelpNavButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="BackgroundColor" Value="{StaticResource ControlElementBackgroundColor}" />
+        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+        <Setter Property="Margin" Value="5,2" />
+        <Setter Property="Padding" Value="15,8" />
+        <Setter Property="MinimumWidthRequest" Value="120" />
+        <Setter Property="CornerRadius" Value="{StaticResource CornerRadius}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Selected">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource SelectedTabInHelpPopup}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
     </Style>
 
 </ResourceDictionary>
