@@ -39,6 +39,8 @@
                                 Margin="0"/>
                         </Frame>
                         
+                        <!--Головна сторінка-->
+
                         <BoxView Style="{StaticResource SeparatorLineStyle}" Margin="0,15,0,8"/>
                         
                         <StackLayout Style="{StaticResource HelpSectionHeaderStyle}">
@@ -337,6 +339,9 @@
                                 Margin="0"/>
                         </Frame>
                         
+
+                        <!--Сторінка збережених записів-->
+
                         <BoxView Style="{StaticResource SeparatorLineStyle}" Margin="0,15,0,8"/>
                         
                         <StackLayout Style="{StaticResource HelpSectionHeaderStyle}">
@@ -404,7 +409,9 @@
                                     Text="Без преміум-підписки можна зберегти максимум 10 записів."/>
                             </StackLayout>
                         </Frame>
-                            
+
+                        <!--Сторінка налаштувань-->
+    
                         <BoxView Style="{StaticResource SeparatorLineStyle}" Margin="0,8,0,8"/>
                         
                         <StackLayout Style="{StaticResource HelpSectionHeaderStyle}">
