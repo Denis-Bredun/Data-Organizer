@@ -77,7 +77,6 @@
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
 		<PackageReference Include="PdfPig" Version="0.1.9" />
-		<PackageReference Include="Plugin.FirebaseCrashlytics" Version="4.1.0" />
 		<PackageReference Include="Prism.Core" Version="9.0.537" />
 		<PackageReference Include="Refit" Version="8.0.0" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
@@ -127,12 +126,4 @@
 	  </MauiFont>
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
-		<GoogleServicesJson Include="google-services.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<AndroidResource Include="Platforms\Android\Resources\values\strings.xml" />
-	</ItemGroup>
-	
 </Project>
