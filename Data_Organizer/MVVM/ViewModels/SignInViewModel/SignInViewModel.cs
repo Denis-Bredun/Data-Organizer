@@ -6,7 +6,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
     public partial class SignInViewModel : ObservableObject
     {
         private readonly INotificationService _notificationService;
-        private readonly IGoogleAuthenticationService _googleAuthenticationService;
+        private readonly IFirebaseAuthService _firebaseAuthService;
 
         [ObservableProperty] private string _email;
         [ObservableProperty] private string _password;
@@ -14,10 +14,10 @@ namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
 
         public SignInViewModel(
             INotificationService notificationService,
-            IGoogleAuthenticationService googleAuthenticationService)
+            IFirebaseAuthService firebaseAuthService)
         {
             _notificationService = notificationService;
-            _googleAuthenticationService = googleAuthenticationService;
+            _firebaseAuthService = firebaseAuthService;
         }
     }
 }

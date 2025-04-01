@@ -5,16 +5,16 @@ namespace Data_Organizer.APIRequestTools
 {
     public class FirebaseAuthHttpMessageHandler : DelegatingHandler
     {
-        private readonly IGoogleAuthenticationService _googleAuthenticationService;
+        private readonly IFirebaseAuthService _firebaseAuthService;
 
-        public FirebaseAuthHttpMessageHandler(IGoogleAuthenticationService googleAuthenticationService)
+        public FirebaseAuthHttpMessageHandler(IFirebaseAuthService firebaseAuthService)
         {
-            _googleAuthenticationService = googleAuthenticationService;
+            _firebaseAuthService = firebaseAuthService;
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            string? firebaseToken = await _googleAuthenticationService.GetFreshToken();
+            string? firebaseToken = await _firebaseAuthService.GetFreshToken();
 
             if (firebaseToken != null)
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", firebaseToken);

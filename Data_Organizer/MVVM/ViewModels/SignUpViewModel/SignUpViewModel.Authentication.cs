@@ -13,7 +13,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
 
             IsLoading = true;
 
-            bool succeeded = await _googleAuthenticationService.SignUpAsync(Email, Password, Username);
+            bool succeeded = await _firebaseAuthService.SignUpAsync(Email, Password, Username);
 
             if (succeeded)
                 await NavigateToMainPage();

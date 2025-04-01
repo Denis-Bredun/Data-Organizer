@@ -5,7 +5,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
 {
     public partial class SignUpViewModel : ObservableObject
     {
-        private readonly IGoogleAuthenticationService _googleAuthenticationService;
+        private readonly IFirebaseAuthService _firebaseAuthService;
         private readonly INotificationService _notificationService;
 
         [ObservableProperty] private string _username;
@@ -16,10 +16,10 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
         [ObservableProperty] private bool _isLoading;
 
         public SignUpViewModel(
-            IGoogleAuthenticationService googleAuthenticationService,
+            IFirebaseAuthService firebaseAuthService,
             INotificationService notificationService)
         {
-            _googleAuthenticationService = googleAuthenticationService;
+            _firebaseAuthService = firebaseAuthService;
             _notificationService = notificationService;
         }
     }

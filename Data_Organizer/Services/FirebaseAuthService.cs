@@ -4,12 +4,12 @@ using System.Text.Json;
 
 namespace Data_Organizer.Services
 {
-    public class GoogleAuthenticationService : IGoogleAuthenticationService
+    public class FirebaseAuthService : IFirebaseAuthService
     {
         private readonly INotificationService _notificationService;
         private readonly FirebaseAuthClient _firebaseAuthClient;
 
-        public GoogleAuthenticationService(
+        public FirebaseAuthService(
             INotificationService notificationService,
             FirebaseAuthClient firebaseAuthClient)
         {

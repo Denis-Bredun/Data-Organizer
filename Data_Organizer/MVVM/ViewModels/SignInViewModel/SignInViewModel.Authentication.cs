@@ -15,7 +15,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
             Email = Email?.Trim();
             Password = Password?.Trim();
 
-            bool succeeded = await _googleAuthenticationService.SignInAsync(Email, Password);
+            bool succeeded = await _firebaseAuthService.SignInAsync(Email, Password);
 
             if (succeeded)
                 await NavigateToMainPage();

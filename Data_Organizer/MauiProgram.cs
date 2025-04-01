@@ -128,7 +128,7 @@ namespace Data_Organizer
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IFileServiceDecorator, FileServiceDecorator>();
             services.AddScoped<IClipboardService, ClipboardService>();
-            services.AddScoped<IGoogleAuthenticationService, GoogleAuthenticationService>();
+            services.AddScoped<IFirebaseAuthService, FirebaseAuthService>();
             services.AddScoped<IOpenAIAPIRequestService, OpenAIAPIRequestService>();
 
             services.AddScoped<HomePageHelpSection>();

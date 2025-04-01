@@ -1,14 +1,11 @@
 using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
 namespace Data_Organizer.MVVM.Views;
-using Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;
-
 public partial class MainPage : ContentPage
 {
     private readonly IServiceProvider _serviceProvider;
     private HelpPageViewModel _helpPageViewModel;
     private MainPageViewModel _mainPageViewModel;
-    private bool _wasHelpPageClosed;
 
     public MainPage(IServiceProvider serviceProvider)
     {
@@ -25,18 +22,7 @@ public partial class MainPage : ContentPage
         _mainPageViewModel.IsLoading = false;
         _mainPageViewModel.HasVisitedMainPage = true;
 
-        ConfigurePlatformSpecifics();
-
         await CheckAndShowHelpIfNeeded();
-    }
-
-    private void ConfigurePlatformSpecifics()
-    {
-        if (DeviceInfo.Platform == DevicePlatform.Android)
-        {
-            SettingsScrollView.On<Microsoft.Maui.Controls.PlatformConfiguration.Android>()
-                .SetIsLegacyColorModeEnabled(true);
-        }
     }
 
     private async Task CheckAndShowHelpIfNeeded()
