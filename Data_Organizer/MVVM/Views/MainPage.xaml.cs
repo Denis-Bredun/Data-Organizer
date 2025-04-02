@@ -1,7 +1,5 @@
-using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
-
 namespace Data_Organizer.MVVM.Views;
 public partial class MainPage : ContentPage
 {
@@ -25,19 +23,6 @@ public partial class MainPage : ContentPage
         _mainPageViewModel.HasVisitedMainPage = true;
 
         await CheckAndShowHelpIfNeeded();
-
-        ModifySubscriptionMarkIfNeeded();
-    }
-
-    private void ModifySubscriptionMarkIfNeeded()
-    {
-        var featureService = _serviceProvider.GetRequiredService<IFeatureService>();
-        var firebaseAuthService = _serviceProvider.GetRequiredService<IFirebaseAuthService>();
-
-        if (firebaseAuthService.IsUserAuthorized())
-            featureService.RemoveSubscriptionMarkFromFeatures();
-        else
-            featureService.AddSubscriptionMarkToFeatures();
     }
 
     private async Task CheckAndShowHelpIfNeeded()
