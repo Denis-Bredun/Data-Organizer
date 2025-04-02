@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
+using Data_Organizer.MVVM.Models.Enums;
+using System.Collections.ObjectModel;
 
 namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
 {
@@ -26,12 +28,12 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
         [ObservableProperty] private bool _isTextAddedAtTheEnd;
         [ObservableProperty] private bool _hasVisitedMainPage;
 
-        public IFeatureService FeatureService { get; }
         public ICultureInfoService CultureInfoService { get; }
         public IAudioTranscriptorService AudioTranscriptorService { get; }
 
+        public ObservableCollection<FeatureModel> Features { get; }
+
         public MainPageViewModel(
-            IFeatureService featureService,
             ICultureInfoService cultureInfoService,
             INotificationService notificationService,
             IAudioTranscriptorService audioTranscriptorService,
@@ -39,7 +41,6 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
             IClipboardService clipboardService,
             IFileServiceDecorator fileService)
         {
-            FeatureService = featureService;
             CultureInfoService = cultureInfoService;
             AudioTranscriptorService = audioTranscriptorService;
 
@@ -48,6 +49,12 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
             _clipboardService = clipboardService;
             _fileService = fileService;
             _lineToDivideOutput = "\n-----------------------\n";
+
+            Features = new ObservableCollection<FeatureModel>()
+            {
+                new FeatureModel("Транскрипція", AppEnums.Features.Transcription),
+                new FeatureModel("Конспект", AppEnums.Features.Summary)
+            };
 
             SetDefaultProperties();
         }

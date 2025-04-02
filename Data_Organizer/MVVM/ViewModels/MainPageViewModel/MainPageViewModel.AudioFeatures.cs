@@ -9,9 +9,9 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
         [RelayCommand]
         public async Task PlayFeature()
         {
-            if (SelectedFeature.Title.Contains("Транскрипція"))
+            if (SelectedFeature.FeatureType == AppEnums.Features.Transcription)
                 PlayTranscription();
-            else if (SelectedFeature.Title.Contains("Конспект"))
+            else if (SelectedFeature.FeatureType == AppEnums.Features.Summary)
                 await PlayAISummary();
         }
 

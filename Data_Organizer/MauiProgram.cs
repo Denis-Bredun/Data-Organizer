@@ -118,7 +118,6 @@ namespace Data_Organizer
             services.AddScoped<IApplicationPreferencesService, ApplicationPreferencesService>();
             services.AddScoped<IEnumDescriptionResolverService, EnumDescriptionResolverService>();
             services.AddScoped<IPreferenceService, PreferenceService>();
-            services.AddScoped<IFeatureService, FeatureService>();
             services.AddScoped<ICultureInfoService, CultureInfoService>();
             services.AddScoped<INotificationService, NotificationService>();
 #if ANDROID

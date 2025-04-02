@@ -1,6 +1,9 @@
 ﻿using Data_Organizer.Interfaces;
+using Data_Organizer.MVVM.Models;
+using Data_Organizer.MVVM.Models.Enums;
 using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
+using System.Linq;
 
 namespace Data_Organizer.Services
 {
@@ -35,131 +38,122 @@ namespace Data_Organizer.Services
 
         private void LoadMainPagePreferences()
         {
-            LoadLastSelectedFeature();
-            LoadLastSelectedOutputLanguage();
-            LoadPreferenceIsTextAddedAtTheEnd();
-            LoadHasVisitedMainPage();
+            LoadFeaturePreference(
+                AppEnums.Preferences.LastSelectedFeature,
+                Features.Transcription);
+
+            LoadLanguagePreference(
+                AppEnums.Preferences.LastSelectedOutputLanguage,
+                Languages.UA);
+
+            LoadBoolPreference(
+                AppEnums.Preferences.IsTextAddedAtTheEnd,
+                true,
+                value => _mainPageViewModel.IsTextAddedAtTheEnd = value);
+
+            LoadBoolPreference(
+                AppEnums.Preferences.HasVisitedMainPage,
+                false,
+                value => _mainPageViewModel.HasVisitedMainPage = value);
         }
 
         private void SaveMainPagePreferences()
         {
-            SaveLastSelectedFeature();
-            SaveLastSelectedOutputLanguage();
-            SavePreferenceIsTextAddedAtTheEnd();
-            SaveHasVisitedMainPage();
+            SaveEnumPreference(
+                AppEnums.Preferences.LastSelectedFeature,
+                _mainPageViewModel.SelectedFeature?.FeatureType ?? Features.Transcription);
+
+            SaveEnumPreference(
+                AppEnums.Preferences.LastSelectedOutputLanguage,
+                _mainPageViewModel.SelectedLanguage?.LanguageType ?? Languages.UA);
+
+            SaveBoolPreference(
+                AppEnums.Preferences.IsTextAddedAtTheEnd,
+                _mainPageViewModel.IsTextAddedAtTheEnd);
+
+            SaveBoolPreference(
+                AppEnums.Preferences.HasVisitedMainPage,
+                _mainPageViewModel.HasVisitedMainPage);
         }
 
         private void LoadHelpPagePreferences()
         {
-            LoadHelpPopupHasBeenClosedOnce();
+            LoadBoolPreference(
+                AppEnums.Preferences.HelpPopupHasBeenClosedOnce,
+                false,
+                value => _helpPageViewModel.HasBeenClosedOnce = value);
         }
 
         private void SaveHelpPagePreferences()
         {
-            SaveHelpPopupHasBeenClosedOnce();
+            SaveBoolPreference(
+                AppEnums.Preferences.HelpPopupHasBeenClosedOnce,
+                _helpPageViewModel.HasBeenClosedOnce);
         }
 
-        private void LoadLastSelectedFeature()
+        private void LoadFeaturePreference(
+            AppEnums.Preferences preferenceKey,
+            Features defaultFeature)
         {
-            var key = AppEnums.Preferences.LastSelectedFeature;
-
-            var defaultValueEnum = AppEnums.Features.Transcription;
-            var defaultValueEnumDescription = _enumDescriptionResolverService.GetEnumDescription(defaultValueEnum);
-            var defaultValue = _mainPageViewModel.FeatureService.Features.FirstOrDefault(
-                    f => f.Title.Contains(defaultValueEnumDescription));
-
-            string lastSelectedFeature = _preferenceService.GetPreference(
-                key, defaultValue);
-
-            _mainPageViewModel.SelectedFeature = _mainPageViewModel.FeatureService.Features.FirstOrDefault(
-                    f => f.Title.Contains(lastSelectedFeature));
+            string storedValue = _preferenceService.GetPreference(preferenceKey, defaultFeature);
+            Features selectedFeature;
+            
+            try 
+            {
+                selectedFeature = Enum.Parse<Features>(storedValue);
+            }
+            catch
+            {
+                selectedFeature = defaultFeature;
+            }
+            
+            _mainPageViewModel.SelectedFeature = _mainPageViewModel.Features
+                .FirstOrDefault(f => f.FeatureType == selectedFeature) 
+                ?? _mainPageViewModel.Features.FirstOrDefault();
         }
 
-        private void SaveLastSelectedFeature()
+        private void LoadLanguagePreference(
+            AppEnums.Preferences preferenceKey,
+            Languages defaultLanguage)
         {
-            var key = AppEnums.Preferences.LastSelectedFeature;
-            var value = _mainPageViewModel.SelectedFeature;
-
-            _preferenceService.SetPreference(key, value);
+            string storedValue = _preferenceService.GetPreference(preferenceKey, defaultLanguage);
+            Languages selectedLanguage;
+            
+            try 
+            {
+                selectedLanguage = Enum.Parse<Languages>(storedValue);
+            }
+            catch
+            {
+                selectedLanguage = defaultLanguage;
+            }
+            
+            _mainPageViewModel.SelectedLanguage = _mainPageViewModel.CultureInfoService.Languages
+                .FirstOrDefault(l => l.LanguageType == selectedLanguage)
+                ?? _mainPageViewModel.CultureInfoService.Languages.FirstOrDefault();
         }
 
-        private void LoadLastSelectedOutputLanguage()
+        private void SaveEnumPreference<TEnum>(
+            AppEnums.Preferences preferenceKey,
+            TEnum value) where TEnum : Enum
         {
-            var key = AppEnums.Preferences.LastSelectedOutputLanguage;
-
-            var defaultValueEnum = AppEnums.Languages.UA;
-            var defaultValueEnumDescription = defaultValueEnum.ToString();
-            var defaultValue = _mainPageViewModel.CultureInfoService.Languages.FirstOrDefault(
-                    l => l.DisplayName.Contains(defaultValueEnumDescription));
-
-            string lastSelectedOutputLanguage = _preferenceService.GetPreference(
-                key, defaultValue);
-
-            _mainPageViewModel.SelectedLanguage = _mainPageViewModel.CultureInfoService.Languages.FirstOrDefault(
-                    l => l.DisplayName.Contains(lastSelectedOutputLanguage));
+            _preferenceService.SetPreference(preferenceKey, value);
         }
 
-        private void SaveLastSelectedOutputLanguage()
+        private void LoadBoolPreference(
+            AppEnums.Preferences preferenceKey,
+            bool defaultValue,
+            Action<bool> setterAction)
         {
-            var key = AppEnums.Preferences.LastSelectedOutputLanguage;
-            var value = _mainPageViewModel.SelectedLanguage;
-
-            _preferenceService.SetPreference(key, value);
+            string storedValue = _preferenceService.GetPreference(preferenceKey, defaultValue);
+            setterAction(bool.Parse(storedValue));
         }
 
-        private void LoadPreferenceIsTextAddedAtTheEnd()
+        private void SaveBoolPreference(
+            AppEnums.Preferences preferenceKey,
+            bool value)
         {
-            var key = AppEnums.Preferences.IsTextAddedAtTheEnd;
-
-            var defaultValue = true;
-
-            string isTextAddedAtTheEnd = _preferenceService.GetPreference(key, defaultValue);
-
-            _mainPageViewModel.IsTextAddedAtTheEnd = bool.Parse(isTextAddedAtTheEnd);
-        }
-
-        private void SavePreferenceIsTextAddedAtTheEnd()
-        {
-            var key = AppEnums.Preferences.IsTextAddedAtTheEnd;
-            var value = _mainPageViewModel.IsTextAddedAtTheEnd;
-
-            _preferenceService.SetPreference(key, value);
-        }
-
-        private void LoadHasVisitedMainPage()
-        {
-            var key = AppEnums.Preferences.HasVisitedMainPage;
-            var defaultValue = false;
-
-            string hasVisitedMainPage = _preferenceService.GetPreference(key, defaultValue);
-
-            _mainPageViewModel.HasVisitedMainPage = bool.Parse(hasVisitedMainPage);
-        }
-
-        private void SaveHasVisitedMainPage()
-        {
-            var key = AppEnums.Preferences.HasVisitedMainPage;
-            var value = _mainPageViewModel.HasVisitedMainPage;
-
-            _preferenceService.SetPreference(key, value);
-        }
-
-        private void LoadHelpPopupHasBeenClosedOnce()
-        {
-            var key = AppEnums.Preferences.HelpPopupHasBeenClosedOnce;
-            var defaultValue = false;
-
-            string helpPopupHasBeenClosedOnce = _preferenceService.GetPreference(key, defaultValue);
-
-            _helpPageViewModel.HasBeenClosedOnce = bool.Parse(helpPopupHasBeenClosedOnce);
-        }
-
-        private void SaveHelpPopupHasBeenClosedOnce()
-        {
-            var key = AppEnums.Preferences.HelpPopupHasBeenClosedOnce;
-            var value = _helpPageViewModel.HasBeenClosedOnce;
-
-            _preferenceService.SetPreference(key, value);
+            _preferenceService.SetPreference(preferenceKey, value);
         }
     }
 }

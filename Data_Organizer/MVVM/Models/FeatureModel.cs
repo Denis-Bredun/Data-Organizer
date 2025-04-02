@@ -1,36 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Data_Organizer.MVVM.Models.Enums;
 
 namespace Data_Organizer.MVVM.Models
 {
     public partial class FeatureModel : ObservableObject
     {
-        private const string SUBSCRIPTION_MARK = " ×";
-        private readonly string _baseTitle;
-
         [ObservableProperty]
         private string _title;
+        
+        public Features FeatureType { get; }
 
-        public bool IsWithSubscription { get; }
-
-        public FeatureModel(string baseTitle, bool isWithSubscription = false)
+        public FeatureModel(string title, Features featureType)
         {
-            _baseTitle = baseTitle;
-            IsWithSubscription = isWithSubscription;
-
-            Title = _baseTitle;
-
-            if (IsWithSubscription)
-                Title += SUBSCRIPTION_MARK;
-        }
-
-        public void AddSubscriptionMark()
-        {
-            Title += SUBSCRIPTION_MARK;
-        }
-
-        public void RemoveSubscriptionMark()
-        {
-            Title = _baseTitle;
+            Title = title;
+            FeatureType = featureType;
         }
 
         public override string ToString() => Title;
