@@ -5,5 +5,7 @@
         Task<bool> SignUpAsync(string email, string password, string username = "");
         Task<bool> SignInAsync(string email, string password);
         Task<string?> GetFreshToken();
+        bool IsUserAuthorized();
+        string GetUsername();
     }
 }

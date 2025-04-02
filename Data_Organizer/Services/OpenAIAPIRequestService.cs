@@ -8,17 +8,32 @@ namespace Data_Organizer.Services
     {
         private readonly INotificationService _notificationService;
         private readonly IGetSummaryFromChatGPTQuery _getSummaryFromChatGPTQuery;
+        private readonly IFirebaseAuthService _firebaseAuthService;
 
         public OpenAIAPIRequestService(
             INotificationService notificationService,
-            IGetSummaryFromChatGPTQuery getSummaryFromChatGPTQuery)
+            IGetSummaryFromChatGPTQuery getSummaryFromChatGPTQuery,
+            IFirebaseAuthService firebaseAuthService)
         {
             _notificationService = notificationService;
             _getSummaryFromChatGPTQuery = getSummaryFromChatGPTQuery;
+            _firebaseAuthService = firebaseAuthService;
         }
 
         public async Task<SummaryRequest?> GetSummaryAsync(string content, LanguageModel selectedLanguage)
         {
+            if (!_firebaseAuthService.IsUserAuthorized())
+            {
+                await _notificationService.ShowToastAsync("Ви не авторизовані! Увійдіть в акаунт або зареєструйтесь.");
+                return null;
+            }
+
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                await _notificationService.ShowToastAsync("Тези не можуть бути зроблені з пустоти!");
+                return null;
+            }
+
             content = $"Мова виводу: {selectedLanguage.CultureCode}\n\n{content}";
 
             var requestData = new SummaryRequest

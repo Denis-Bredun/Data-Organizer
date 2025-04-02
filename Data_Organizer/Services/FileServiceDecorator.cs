@@ -1,5 +1,6 @@
 ﻿using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
+using System.Globalization;
 
 namespace Data_Organizer.Services
 {
@@ -7,17 +8,26 @@ namespace Data_Organizer.Services
     {
         private readonly IFileService _fileService;
         private readonly INotificationService _notificationService;
+        private readonly IFirebaseAuthService _firebaseAuthService;
+        private readonly ICultureInfoService _cultureInfoService;
 
         public FileServiceDecorator(
             IFileService fileService,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IFirebaseAuthService firebaseAuthService,
+            ICultureInfoService cultureInfoService)
         {
             _fileService = fileService;
             _notificationService = notificationService;
+            _firebaseAuthService = firebaseAuthService;
+            _cultureInfoService = cultureInfoService;
         }
 
         public async Task<string> ImportTextAsync()
         {
+            if (!await CheckIfUserIsAuthorized())
+                return null;
+
             try
             {
                 if (!await _fileService.RequestPermissionsStorageReadAsync())
@@ -45,8 +55,11 @@ namespace Data_Organizer.Services
             }
         }
 
-        public async Task ExportTextAsync(string text, AppEnums.TextFileFormat textFileFormat)
+        public async Task ExportTextAsync(string text)
         {
+            if (!await CheckIfUserIsAuthorized())
+                return;
+
             try
             {
                 if (string.IsNullOrEmpty(text))
@@ -61,12 +74,35 @@ namespace Data_Organizer.Services
                     return;
                 }
 
+                const string
+                    pdf = "PDF",
+                    docx = "DOCX",
+                    txt = "TXT";
+
+                var answer = await _notificationService.ShowActionSheetAsync("В якому розширенні бажаєте експортувати?", pdf, docx, txt);
+                
+                AppEnums.TextFileFormat format;
+                switch (answer)
+                {
+                    case pdf:
+                        format = AppEnums.TextFileFormat.PDF;
+                        break;
+                    case docx:
+                        format = AppEnums.TextFileFormat.DOCX;
+                        break;
+                    case txt:
+                        format = AppEnums.TextFileFormat.TXT;
+                        break;
+                    default:
+                        return;
+                }
+
                 var confirm = await _notificationService.ShowConfirmationDialogAsync("Зберегти файл?");
                 if (!confirm) return;
 
-                await _fileService.ExportTextAsync(text, textFileFormat);
+                await _fileService.ExportTextAsync(text, format);
                 await _notificationService.ShowToastAsync(
-                    $"Файл успішно збережено у форматі {textFileFormat}");
+                    $"Файл успішно збережено у форматі {format}");
             }
             catch (Exception ex)
             {
@@ -74,8 +110,11 @@ namespace Data_Organizer.Services
             }
         }
 
-        public async Task<string> ImportAudiofileAsync(LanguageModel selectedLanguage)
+        public async Task<string> ImportAudiofileAsync()
         {
+            if (!await CheckIfUserIsAuthorized())
+                return null;
+
             try
             {
                 if (!await _fileService.RequestPermissionsStorageReadAsync())
@@ -84,6 +123,13 @@ namespace Data_Organizer.Services
                     return null;
                 }
 
+                var languageOptions = _cultureInfoService.Languages.Select(l => l.DisplayName).ToArray();
+                var answer = await _notificationService.ShowActionSheetAsync("Яка мова в аудіофайлі?", languageOptions);
+
+                if (answer == "Нічого" || string.IsNullOrEmpty(answer))
+                    return null;
+
+                var selectedLanguage = _cultureInfoService.Languages.FirstOrDefault(l => l.DisplayName == answer);
                 var transcription = await _fileService.ImportAudiofileAsync(selectedLanguage);
 
                 if (transcription == null)
@@ -102,6 +148,15 @@ namespace Data_Organizer.Services
                 return null;
             }
         }
-    }
 
+        private async Task<bool> CheckIfUserIsAuthorized()
+        {
+            bool isAuthorized = _firebaseAuthService.IsUserAuthorized();
+
+            if (!isAuthorized)
+                await _notificationService.ShowToastAsync("Ви не авторизовані! Увійдіть в акаунт або зареєструйтесь.");
+
+            return isAuthorized;
+        }
+    }
 }

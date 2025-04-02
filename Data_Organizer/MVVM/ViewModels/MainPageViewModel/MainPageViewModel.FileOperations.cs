@@ -25,24 +25,22 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
         {
             IsLoading = true;
 
-            const string
-                pdf = "PDF",
-                docx = "DOCX",
-                txt = "TXT";
+            await _fileService.ExportTextAsync(OutputText);
 
-            var answer = await _notificationService.ShowActionSheetAsync("В якому розширенні бажаєте експортувати?", pdf, docx, txt);
+            IsLoading = false;
+        }
 
-            switch (answer)
+        [RelayCommand]
+        public async Task ImportAudioFile()
+        {
+            IsLoading = true;
+
+            string transcribedText = await _fileService.ImportAudiofileAsync();
+
+            if (transcribedText != null)
             {
-                case pdf:
-                    await _fileService.ExportTextAsync(OutputText, AppEnums.TextFileFormat.PDF);
-                    break;
-                case docx:
-                    await _fileService.ExportTextAsync(OutputText, AppEnums.TextFileFormat.DOCX);
-                    break;
-                case txt:
-                    await _fileService.ExportTextAsync(OutputText, AppEnums.TextFileFormat.TXT);
-                    break;
+                _wasInfluenceOnOutputText = true;
+                SetOutputText(transcribedText);
             }
 
             IsLoading = false;
