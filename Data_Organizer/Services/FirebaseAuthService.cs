@@ -65,6 +65,8 @@ namespace Data_Organizer.Services
                     await _notificationService.ShowToastAsync("Неправильно введені пошта або пароль!");
                 else if (errorMessage == "TOO_MANY_ATTEMPTS_TRY_LATER")
                     await _notificationService.ShowToastAsync("Дуже багато спроб... Спробуйте пізніше!");
+                else if (errorMessage == "INVALID_EMAIL")
+                    await _notificationService.ShowToastAsync("Неправильна пошта!");
                 else
                     await _notificationService.ShowToastAsync(errorMessage);
 
@@ -75,6 +77,11 @@ namespace Data_Organizer.Services
         public async Task<string?> GetFreshToken()
         {
             return await _firebaseAuthClient?.User?.GetIdTokenAsync(true);
+        }
+
+        public bool IsUserAuthorized()
+        {
+            return _firebaseAuthClient.User != null;
         }
 
         private async Task<bool> CheckInternetConnectionAsync()

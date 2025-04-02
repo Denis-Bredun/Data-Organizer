@@ -8,13 +8,16 @@ namespace Data_Organizer.Services
     {
         private readonly INotificationService _notificationService;
         private readonly IGetSummaryFromChatGPTQuery _getSummaryFromChatGPTQuery;
+        private readonly IFirebaseAuthService _firebaseAuthService;
 
         public OpenAIAPIRequestService(
             INotificationService notificationService,
-            IGetSummaryFromChatGPTQuery getSummaryFromChatGPTQuery)
+            IGetSummaryFromChatGPTQuery getSummaryFromChatGPTQuery,
+            IFirebaseAuthService firebaseAuthService)
         {
             _notificationService = notificationService;
             _getSummaryFromChatGPTQuery = getSummaryFromChatGPTQuery;
+            _firebaseAuthService = firebaseAuthService;
         }
 
         public async Task<SummaryRequest?> GetSummaryAsync(string content, LanguageModel selectedLanguage)
