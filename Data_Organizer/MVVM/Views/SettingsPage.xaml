@@ -2,13 +2,22 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Data_Organizer.MVVM.Views.SettingsPage"
+             xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
+             x:DataType="vm:SettingsPageViewModel"
              Style="{StaticResource PageStyle}">
     
     <VerticalStackLayout>
-        <Label 
-            Text="Settings Page!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Style="{StaticResource GreetingOnSettingsPageLabelStyle}">
+            <Label.FormattedText>
+                <FormattedString>
+                    <FormattedString.Spans>
+                        <Span TextColor="{StaticResource TextColor}" Text="Ласкаво просимо,&#10;" />
+                        <Span TextColor="{StaticResource TextColor}" Text="{Binding Username}" />
+                        <Span TextColor="{StaticResource TextColor}" Text="!" />
+                    </FormattedString.Spans>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
     </VerticalStackLayout>
     
 </ContentPage>

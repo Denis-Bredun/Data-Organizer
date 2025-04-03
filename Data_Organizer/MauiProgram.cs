@@ -136,7 +136,6 @@ namespace Data_Organizer
 
             services.AddScoped<AppShell>();
             services.AddScoped<SavedNotesPage>();
-            services.AddScoped<SettingsPage>();
 
             return services;
         }
@@ -146,6 +145,7 @@ namespace Data_Organizer
             services.AddViewModel<WelcomeViewModel, WelcomePage>();
             services.AddViewModel<SignUpViewModel, SignUpPage>();
             services.AddViewModel<SignInViewModel, SignInPage>();
+            services.AddViewModel<SettingsPageViewModel, SettingsPage>();
 
             services.AddViewModelWithServiceProvider<MainPageViewModel, MainPage>();
             services.AddViewModelWithServiceProvider<HelpPageViewModel, HelpPage>();

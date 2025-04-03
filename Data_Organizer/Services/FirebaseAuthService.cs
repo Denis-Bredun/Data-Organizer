@@ -9,6 +9,8 @@ namespace Data_Organizer.Services
         private readonly INotificationService _notificationService;
         private readonly FirebaseAuthClient _firebaseAuthClient;
 
+        public event EventHandler AuthStateChanged;
+
         public FirebaseAuthService(
             INotificationService notificationService,
             FirebaseAuthClient firebaseAuthClient)
@@ -28,6 +30,8 @@ namespace Data_Organizer.Services
                 email,
                 password,
                 username);
+
+                OnAuthStateChanged();
 
                 return true;
             }
@@ -52,8 +56,10 @@ namespace Data_Organizer.Services
             try
             {
                 await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(
-                                                                email,
-                                                                password);
+                email,
+                password);
+
+                OnAuthStateChanged();
 
                 return true;
             }
@@ -79,7 +85,17 @@ namespace Data_Organizer.Services
 
         public bool IsUserAuthorized() => _firebaseAuthClient.User != null;
 
-        public string GetUsername() => _firebaseAuthClient.User?.Info?.DisplayName ?? string.Empty;
+        public string GetUsername()
+        {
+            if (!IsUserAuthorized())
+                return null;
+            else
+            {
+                var displayName = _firebaseAuthClient.User?.Info?.DisplayName;
+
+                return string.IsNullOrWhiteSpace(displayName) ? "Користувач" : displayName;
+            }
+        }
 
         private async Task<bool> CheckInternetConnectionAsync()
         {
@@ -103,6 +119,11 @@ namespace Data_Organizer.Services
                                   .GetString();
 
             return errorMessage;
+        }
+
+        private void OnAuthStateChanged()
+        {
+            AuthStateChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

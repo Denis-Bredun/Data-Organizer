@@ -241,4 +241,13 @@
         </Setter>
     </Style>
 
+    <Style x:Key="GreetingOnSettingsPageLabelStyle" TargetType="Label">
+        <Setter Property="Margin" Value="0,10,0,0" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{StaticResource GreetingOnSettingsPageFontSize}" />
+    </Style>
+
 </ResourceDictionary>
