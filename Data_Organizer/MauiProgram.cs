@@ -69,12 +69,16 @@ namespace Data_Organizer
             var firebaseApiKey = config["FIREBASE_API_KEY"];
             var firebaseAuthDomain = config["AUTH_DOMAIN"];
 
+            services.AddSingleton<IEncryptionService, EncryptionService>();
+            var serviceProvider = services.BuildServiceProvider();
+            var encryptionService = serviceProvider.GetRequiredService<IEncryptionService>();
+
             services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig
             {
                 ApiKey = firebaseApiKey,
                 AuthDomain = firebaseAuthDomain,
                 Providers = [new EmailProvider()],
-                UserRepository = new SecureStorageUserRepository("DataOrganizer")
+                UserRepository = new SecureStorageUserRepository("DataOrganizer", encryptionService)
             }));
         }
 

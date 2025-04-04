@@ -1,3 +1,4 @@
+using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
 using Firebase.Auth;
 using Firebase.Auth.Repository;
@@ -8,11 +9,13 @@ namespace Data_Organizer.Services
     public class SecureStorageUserRepository : IUserRepository
     {
         private readonly string _appName;
-        private const string AuthDataKey = "firebase_auth_data";
+        private readonly IEncryptionService _encryptionService;
+        private const string AUTH_DATA_KEY = "firebase_auth_data";
 
-        public SecureStorageUserRepository(string appName)
+        public SecureStorageUserRepository(string appName, IEncryptionService encryptionService)
         {
             _appName = appName;
+            _encryptionService = encryptionService;
         }
 
         public bool UserExists()
@@ -24,12 +27,17 @@ namespace Data_Organizer.Services
         {
             try
             {
-                string json = SecureStorage.Default.GetAsync(GetStorageKey()).Result;
+                string encryptedJson = SecureStorage.Default.GetAsync(GetStorageKey()).Result;
                 
-                if (string.IsNullOrEmpty(json))
+                if (string.IsNullOrEmpty(encryptedJson))
                     return (null, null);
                 
-                var userData = JsonSerializer.Deserialize<UserData>(json);
+                string decryptedJson = _encryptionService.Decrypt(encryptedJson);
+                
+                if (string.IsNullOrEmpty(decryptedJson))
+                    return (null, null);
+                
+                var userData = JsonSerializer.Deserialize<UserData>(decryptedJson);
                 return (userData?.UserInfo, userData?.Credential);
             }
             catch
@@ -53,7 +61,8 @@ namespace Data_Organizer.Services
             };
 
             string json = JsonSerializer.Serialize(userData);
-            SecureStorage.Default.SetAsync(GetStorageKey(), json).Wait();
+            string encryptedJson = _encryptionService.Encrypt(json);
+            SecureStorage.Default.SetAsync(GetStorageKey(), encryptedJson).Wait();
         }
 
         public void DeleteUser()
@@ -61,6 +70,6 @@ namespace Data_Organizer.Services
             SecureStorage.Default.Remove(GetStorageKey());
         }
 
-        private string GetStorageKey() => $"{_appName}_{AuthDataKey}";
+        private string GetStorageKey() => $"{_appName}_{AUTH_DATA_KEY}";
     }    
 } 
