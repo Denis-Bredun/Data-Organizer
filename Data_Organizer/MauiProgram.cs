@@ -74,7 +74,7 @@ namespace Data_Organizer
                 ApiKey = firebaseApiKey,
                 AuthDomain = firebaseAuthDomain,
                 Providers = [new EmailProvider()],
-                UserRepository = new FileUserRepository("DataOrganizer")
+                UserRepository = new SecureStorageUserRepository("DataOrganizer")
             }));
         }
 
