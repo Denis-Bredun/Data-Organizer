@@ -1,6 +1,4 @@
 ﻿using Data_Organizer.Interfaces;
-using Data_Organizer.MVVM.Models;
-using System.Globalization;
 
 namespace Data_Organizer.Services
 {
@@ -80,7 +78,7 @@ namespace Data_Organizer.Services
                     txt = "TXT";
 
                 var answer = await _notificationService.ShowActionSheetAsync("В якому розширенні бажаєте експортувати?", pdf, docx, txt);
-                
+
                 AppEnums.TextFileFormat format;
                 switch (answer)
                 {
@@ -113,6 +111,9 @@ namespace Data_Organizer.Services
         public async Task<string> ImportAudiofileAsync()
         {
             if (!await CheckIfUserIsAuthorized())
+                return null;
+
+            if (!await CheckInternetConnectionAsync())
                 return null;
 
             try
@@ -158,5 +159,17 @@ namespace Data_Organizer.Services
 
             return isAuthorized;
         }
+
+        private async Task<bool> CheckInternetConnectionAsync()
+        {
+            var isConnectedToInternet = IsConnectedToInternet();
+
+            if (!isConnectedToInternet)
+                await _notificationService.ShowToastAsync("Немає Інтернет-підключення");
+
+            return isConnectedToInternet;
+        }
+
+        private bool IsConnectedToInternet() => Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
     }
 }

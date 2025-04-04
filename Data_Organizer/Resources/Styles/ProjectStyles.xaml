@@ -64,7 +64,7 @@
         <Setter Property="TextColor" Value="{StaticResource TextColor}" />
         <Setter Property="BackgroundColor" Value="{StaticResource ControlElementBackgroundColor}" />
     </Style>
-
+    
     <Style TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}" x:Key="SignInButtonStyle">
         <Setter Property="BackgroundColor" Value="{StaticResource SignInButtonBackgroundColor}" />
     </Style>
@@ -248,6 +248,10 @@
         <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="VerticalTextAlignment" Value="Center" />
         <Setter Property="FontSize" Value="{StaticResource GreetingOnSettingsPageFontSize}" />
+    </Style>
+
+    <Style x:Key="RedSeriousButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="BackgroundColor" Value="{StaticResource SeriousButtonColor}"/>
     </Style>
 
 </ResourceDictionary>

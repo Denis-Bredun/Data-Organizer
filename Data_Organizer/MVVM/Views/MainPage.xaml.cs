@@ -43,6 +43,6 @@ public partial class MainPage : ContentPage
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        ((MainPageViewModel)BindingContext).Dispose();
+        _mainPageViewModel.Dispose();
     }
 }

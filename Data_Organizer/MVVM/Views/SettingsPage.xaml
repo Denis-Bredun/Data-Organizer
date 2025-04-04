@@ -2,11 +2,19 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Data_Organizer.MVVM.Views.SettingsPage"
+             xmlns:converters="clr-namespace:Data_Organizer.Converters"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
              x:DataType="vm:SettingsPageViewModel"
              Style="{StaticResource PageStyle}">
+
+    <ContentPage.Resources>
+        <converters:BoolReverserConverter x:Key="BoolReverserConverter"/>
+    </ContentPage.Resources>
     
-    <VerticalStackLayout>
+    <Grid>
+        
+        <VerticalStackLayout>
         <Label Style="{StaticResource GreetingOnSettingsPageLabelStyle}">
             <Label.FormattedText>
                 <FormattedString>
@@ -18,6 +26,48 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
+        <StackLayout 
+            Margin="0,30,0,0" 
+            Orientation="Horizontal" 
+            HorizontalOptions="Center">
+            <Button 
+                WidthRequest="300"
+                Text="Увійти в акаунт"
+                Command="{Binding NavigateToSignInPageCommand}"
+                Style="{StaticResource SignInButtonStyle}"
+                IsVisible="{Binding IsUserAuthorized, Converter={StaticResource BoolReverserConverter}}"/>
+
+            <StackLayout 
+                Orientation="Horizontal" 
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsUserAuthorized}">
+
+                <Button 
+                    WidthRequest="130"
+                    Margin="10"
+                    Command="{Binding SignOutCommand}"
+                    Text="Вийти з&#10;акаунту"
+                    LineBreakMode="WordWrap"
+                    Style="{StaticResource RedSeriousButtonStyle}"/>
+
+                <Button 
+                    WidthRequest="220"
+                    Margin="10"
+                    Text="Придбати&#10;підписку"
+                    LineBreakMode="WordWrap"
+                    Style="{StaticResource BaseButtonStyle}"
+                    ImageSource="subscription.svg"/>
+
+            </StackLayout>
+            
+        </StackLayout>
     </VerticalStackLayout>
-    
+        
+        <Grid IsVisible="{Binding IsLoading, Mode=TwoWay}" 
+          Style="{StaticResource TransparentGridStyle}">
+            <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
+        </Grid>
+        
+    </Grid>
+
 </ContentPage>

@@ -9,5 +9,6 @@
         Task<string?> GetFreshToken();
         bool IsUserAuthorized();
         string GetUsername();
+        Task<bool> SignOut();
     }
 }

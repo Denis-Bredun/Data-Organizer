@@ -16,7 +16,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
         {
             // добавить сохранение куда-то того, что метаданные не собираются
             IsLoading = true;
-            await Shell.Current.GoToAsync("//TabBar");
+            await Shell.Current.GoToAsync("//MainPage");
         }
     }
 }

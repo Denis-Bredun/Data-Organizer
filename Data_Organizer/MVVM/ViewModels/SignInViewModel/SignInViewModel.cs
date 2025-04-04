@@ -19,5 +19,11 @@ namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
             _notificationService = notificationService;
             _firebaseAuthService = firebaseAuthService;
         }
+
+        private void CleanFields()
+        {
+            Email = "";
+            Password = "";
+        }
     }
 }

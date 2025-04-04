@@ -78,6 +78,31 @@ namespace Data_Organizer.Services
             }
         }
 
+        public async Task<bool> SignOut()
+        {
+            if (!await CheckInternetConnectionAsync())
+                return false;
+
+            try
+            {
+                _firebaseAuthClient.SignOut();
+
+                await _notificationService.ShowToastAsync("Ви успішно вийшли з акаунту!");
+
+                OnAuthStateChanged();
+
+                return true;
+            }
+            catch (FirebaseAuthHttpException ex)
+            {
+                string errorMessage = GetErrorMessage(ex);
+
+                await _notificationService.ShowToastAsync(errorMessage);
+
+                return false;
+            }
+        }
+
         public async Task<string?> GetFreshToken()
         {
             return await _firebaseAuthClient?.User?.GetIdTokenAsync(true);

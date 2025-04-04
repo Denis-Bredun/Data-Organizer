@@ -23,7 +23,7 @@ namespace Data_Organizer.MVVM.ViewModels
         {
             IsLoading = true;
             HasBeenClosedOnce = true;
-            await Shell.Current.GoToAsync("//TabBar");
+            await Shell.Current.GoToAsync("//MainPage");
         }
 
         [RelayCommand]

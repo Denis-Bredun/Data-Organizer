@@ -18,7 +18,10 @@ namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
             bool succeeded = await _firebaseAuthService.SignInAsync(Email, Password);
 
             if (succeeded)
+            {
+                CleanFields();
                 await NavigateToMainPage();
+            }
             else
                 IsLoading = false;
 

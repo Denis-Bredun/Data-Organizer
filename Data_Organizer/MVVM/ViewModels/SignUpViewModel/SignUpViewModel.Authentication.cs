@@ -16,22 +16,14 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
             bool succeeded = await _firebaseAuthService.SignUpAsync(Email, Password, Username);
 
             if (succeeded)
+            {
+                CleanFields();
                 await NavigateToMainPage();
+            }
             else
                 IsLoading = false;
 
             // добавить сохранение куда-то того, что метаданные собираются
-        }
-
-        [RelayCommand]
-        public async Task ShowTipAboutMetadata()
-        {
-            await _notificationService.ShowToastAsync("Метадані включають в себе: геолокація, дата, час та" +
-                                                      " пристрій реєстрації, авторизацій, виходів з акаунту" +
-                                                      " та змінею паролю. Збір буде здійснюватись із метою " +
-                                                      " можливості відслідковування активності акаунту та " +
-                                                      "потенційних підозрюваних дій.",
-                                                      17);
         }
     }
 } 
