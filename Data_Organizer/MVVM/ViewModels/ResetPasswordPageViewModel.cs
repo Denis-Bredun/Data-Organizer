@@ -28,6 +28,14 @@ namespace Data_Organizer.MVVM.ViewModels
 
             IsLoading = true;
 
+            bool confirmed = await _notificationService.ShowConfirmationDialogAsync($"Ви точно правильно написали пошту?\n\n{Email}");
+
+            if (!confirmed)
+            {
+                IsLoading = false;
+                return;
+            }
+
             Email = Email?.Trim();
 
             bool succeeded = await _firebaseAuthService.ResetPassword(Email);
@@ -46,7 +54,7 @@ namespace Data_Organizer.MVVM.ViewModels
                         await Shell.Current.GoToAsync("//SettingsPage");
                 }
 
-                IsLoading = false;
+                await Shell.Current.GoToAsync("//SignInPage");
             }
             else
                 IsLoading = false;
