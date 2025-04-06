@@ -71,6 +71,8 @@ namespace Data_Organizer.Services
                     await _notificationService.ShowToastAsync("Неправильно введені пошта або пароль!");
                 else if (errorMessage == "TOO_MANY_ATTEMPTS_TRY_LATER")
                     await _notificationService.ShowToastAsync("Дуже багато спроб... Спробуйте пізніше!");
+                else if (errorMessage == "INVALID_EMAIL")
+                    await _notificationService.ShowToastAsync("Неправильна пошта!");
                 else
                     await _notificationService.ShowToastAsync(errorMessage);
 
@@ -98,6 +100,57 @@ namespace Data_Organizer.Services
                 string errorMessage = GetErrorMessage(ex);
 
                 await _notificationService.ShowToastAsync(errorMessage);
+
+                return false;
+            }
+        }
+
+        public async Task<bool> SignOutWithoutNotification()
+        {
+            if (!await CheckInternetConnectionAsync())
+                return false;
+
+            try
+            {
+                _firebaseAuthClient.SignOut();
+
+                OnAuthStateChanged();
+
+                return true;
+            }
+            catch (FirebaseAuthHttpException ex)
+            {
+                string errorMessage = GetErrorMessage(ex);
+
+                await _notificationService.ShowToastAsync(errorMessage);
+
+                return false;
+            }
+        }
+
+        public async Task<bool> ResetPassword(string email)
+        {
+            if (!await CheckInternetConnectionAsync())
+                return false;
+
+            try
+            {
+                await _firebaseAuthClient.ResetEmailPasswordAsync(email);
+
+                await _notificationService.ShowToastAsync("Вам на пошту було відправлено посилання для зміни пароля!");
+
+                OnAuthStateChanged();
+
+                return true;
+            }
+            catch (FirebaseAuthHttpException ex)
+            {
+                string errorMessage = GetErrorMessage(ex);
+
+                if (errorMessage == "INVALID_EMAIL")
+                    await _notificationService.ShowToastAsync("Неправильна пошта!");
+                else
+                    await _notificationService.ShowToastAsync(errorMessage);
 
                 return false;
             }

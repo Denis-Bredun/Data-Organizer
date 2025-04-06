@@ -48,6 +48,12 @@
         <VerticalStackLayout 
             Grid.Row="5" 
             Margin="25,0,25,30">
+
+            <Button
+                Text="Забули пароль? Натисність сюди."
+                Style="{StaticResource LinkButtonStyle}"
+                Command="{Binding NavigateToResetPasswordPageCommand}"/>
+
             <Button
                 Text="Немає акаунту? Зареєструйтесь."
                 Style="{StaticResource LinkButtonStyle}"

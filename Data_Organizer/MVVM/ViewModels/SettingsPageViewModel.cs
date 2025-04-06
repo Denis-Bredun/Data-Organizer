@@ -45,6 +45,14 @@ namespace Data_Organizer.MVVM.ViewModels
                 IsLoading = false;
         }
 
+        [RelayCommand]
+        public async Task NavigateToResetPasswordPage()
+        {
+            IsLoading = true;
+
+            await Shell.Current.GoToAsync("//ResetPasswordPage");
+        }
+
         private void OnAuthStateChanged(object sender, EventArgs e)
         {
             UpdateDataOnPage();

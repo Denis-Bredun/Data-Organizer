@@ -11,6 +11,7 @@
     <ShellContent ContentTemplate="{DataTemplate pages:WelcomePage}" Route="WelcomePage"/>
     <ShellContent ContentTemplate="{DataTemplate pages:SignUpPage}" Route="SignUpPage"/>
     <ShellContent ContentTemplate="{DataTemplate pages:SignInPage}" Route="SignInPage"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:ResetPasswordPage}" Route="ResetPasswordPage"/>
     <ShellContent ContentTemplate="{DataTemplate pages:HelpPage}" Route="HelpPage"/>
     <TabBar Route="TabBar">
         <Tab Icon="home_page.svg">

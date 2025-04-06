@@ -77,6 +77,7 @@
         <Setter Property="FontSize" Value="{StaticResource LinkFontSize}" />
         <Setter Property="TextColor" Value="{StaticResource TextColor}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="LightBlue" />
         <Setter Property="FontAttributes" Value="Italic" />
     </Style>
 

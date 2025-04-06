@@ -18,5 +18,12 @@ namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
             IsLoading = true;
             await Shell.Current.GoToAsync("//MainPage");
         }
+
+        [RelayCommand]
+        public async Task NavigateToResetPasswordPage()
+        {
+            IsLoading = true;
+            await Shell.Current.GoToAsync("//ResetPasswordPage");
+        }
     }
 }

@@ -43,7 +43,7 @@
                 IsVisible="{Binding IsUserAuthorized}">
 
                 <Button 
-                    WidthRequest="130"
+                    WidthRequest="160"
                     Margin="10"
                     Command="{Binding SignOutCommand}"
                     Text="Вийти з&#10;акаунту"
@@ -51,12 +51,12 @@
                     Style="{StaticResource RedSeriousButtonStyle}"/>
 
                 <Button 
-                    WidthRequest="220"
+                    WidthRequest="160"
                     Margin="10"
-                    Text="Придбати&#10;підписку"
+                    Command="{Binding NavigateToResetPasswordPageCommand}"
+                    Text="Змінити&#10;пароль"
                     LineBreakMode="WordWrap"
-                    Style="{StaticResource BaseButtonStyle}"
-                    ImageSource="subscription.svg"/>
+                    Style="{StaticResource BaseButtonStyle}"/>
 
             </StackLayout>
             

@@ -10,5 +10,7 @@
         bool IsUserAuthorized();
         string GetUsername();
         Task<bool> SignOut();
+        Task<bool> ResetPassword(string email);
+        Task<bool> SignOutWithoutNotification();
     }
 }
