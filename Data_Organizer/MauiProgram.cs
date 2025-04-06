@@ -10,7 +10,6 @@ using Data_Organizer.MVVM.Views.Controls;
 using Data_Organizer.Services;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
-using Firebase.Auth.Repository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Refit;
@@ -46,7 +45,6 @@ namespace Data_Organizer
         {
             builder
                 .UseMauiApp<App>()
-                .ConfigureFonts(fonts => fonts.AddFont("arialuni.ttf", "ArialUnicode"))
                 .UseSkiaSharp()
                 .UseMauiCommunityToolkit()
                 .UseUraniumUI()

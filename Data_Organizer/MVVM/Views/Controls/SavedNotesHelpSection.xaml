@@ -60,11 +60,6 @@
                     Style="{StaticResource LabelStyle}"
                     FontAttributes="Bold"
                     Text="Важливо: записи доступні тільки авторизованим користувачам."/>
-
-                <Label
-                    Style="{StaticResource LabelStyle}"
-                    FontAttributes="Bold"
-                    Text="Без преміум-підписки можна зберегти максимум 10 записів."/>
             </StackLayout>
         </Frame>
     </StackLayout>

@@ -34,15 +34,15 @@
 
                 <Label 
                     Style="{StaticResource LabelStyle}"
-                    Text="• Придбати преміум-підписку або відмовитись від неї"/>
-
-                <Label 
-                    Style="{StaticResource LabelStyle}"
                     Text="• Змінити пароль для захисту ваших даних"/>
 
                 <Label 
                     Style="{StaticResource LabelStyle}"
                     Text="• Відключити або включити збір метаданих"/>
+
+                <Label 
+                    Style="{StaticResource LabelStyle}"
+                    Text="• Видалити акаунт"/>
             </StackLayout>
         </Frame>
     </StackLayout>
