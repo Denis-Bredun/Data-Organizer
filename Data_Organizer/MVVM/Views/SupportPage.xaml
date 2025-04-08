@@ -7,37 +7,40 @@
              x:DataType="vm:SupportPageViewModel"
              Style="{StaticResource PageStyle}">
 
-    <Grid RowDefinitions="0.5*, 0.8*, 0.8*, 0.8*, 0.8*, 0.7*, 0.6*, 0.8*, 0.8*">
-        <Label Grid.Row="0"
+    <Grid>
+        <VerticalStackLayout>
+        <Label 
+            Margin="0,20,0,0"
             Text="Служба підтримки"
             Style="{StaticResource PageTitleStyle}"/>
 
         <Label
-            Grid.Row="1"
+            Margin="0,20,0,0"
             Style="{StaticResource LabelStyle}"
             Text="Розробник: Бредун Денис Сергійович"/>
 
         <Label
-            Grid.Row="2"
+            Margin="0,20,0,0"
             Style="{StaticResource LabelStyle}"
             Text="Пошта: bredun.denis@gmail.com"/>
 
         <Label
-            Grid.Row="3"
+            Margin="0,20,0,0"
             Style="{StaticResource LabelStyle}"
             Text="Телеграм: @Denn_cchik"/>
 
         <Button 
-            Grid.Row="4"
+            Margin="30,40,30,0"
             Style="{StaticResource BaseButtonStyle}"
             VerticalOptions="Start"
-            Margin="30,-20,30,0"
             Text="Повернутись назад"
             Command="{Binding GoBackCommand}"/>
 
-        <Grid Grid.RowSpan="9"
-            IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-            Style="{StaticResource TransparentGridStyle}">
+        
+        </VerticalStackLayout>
+        <Grid
+    IsVisible="{Binding IsLoading, Mode=TwoWay}" 
+    Style="{StaticResource TransparentGridStyle}">
             <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
         </Grid>
     </Grid>

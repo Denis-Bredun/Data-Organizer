@@ -57,6 +57,13 @@ namespace Data_Organizer.MVVM.ViewModels
         }
 
         [RelayCommand]
+        public async Task NavigateToSupportPage()
+        {
+            IsLoading = true;
+            await Shell.Current.GoToAsync("//SupportPage");
+        }
+
+        [RelayCommand]
         public async Task ShowTipAboutMetadata()
         {
             await _notificationService.ShowToastAsync("Геолокація, дата, час та" +

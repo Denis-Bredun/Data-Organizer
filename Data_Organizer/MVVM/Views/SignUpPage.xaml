@@ -7,7 +7,7 @@
              x:Class="Data_Organizer.MVVM.Views.SignUpPage"
              Style="{StaticResource PageStyle}">
 
-    <Grid RowDefinitions="0.5*, 0.8*, 0.8*, 0.8*, 0.8*, 0.7*, 0.6*, 0.8*, 0.8*">
+    <Grid RowDefinitions="0.5*, 0.8*, 0.8*, 0.8*, 0.8*, 0.7*, 0.5*, 0.5*, 0.5*, 0.7*, 0.2*">
         <Label Grid.Row="0"
             Text="Реєстрація"
             Style="{StaticResource PageTitleStyle}"/>
@@ -87,30 +87,26 @@
             Text="Зареєструватись"
             Command="{Binding SignUpCommand}"/>
 
-        <VerticalStackLayout 
+        <Button
             Grid.Row="7" 
-            Margin="25,0,25,30">
+            Text="Маєте акаунт? Увійдіть."
+            Style="{StaticResource LinkButtonStyle}"
+            Command="{Binding NavigateToSignInPageCommand}"/>
 
-            <Button
-                Text="Маєте акаунт? Увійдіть."
-                Style="{StaticResource LinkButtonStyle}"
-                Command="{Binding NavigateToSignInPageCommand}"/>
+        <Button
+            Grid.Row="8" 
+            Text="Увійти як гість"
+            Style="{StaticResource LinkButtonStyle}"
+            Command="{Binding NavigateToMainPageCommand}"/>
 
-            <Button
-                Text="Увійти як гість"
-                Style="{StaticResource LinkButtonStyle}"
-                Command="{Binding NavigateToMainPageCommand}"/>
+        <Button
+            Grid.Row="9" 
+            Margin="10"
+            WidthRequest="260"
+            Text="Служба підтримки"
+            Style="{StaticResource BaseButtonStyle}"
+            Command="{Binding NavigateToSupportPageCommand}"/>
 
-            <Button
-                Margin="10"
-                WidthRequest="260"
-                Text="Служба підтримки"
-                Style="{StaticResource BaseButtonStyle}"
-                Command="{Binding NavigateToSupportPageCommand}"/>
-        </VerticalStackLayout>
-        
-        
-        
         <Grid Grid.RowSpan="9"
               IsVisible="{Binding IsLoading, Mode=TwoWay}" 
               Style="{StaticResource TransparentGridStyle}">

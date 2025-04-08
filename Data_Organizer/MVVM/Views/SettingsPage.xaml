@@ -83,11 +83,18 @@
                         Command="{Binding ShowTipAboutMetadataCommand}"/>
             </HorizontalStackLayout>
 
+            <Button
+                Margin="20"
+                WidthRequest="260"
+                Text="Служба підтримки"
+                Style="{StaticResource BaseButtonStyle}"
+                Command="{Binding NavigateToSupportPageCommand}"/>
+
             <Button IsVisible="{Binding IsUserAuthorized}"
-                    Margin="20"
-                    Command="{Binding DeleteAccountCommand}"
-                    Text="Видалити акаунт"
-                    Style="{StaticResource RedSeriousButtonStyle}"/>
+                Margin="30"
+                Command="{Binding DeleteAccountCommand}"
+                Text="Видалити акаунт"
+                Style="{StaticResource RedSeriousButtonStyle}"/>
 
         </VerticalStackLayout>
         
