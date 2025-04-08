@@ -42,6 +42,10 @@
 
                 <Label 
                     Style="{StaticResource LabelStyle}"
+                    Text="• Звернутись до служби підтримки"/>
+                
+                <Label 
+                    Style="{StaticResource LabelStyle}"
                     Text="• Видалити акаунт"/>
             </StackLayout>
         </Frame>
