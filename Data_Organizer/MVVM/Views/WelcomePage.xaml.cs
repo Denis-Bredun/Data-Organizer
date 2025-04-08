@@ -4,6 +4,8 @@ namespace Data_Organizer.MVVM.Views;
 
 public partial class WelcomePage : ContentPage
 {
+    private WelcomeViewModel _welcomeViewModel;
+
     public WelcomePage()
     {
         InitializeComponent();
@@ -11,9 +13,10 @@ public partial class WelcomePage : ContentPage
 
     protected override void OnAppearing()
     {
-        var welcomePageViewModel = (WelcomeViewModel)BindingContext;
+        if (_welcomeViewModel == null)
+            _welcomeViewModel = (WelcomeViewModel)BindingContext;
 
-        welcomePageViewModel.IsLoading = false;
+        _welcomeViewModel.IsLoading = false;
 
         base.OnAppearing();
     }

@@ -4,6 +4,8 @@ namespace Data_Organizer.MVVM.Views;
 
 public partial class SignUpPage : ContentPage
 {
+    private SignUpViewModel _signUpViewModel;
+
     public SignUpPage()
     {
         InitializeComponent();
@@ -11,9 +13,10 @@ public partial class SignUpPage : ContentPage
 
     protected override void OnAppearing()
     {
-        var signUpViewModel = (SignUpViewModel)BindingContext;
+        if (_signUpViewModel == null)
+            _signUpViewModel = (SignUpViewModel)BindingContext;
 
-        signUpViewModel.IsLoading = false;
+        _signUpViewModel.IsLoading = false;
 
         base.OnAppearing();
     }

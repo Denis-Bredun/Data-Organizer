@@ -18,5 +18,12 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
             IsLoading = true;
             await Shell.Current.GoToAsync("//MainPage");
         }
+
+        [RelayCommand]
+        public async Task NavigateToSupportPage()
+        {
+            IsLoading = true;
+            await Shell.Current.GoToAsync("//SupportPage");
+        }
     }
 }

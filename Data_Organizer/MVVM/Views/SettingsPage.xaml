@@ -34,7 +34,7 @@
                 WidthRequest="300"
                 Text="Увійти в акаунт"
                 Command="{Binding NavigateToSignInPageCommand}"
-                Style="{StaticResource SignInButtonStyle}"
+                Style="{StaticResource BlueButtonStyle}"
                 IsVisible="{Binding IsUserAuthorized, Converter={StaticResource BoolReverserConverter}}"/>
 
                 <StackLayout 
@@ -48,7 +48,7 @@
                     Command="{Binding SignOutCommand}"
                     Text="Вийти з&#10;акаунту"
                     LineBreakMode="WordWrap"
-                    Style="{StaticResource SignInButtonStyle}"/>
+                    Style="{StaticResource BlueButtonStyle}"/>
 
                     <Button 
                     WidthRequest="160"

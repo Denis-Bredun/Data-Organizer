@@ -149,6 +149,7 @@ namespace Data_Organizer
             services.AddViewModel<SignInViewModel, SignInPage>();
             services.AddViewModel<SettingsPageViewModel, SettingsPage>();
             services.AddViewModel<ResetPasswordPageViewModel, ResetPasswordPage>();
+            services.AddViewModel<SupportPageViewModel, SupportPage>();
 
             services.AddViewModelWithServiceProvider<MainPageViewModel, MainPage>();
             services.AddViewModelWithServiceProvider<HelpPageViewModel, HelpPage>();

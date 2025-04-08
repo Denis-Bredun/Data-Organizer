@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Data_Organizer.MVVM.Views.SupportPage"
+             xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             x:DataType="vm:SupportPageViewModel"
+             Style="{StaticResource PageStyle}">
+
+    <Grid RowDefinitions="0.5*, 0.8*, 0.8*, 0.8*, 0.8*, 0.7*, 0.6*, 0.8*, 0.8*">
+        <Label Grid.Row="0"
+            Text="Служба підтримки"
+            Style="{StaticResource PageTitleStyle}"/>
+
+        <Label
+            Grid.Row="1"
+            Style="{StaticResource LabelStyle}"
+            Text="Розробник: Бредун Денис Сергійович"/>
+
+        <Label
+            Grid.Row="2"
+            Style="{StaticResource LabelStyle}"
+            Text="Пошта: bredun.denis@gmail.com"/>
+
+        <Label
+            Grid.Row="3"
+            Style="{StaticResource LabelStyle}"
+            Text="Телеграм: @Denn_cchik"/>
+
+        <Button 
+            Grid.Row="4"
+            Style="{StaticResource BaseButtonStyle}"
+            VerticalOptions="Start"
+            Margin="30,-20,30,0"
+            Text="Повернутись назад"
+            Command="{Binding GoBackCommand}"/>
+
+        <Grid Grid.RowSpan="9"
+            IsVisible="{Binding IsLoading, Mode=TwoWay}" 
+            Style="{StaticResource TransparentGridStyle}">
+            <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
+        </Grid>
+    </Grid>
+
+</ContentPage>

@@ -65,7 +65,7 @@
         <Setter Property="BackgroundColor" Value="{StaticResource ControlElementBackgroundColor}" />
     </Style>
     
-    <Style TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}" x:Key="SignInButtonStyle">
+    <Style TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}" x:Key="BlueButtonStyle">
         <Setter Property="BackgroundColor" Value="{StaticResource SignInButtonBackgroundColor}" />
     </Style>
 

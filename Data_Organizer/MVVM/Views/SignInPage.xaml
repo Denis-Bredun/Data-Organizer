@@ -7,7 +7,7 @@
              x:Class="Data_Organizer.MVVM.Views.SignInPage"
              Style="{StaticResource PageStyle}">
 
-    <Grid RowDefinitions="0.5*, 1*, 1*, 1*, 1*, 1*, 0.6*, 1*">
+    <Grid RowDefinitions="0.5*, 0.8*, 0.8*, 0.8*, 0.8*, 0.7*, 0.6*, 0.8*, 0.8*">
         <Label Grid.Row="0"
                Text="Авторизація"
                Style="{StaticResource PageTitleStyle}"/>
@@ -39,7 +39,7 @@
 
         <Button 
             Grid.Row="4"
-            Style="{StaticResource SignInButtonStyle}"
+            Style="{StaticResource BlueButtonStyle}"
             VerticalOptions="Start"
             Margin="30,0,30,0"
             Text="Авторизуватись"
@@ -63,9 +63,16 @@
                 Text="Увійти як гість"
                 Style="{StaticResource LinkButtonStyle}"
                 Command="{Binding NavigateToMainPageCommand}"/>
+
+            <Button
+                Margin="10"
+                WidthRequest="260"
+                Text="Служба підтримки"
+                Style="{StaticResource BaseButtonStyle}"
+                Command="{Binding NavigateToSupportPageCommand}"/>
         </VerticalStackLayout>
 
-        <Grid Grid.RowSpan="8"
+        <Grid Grid.RowSpan="9"
               IsVisible="{Binding IsLoading, Mode=TwoWay}" 
               Style="{StaticResource TransparentGridStyle}">
             <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />

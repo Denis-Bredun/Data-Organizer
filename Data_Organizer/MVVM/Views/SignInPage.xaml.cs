@@ -1,11 +1,11 @@
-
-using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.ViewModels.SignInViewModel;
 
 namespace Data_Organizer.MVVM.Views;
 
 public partial class SignInPage : ContentPage
 {
+    private SignInViewModel _signInViewModel;
+
     public SignInPage()
     {
         InitializeComponent();
@@ -13,9 +13,10 @@ public partial class SignInPage : ContentPage
 
     protected override void OnAppearing()
     {
-        var signInViewModel = (SignInViewModel)BindingContext;
+        if (_signInViewModel == null)
+            _signInViewModel = (SignInViewModel)BindingContext;
 
-        signInViewModel.IsLoading = false;
+        _signInViewModel.IsLoading = false;
 
         base.OnAppearing();
     }
