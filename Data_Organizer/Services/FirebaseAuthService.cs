@@ -156,6 +156,40 @@ namespace Data_Organizer.Services
             }
         }
 
+        public async Task<bool> DeleteAccount()
+        {
+            if (!await CheckInternetConnectionAsync())
+                return false;
+
+            if (!IsUserAuthorized())
+            {
+                await _notificationService.ShowToastAsync("Користувач незареєстрований!");
+                return false;
+            }
+
+            try
+            {
+                await _firebaseAuthClient.User.DeleteAsync();
+
+                await _notificationService.ShowToastAsync("Акаунт було успішно видалено!");
+
+                OnAuthStateChanged();
+
+                return true;
+            }
+            catch (FirebaseAuthHttpException ex)
+            {
+                string errorMessage = GetErrorMessage(ex);
+
+                if (errorMessage == "CREDENTIAL_TOO_OLD_LOGIN_AGAIN")
+                    await _notificationService.ShowToastAsync("Ви давно авторизувались! Перезайдіть в акаунт.");
+                else
+                    await _notificationService.ShowToastAsync(errorMessage);
+
+                return false;
+            }
+        }
+
         public async Task<string?> GetFreshToken()
         {
             return await _firebaseAuthClient?.User?.GetIdTokenAsync(true);

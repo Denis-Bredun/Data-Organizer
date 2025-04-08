@@ -48,7 +48,7 @@
                     Command="{Binding SignOutCommand}"
                     Text="Вийти з&#10;акаунту"
                     LineBreakMode="WordWrap"
-                    Style="{StaticResource RedSeriousButtonStyle}"/>
+                    Style="{StaticResource SignInButtonStyle}"/>
 
                     <Button 
                     WidthRequest="160"
@@ -82,6 +82,12 @@
                         HeightRequest="40"
                         Command="{Binding ShowTipAboutMetadataCommand}"/>
             </HorizontalStackLayout>
+
+            <Button IsVisible="{Binding IsUserAuthorized}"
+                    Margin="20"
+                    Command="{Binding DeleteAccountCommand}"
+                    Text="Видалити акаунт"
+                    Style="{StaticResource RedSeriousButtonStyle}"/>
 
         </VerticalStackLayout>
         

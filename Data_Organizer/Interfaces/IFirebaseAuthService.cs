@@ -12,5 +12,6 @@
         Task<bool> SignOut();
         Task<bool> ResetPassword(string email);
         Task<bool> SignOutWithoutNotification();
+        Task<bool> DeleteAccount();
     }
 }

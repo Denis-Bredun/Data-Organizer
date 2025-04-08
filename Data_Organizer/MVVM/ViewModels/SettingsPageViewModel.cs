@@ -67,6 +67,19 @@ namespace Data_Organizer.MVVM.ViewModels
                                                       17);
         }
 
+        [RelayCommand]
+        public async Task DeleteAccount()
+        {
+            IsLoading = true;
+
+            bool succeeded = await _firebaseAuthService.DeleteAccount();
+
+            if (succeeded)
+                await Shell.Current.GoToAsync("//SignInPage");
+            else
+                IsLoading = false;
+        }
+
         private void OnAuthStateChanged(object sender, EventArgs e)
         {
             UpdateDataOnPage();
