@@ -14,17 +14,17 @@
             Text="Служба підтримки"
             Style="{StaticResource PageTitleStyle}"/>
 
-        <Label
-            Margin="0,20,0,0"
+        <Label               
+            Margin="0,70,0,0"
             Style="{StaticResource LabelStyle}"
             Text="Розробник: Бредун Денис Сергійович"/>
 
-        <Label
+            <Label 
             Margin="0,20,0,0"
             Style="{StaticResource LabelStyle}"
             Text="Пошта: bredun.denis@gmail.com"/>
 
-        <Label
+            <Label 
             Margin="0,20,0,0"
             Style="{StaticResource LabelStyle}"
             Text="Телеграм: @Denn_cchik"/>
