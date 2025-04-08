@@ -5,10 +5,8 @@ namespace Data_Organizer.MVVM.ViewModels
 {
     public partial class HelpPageViewModel : ObservableObject
     {
-        [ObservableProperty]
-        private bool _isLoading;
-        [ObservableProperty]
-        private bool _hasBeenClosedOnce;
+        [ObservableProperty] private bool _isLoading;
+        [ObservableProperty] private bool _hasBeenClosedOnce;
 
         public event EventHandler ShowHomeHelpRequested;
         public event EventHandler ShowSavedNotesHelpRequested;

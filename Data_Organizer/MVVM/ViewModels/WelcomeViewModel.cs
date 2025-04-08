@@ -5,8 +5,7 @@ namespace Data_Organizer.MVVM.ViewModels
 {
     public partial class WelcomeViewModel : ObservableObject
     {
-        [ObservableProperty]
-        private bool _isLoading;
+        [ObservableProperty] private bool _isLoading;
 
         [RelayCommand]
         public async Task NavigateToSignUpPage()

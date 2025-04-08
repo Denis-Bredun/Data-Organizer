@@ -37,12 +37,12 @@
                 Style="{StaticResource SignInButtonStyle}"
                 IsVisible="{Binding IsUserAuthorized, Converter={StaticResource BoolReverserConverter}}"/>
 
-            <StackLayout 
+                <StackLayout 
                 Orientation="Horizontal" 
                 HorizontalOptions="Center"
                 IsVisible="{Binding IsUserAuthorized}">
 
-                <Button 
+                    <Button 
                     WidthRequest="160"
                     Margin="10"
                     Command="{Binding SignOutCommand}"
@@ -50,7 +50,7 @@
                     LineBreakMode="WordWrap"
                     Style="{StaticResource RedSeriousButtonStyle}"/>
 
-                <Button 
+                    <Button 
                     WidthRequest="160"
                     Margin="10"
                     Command="{Binding NavigateToResetPasswordPageCommand}"
@@ -58,10 +58,32 @@
                     LineBreakMode="WordWrap"
                     Style="{StaticResource BaseButtonStyle}"/>
 
+                </StackLayout>
+
             </StackLayout>
-            
-        </StackLayout>
-    </VerticalStackLayout>
+
+            <HorizontalStackLayout 
+                    HorizontalOptions="Center"
+                    Margin="25"
+                    IsVisible="{Binding IsUserAuthorized}">
+                <CheckBox 
+                        Color="White"
+                        IsChecked="{Binding IsMetadataStored, Mode=TwoWay}"/>
+                <Label 
+                        Grid.Column="1"
+                        VerticalOptions="Center"
+                        Text="Збір метаданих"
+                        Style="{StaticResource LabelStyle}"/>
+                <ImageButton 
+                        Margin="20,0,0,0"
+                        x:Name="QuestionButton"
+                        Grid.Column="2" 
+                        Source="question.svg"
+                        HeightRequest="40"
+                        Command="{Binding ShowTipAboutMetadataCommand}"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
         
         <Grid IsVisible="{Binding IsLoading, Mode=TwoWay}" 
           Style="{StaticResource TransparentGridStyle}">

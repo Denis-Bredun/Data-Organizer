@@ -27,10 +27,10 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
         [RelayCommand]
         public async Task ShowTipAboutMetadata()
         {
-            await _notificationService.ShowToastAsync("Метадані включають в себе: геолокація, дата, час та" +
+            await _notificationService.ShowToastAsync("Геолокація, дата, час та" +
                                                       " пристрій реєстрації, авторизацій, виходів з акаунту" +
-                                                      " та змінею паролю. Збір буде здійснюватись із метою " +
-                                                      " можливості відслідковування активності акаунту та " +
+                                                      " та змінень паролю. Мета: " +
+                                                      " відслідковування активності акаунту та " +
                                                       "потенційних підозрюваних дій.",
                                                       17);
         }

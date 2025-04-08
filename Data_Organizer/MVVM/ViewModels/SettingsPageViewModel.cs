@@ -7,18 +7,21 @@ namespace Data_Organizer.MVVM.ViewModels
     public partial class SettingsPageViewModel : ObservableObject, IDisposable
     {
         private readonly IFirebaseAuthService _firebaseAuthService;
+        private readonly INotificationService _notificationService;
+
+        [ObservableProperty] private string _username;
+        [ObservableProperty] private bool _isUserAuthorized;
+        [ObservableProperty] private bool _isLoading;
+        [ObservableProperty] private bool _isMetadataStored;
+
         private EventHandler _authStateChangedHandler;
 
-        [ObservableProperty]
-        private string _username;
-        [ObservableProperty]
-        private bool _isUserAuthorized;
-        [ObservableProperty]
-        private bool _isLoading;
-
-        public SettingsPageViewModel(IFirebaseAuthService firebaseAuthService)
+        public SettingsPageViewModel(
+            IFirebaseAuthService firebaseAuthService,
+            INotificationService notificationService)
         {
             _firebaseAuthService = firebaseAuthService;
+            _notificationService = notificationService;
             _authStateChangedHandler = OnAuthStateChanged;
             _firebaseAuthService.AuthStateChanged += _authStateChangedHandler;
 
@@ -51,6 +54,17 @@ namespace Data_Organizer.MVVM.ViewModels
             IsLoading = true;
 
             await Shell.Current.GoToAsync("//ResetPasswordPage");
+        }
+
+        [RelayCommand]
+        public async Task ShowTipAboutMetadata()
+        {
+            await _notificationService.ShowToastAsync("Геолокація, дата, час та" +
+                                                      " пристрій реєстрації, авторизацій, виходів з акаунту" +
+                                                      " та змінень паролю. Мета: " +
+                                                      " відслідковування активності акаунту та " +
+                                                      "потенційних підозрюваних дій.",
+                                                      17);
         }
 
         private void OnAuthStateChanged(object sender, EventArgs e)
