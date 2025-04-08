@@ -85,6 +85,11 @@ namespace Data_Organizer.Services
             if (!await CheckInternetConnectionAsync())
                 return false;
 
+            bool confirmed = await _notificationService.ShowConfirmationDialogAsync("Ви впевнені, що хочете вийти з акаунту?");
+
+            if (!confirmed)
+                return false;
+
             try
             {
                 _firebaseAuthClient.SignOut();
@@ -166,6 +171,12 @@ namespace Data_Organizer.Services
                 await _notificationService.ShowToastAsync("Користувач незареєстрований!");
                 return false;
             }
+
+            bool confirmed = await _notificationService.ShowConfirmationDialogAsync("Ви впевнені, що хочете видалити акаунт?\n"
+                                                                                    + "Його неможливо буде відновити!");
+
+            if (!confirmed)
+                return false;
 
             try
             {
