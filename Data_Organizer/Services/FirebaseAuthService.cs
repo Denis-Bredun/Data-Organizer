@@ -154,6 +154,8 @@ namespace Data_Organizer.Services
 
                 if (errorMessage == "INVALID_EMAIL")
                     await _notificationService.ShowToastAsync("Неправильна пошта!");
+                else if (errorMessage == "CREDENTIAL_TOO_OLD_LOGIN_AGAIN")
+                    await _notificationService.ShowToastAsync("Ви давно авторизувались! Перезайдіть в акаунт.");
                 else
                     await _notificationService.ShowToastAsync(errorMessage);
 
