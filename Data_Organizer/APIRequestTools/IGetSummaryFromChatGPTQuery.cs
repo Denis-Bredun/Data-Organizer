@@ -5,7 +5,7 @@ namespace Data_Organizer.APIRequestTools
 {
     public interface IGetSummaryFromChatGPTQuery
     {
-        [Post("/api/openai/summary")]
+        [Post("/openai/summary")]
         Task<SummaryRequest> Execute([Body] SummaryRequest request);
     }
 }
