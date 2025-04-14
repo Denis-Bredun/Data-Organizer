@@ -4,7 +4,7 @@
              x:Class="Data_Organizer.MVVM.Views.SettingsPage"
              xmlns:converters="clr-namespace:Data_Organizer.Converters"
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
-             xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
+             xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels.SettingsPageViewModel"
              x:DataType="vm:SettingsPageViewModel"
              Style="{StaticResource PageStyle}">
 

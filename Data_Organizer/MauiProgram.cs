@@ -3,6 +3,7 @@ using Data_Organizer.APIRequestTools;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
+using Data_Organizer.MVVM.ViewModels.SettingsPageViewModel;
 using Data_Organizer.MVVM.ViewModels.SignInViewModel;
 using Data_Organizer.MVVM.ViewModels.SignUpViewModel;
 using Data_Organizer.MVVM.Views;
@@ -141,7 +142,6 @@ namespace Data_Organizer
             services.AddScoped<SettingsHelpSection>();
 
             services.AddScoped<AppShell>();
-            services.AddScoped<SavedNotesPage>();
 
             return services;
         }
@@ -154,6 +154,7 @@ namespace Data_Organizer
             services.AddViewModel<SettingsPageViewModel, SettingsPage>();
             services.AddViewModel<ResetPasswordPageViewModel, ResetPasswordPage>();
             services.AddViewModel<SupportPageViewModel, SupportPage>();
+            services.AddViewModel<SavedNotesPageViewModel, SavedNotesPage>();
 
             services.AddViewModelWithServiceProvider<MainPageViewModel, MainPage>();
             services.AddViewModelWithServiceProvider<HelpPageViewModel, HelpPage>();

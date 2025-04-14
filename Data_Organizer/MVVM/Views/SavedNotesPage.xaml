@@ -2,6 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Data_Organizer.MVVM.Views.SavedNotesPage"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
+             x:DataType="vm:SavedNotesPageViewModel"
              Style="{StaticResource PageStyle}">
     
     <VerticalStackLayout>
