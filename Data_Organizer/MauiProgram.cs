@@ -112,6 +112,10 @@ namespace Data_Organizer
                     .ConfigureHttpClient(c => c.BaseAddress = new Uri(baseUrl))
                     .AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
 
+            services.AddRefitClient<IFirestoreDbQueries>()
+                    .ConfigureHttpClient(c => c.BaseAddress = new Uri(baseUrl))
+                    .AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
+
             return services;
         }
 
