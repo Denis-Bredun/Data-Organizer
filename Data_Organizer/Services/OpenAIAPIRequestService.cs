@@ -1,26 +1,27 @@
-﻿using Data_Organizer.APIRequestTools;
+﻿using Data_Organizer.DTOs;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
+using Data_Organizer.Queries;
 
 namespace Data_Organizer.Services
 {
     public class OpenAIAPIRequestService : IOpenAIAPIRequestService
     {
         private readonly INotificationService _notificationService;
-        private readonly IGetSummaryFromChatGPTQuery _getSummaryFromChatGPTQuery;
+        private readonly IOpenAIQueries _openAIQueries;
         private readonly IFirebaseAuthService _firebaseAuthService;
 
         public OpenAIAPIRequestService(
             INotificationService notificationService,
-            IGetSummaryFromChatGPTQuery getSummaryFromChatGPTQuery,
+            IOpenAIQueries getSummaryFromChatGPTQuery,
             IFirebaseAuthService firebaseAuthService)
         {
             _notificationService = notificationService;
-            _getSummaryFromChatGPTQuery = getSummaryFromChatGPTQuery;
+            _openAIQueries = getSummaryFromChatGPTQuery;
             _firebaseAuthService = firebaseAuthService;
         }
 
-        public async Task<SummaryRequest?> GetSummaryAsync(string content, LanguageModel selectedLanguage)
+        public async Task<SummaryRequestDTO?> GetSummaryAsync(string content, LanguageModel selectedLanguage)
         {
             if (!_firebaseAuthService.IsUserAuthorized())
             {
@@ -36,12 +37,12 @@ namespace Data_Organizer.Services
 
             content = $"Мова виводу: {selectedLanguage.CultureCode}\n\n{content}";
 
-            var requestData = new SummaryRequest
+            var requestData = new SummaryRequestDTO
             {
                 Content = content
             };
 
-            SummaryRequest response = await _getSummaryFromChatGPTQuery.Execute(requestData);
+            SummaryRequestDTO response = await _openAIQueries.GetSummary(requestData);
 
             if (!string.IsNullOrWhiteSpace(response.Error))
             {

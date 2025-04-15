@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Data_Organizer.MVVM.Models.Enums;
+using Data_Organizer.Enums;
 
 namespace Data_Organizer.MVVM.Models
 {

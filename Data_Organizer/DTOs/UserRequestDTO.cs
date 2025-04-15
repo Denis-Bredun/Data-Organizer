@@ -1,6 +1,8 @@
-﻿namespace Data_Organizer_Server.Models
+﻿using Data_Organizer_Server.Models;
+
+namespace Data_Organizer.DTOs
 {
-    public class UserCreationRequest
+    public class UserRequestDTO
     {
         public User User { get; set; }
         public UsersMetadata UsersMetadata { get; set; }

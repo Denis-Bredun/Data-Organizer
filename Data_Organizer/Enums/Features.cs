@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Data_Organizer.MVVM.Models.Enums
+namespace Data_Organizer.Enums
 {
     public enum Features
     {

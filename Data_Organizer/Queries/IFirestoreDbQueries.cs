@@ -1,13 +1,14 @@
-﻿using Data_Organizer_Server.Models;
+﻿using Data_Organizer.DTOs;
+using Data_Organizer_Server.Models;
 using Refit;
 
-namespace Data_Organizer.APIRequestTools
+namespace Data_Organizer.Queries
 {
     public interface IFirestoreDbQueries
     {
         // Users
         [Post("/firestoredb/create-user")]
-        Task<UserCreationRequest> CreateUserAsync([Body] UserCreationRequest request);
+        Task<UserRequestDTO> CreateUserAsync([Body] UserRequestDTO request);
 
         [Get("/firestoredb/user/{uid}")]
         Task<User> GetUserByUidAsync(string uid);
@@ -16,11 +17,11 @@ namespace Data_Organizer.APIRequestTools
         Task<User> UpdateUserAsync([Body] User user);
 
         [Delete("/firestoredb/remove-user")]
-        Task<UserCreationRequest> RemoveUserAsync([Body] UserCreationRequest request);
+        Task<UserRequestDTO> RemoveUserAsync([Body] UserRequestDTO request);
 
         // Change password
         [Post("/firestoredb/create-change-password")]
-        Task<ChangePassword> CreateChangePasswordAsync([Body] ChangePasswordCreationRequest request);
+        Task<ChangePassword> CreateChangePasswordAsync([Body] ChangePasswordRequestDTO request);
 
         // Account login/logout
         [Post("/firestoredb/create-account-login")]

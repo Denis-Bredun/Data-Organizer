@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Data_Organizer.MVVM.Models
+namespace Data_Organizer.DTOs
 {
-    public class TranscriptionFromFileRequest
+    public class AudiofileDTO
     {
         public IFormFile AudioFile { get; set; }
         public string LanguageCode { get; set; } = "uk-UA";

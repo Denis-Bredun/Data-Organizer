@@ -222,6 +222,15 @@ namespace Data_Organizer.Services
             }
         }
 
+        public string GetUid()
+        {
+            if (!IsUserAuthorized())
+                return null;
+            else
+                return _firebaseAuthClient.User?.Uid;
+
+        }
+
         private async Task<bool> CheckInternetConnectionAsync()
         {
             var isConnectedToInternet = IsConnectedToInternet();

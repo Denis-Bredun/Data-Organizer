@@ -1,4 +1,6 @@
-﻿namespace Data_Organizer_Server.Models
+﻿using Data_Organizer_Server.Models;
+
+namespace Data_Organizer.DTOs
 {
     public class AccountLogoutCreationRequest
     {

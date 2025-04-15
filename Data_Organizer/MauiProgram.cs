@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Maui;
-using Data_Organizer.APIRequestTools;
+using Data_Organizer.Queries;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
@@ -105,11 +105,11 @@ namespace Data_Organizer
         {
             services.AddScoped<FirebaseAuthHttpMessageHandler>();
 
-            services.AddRefitClient<IGetSummaryFromChatGPTQuery>()
+            services.AddRefitClient<IOpenAIQueries>()
                     .ConfigureHttpClient(c => c.BaseAddress = new Uri(baseUrl))
                     .AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
 
-            services.AddRefitClient<IGetTranscriptionFromAudiofileQuery>()
+            services.AddRefitClient<IAzureQueries>()
                     .ConfigureHttpClient(c => c.BaseAddress = new Uri(baseUrl))
                     .AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
 
@@ -136,6 +136,9 @@ namespace Data_Organizer
             services.AddScoped<IClipboardService, ClipboardService>();
             services.AddScoped<IFirebaseAuthService, FirebaseAuthService>();
             services.AddScoped<IOpenAIAPIRequestService, OpenAIAPIRequestService>();
+            services.AddScoped<IFirestoreDbService, FirestoreDbService>();
+            services.AddScoped<IDeviceService, DeviceService>();
+            services.AddScoped<IDeviceServiceDecorator, DeviceServiceDecorator>();
 
             services.AddScoped<HomePageHelpSection>();
             services.AddScoped<SavedNotesHelpSection>();

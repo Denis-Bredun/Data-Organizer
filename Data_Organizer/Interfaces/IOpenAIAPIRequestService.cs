@@ -1,9 +1,10 @@
-﻿using Data_Organizer.MVVM.Models;
+﻿using Data_Organizer.DTOs;
+using Data_Organizer.MVVM.Models;
 
 namespace Data_Organizer.Interfaces
 {
     public interface IOpenAIAPIRequestService
     {
-        Task<SummaryRequest?> GetSummaryAsync(string content, LanguageModel selectedLanguage);
+        Task<SummaryRequestDTO?> GetSummaryAsync(string content, LanguageModel selectedLanguage);
     }
 }

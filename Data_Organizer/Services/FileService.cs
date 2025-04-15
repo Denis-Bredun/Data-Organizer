@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Maui.Storage;
-using Data_Organizer.APIRequestTools;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
+using Data_Organizer.Queries;
 using DocumentFormat.OpenXml.Packaging;
 using iText.IO.Font;
 using iText.Kernel.Font;
@@ -15,11 +15,11 @@ namespace Data_Organizer.Services
 {
     public class FileService : IFileService
     {
-        private readonly IGetTranscriptionFromAudiofileQuery _getTranscriptionFromAudiofileQuery;
+        private readonly IAzureQueries _azureQueries;
 
-        public FileService(IGetTranscriptionFromAudiofileQuery getTranscriptionFromAudiofileQuery)
+        public FileService(IAzureQueries getTranscriptionFromAudiofileQuery)
         {
-            _getTranscriptionFromAudiofileQuery = getTranscriptionFromAudiofileQuery;
+            _azureQueries = getTranscriptionFromAudiofileQuery;
         }
 
         public async Task<bool> RequestPermissionsStorageReadAsync()
@@ -104,7 +104,7 @@ namespace Data_Organizer.Services
             return await reader.ReadToEndAsync();
         }
 
-        public async Task ExportTextAsync(string text, AppEnums.TextFileFormat textFileFormat)
+        public async Task ExportTextAsync(string text, Enums.TextFileFormat textFileFormat)
         {
             var fileName = $"document.{textFileFormat.ToString().ToLower()}";
             using var stream = new MemoryStream();
@@ -118,19 +118,19 @@ namespace Data_Organizer.Services
                 throw fileSaverResult.Exception ?? new Exception("Не вдалося зберігти файл(");
         }
 
-        private async Task WriteTextToStreamAsync(MemoryStream stream, string text, AppEnums.TextFileFormat format)
+        private async Task WriteTextToStreamAsync(MemoryStream stream, string text, Enums.TextFileFormat format)
         {
             switch (format)
             {
-                case AppEnums.TextFileFormat.TXT:
+                case Enums.TextFileFormat.TXT:
                     stream.Write(Encoding.UTF8.GetBytes(text));
                     break;
 
-                case AppEnums.TextFileFormat.DOCX:
+                case Enums.TextFileFormat.DOCX:
                     WriteDocxToStream(stream, text);
                     break;
 
-                case AppEnums.TextFileFormat.PDF:
+                case Enums.TextFileFormat.PDF:
                     await WritePdfToStreamAsync(stream, text);
                     break;
             }
@@ -211,7 +211,7 @@ namespace Data_Organizer.Services
                 fileStream = await fileResult.OpenReadAsync();
                 var streamPart = new StreamPart(fileStream, fileResult.FileName, fileResult.ContentType);
 
-                var response = await _getTranscriptionFromAudiofileQuery.Execute(streamPart, languageCode);
+                var response = await _azureQueries.GetTranscriptionFromAudiofile(streamPart, languageCode);
 
                 if (!string.IsNullOrWhiteSpace(response.Error))
                 {

@@ -1,7 +1,7 @@
 ﻿using Data_Organizer.Interfaces;
 using System.Net.Http.Headers;
 
-namespace Data_Organizer.APIRequestTools
+namespace Data_Organizer.Queries
 {
     public class FirebaseAuthHttpMessageHandler : DelegatingHandler
     {

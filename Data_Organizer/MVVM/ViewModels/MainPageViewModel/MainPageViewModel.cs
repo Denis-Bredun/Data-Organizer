@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
-using Data_Organizer.MVVM.Models.Enums;
 using System.Collections.ObjectModel;
 
 namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
@@ -52,8 +51,8 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
 
             Features = new ObservableCollection<FeatureModel>()
             {
-                new FeatureModel("Транскрипція", AppEnums.Features.Transcription),
-                new FeatureModel("Конспект", AppEnums.Features.Summary)
+                new FeatureModel("Транскрипція", Enums.Features.Transcription),
+                new FeatureModel("Конспект", Enums.Features.Summary)
             };
 
             SetDefaultProperties();

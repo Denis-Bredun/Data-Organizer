@@ -12,9 +12,9 @@ namespace Data_Organizer.Services
         {
             Languages = new List<LanguageModel>
             {
-                new LanguageModel("UA", "uk-UA", AppEnums.Languages.UA),
-                new LanguageModel("EN", "en-US", AppEnums.Languages.EN),
-                new LanguageModel("RU", "ru-RU", AppEnums.Languages.RU)
+                new LanguageModel("UA", "uk-UA", Enums.Languages.UA),
+                new LanguageModel("EN", "en-US", Enums.Languages.EN),
+                new LanguageModel("RU", "ru-RU", Enums.Languages.RU)
             };
         }
 

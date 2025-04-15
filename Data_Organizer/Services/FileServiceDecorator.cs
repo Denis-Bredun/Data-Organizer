@@ -79,17 +79,17 @@ namespace Data_Organizer.Services
 
                 var answer = await _notificationService.ShowActionSheetAsync("В якому розширенні бажаєте експортувати?", pdf, docx, txt);
 
-                AppEnums.TextFileFormat format;
+                Enums.TextFileFormat format;
                 switch (answer)
                 {
                     case pdf:
-                        format = AppEnums.TextFileFormat.PDF;
+                        format = Enums.TextFileFormat.PDF;
                         break;
                     case docx:
-                        format = AppEnums.TextFileFormat.DOCX;
+                        format = Enums.TextFileFormat.DOCX;
                         break;
                     case txt:
-                        format = AppEnums.TextFileFormat.TXT;
+                        format = Enums.TextFileFormat.TXT;
                         break;
                     default:
                         return;

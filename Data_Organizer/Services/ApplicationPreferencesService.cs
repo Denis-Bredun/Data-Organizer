@@ -1,6 +1,6 @@
-﻿using Data_Organizer.Interfaces;
+﻿using Data_Organizer.Enums;
+using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
-using Data_Organizer.MVVM.Models.Enums;
 using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
 using System.Linq;
@@ -39,20 +39,20 @@ namespace Data_Organizer.Services
         private void LoadMainPagePreferences()
         {
             LoadFeaturePreference(
-                AppEnums.Preferences.LastSelectedFeature,
+                Enums.Preferences.LastSelectedFeature,
                 Features.Transcription);
 
             LoadLanguagePreference(
-                AppEnums.Preferences.LastSelectedOutputLanguage,
+                Enums.Preferences.LastSelectedOutputLanguage,
                 Languages.UA);
 
             LoadBoolPreference(
-                AppEnums.Preferences.IsTextAddedAtTheEnd,
+                Enums.Preferences.IsTextAddedAtTheEnd,
                 true,
                 value => _mainPageViewModel.IsTextAddedAtTheEnd = value);
 
             LoadBoolPreference(
-                AppEnums.Preferences.HasVisitedMainPage,
+                Enums.Preferences.HasVisitedMainPage,
                 false,
                 value => _mainPageViewModel.HasVisitedMainPage = value);
         }
@@ -60,26 +60,26 @@ namespace Data_Organizer.Services
         private void SaveMainPagePreferences()
         {
             SaveEnumPreference(
-                AppEnums.Preferences.LastSelectedFeature,
+                Enums.Preferences.LastSelectedFeature,
                 _mainPageViewModel.SelectedFeature?.FeatureType ?? Features.Transcription);
 
             SaveEnumPreference(
-                AppEnums.Preferences.LastSelectedOutputLanguage,
+                Enums.Preferences.LastSelectedOutputLanguage,
                 _mainPageViewModel.SelectedLanguage?.LanguageType ?? Languages.UA);
 
             SaveBoolPreference(
-                AppEnums.Preferences.IsTextAddedAtTheEnd,
+                Enums.Preferences.IsTextAddedAtTheEnd,
                 _mainPageViewModel.IsTextAddedAtTheEnd);
 
             SaveBoolPreference(
-                AppEnums.Preferences.HasVisitedMainPage,
+                Enums.Preferences.HasVisitedMainPage,
                 _mainPageViewModel.HasVisitedMainPage);
         }
 
         private void LoadHelpPagePreferences()
         {
             LoadBoolPreference(
-                AppEnums.Preferences.HelpPopupHasBeenClosedOnce,
+                Enums.Preferences.HelpPopupHasBeenClosedOnce,
                 false,
                 value => _helpPageViewModel.HasBeenClosedOnce = value);
         }
@@ -87,12 +87,12 @@ namespace Data_Organizer.Services
         private void SaveHelpPagePreferences()
         {
             SaveBoolPreference(
-                AppEnums.Preferences.HelpPopupHasBeenClosedOnce,
+                Enums.Preferences.HelpPopupHasBeenClosedOnce,
                 _helpPageViewModel.HasBeenClosedOnce);
         }
 
         private void LoadFeaturePreference(
-            AppEnums.Preferences preferenceKey,
+            Enums.Preferences preferenceKey,
             Features defaultFeature)
         {
             string storedValue = _preferenceService.GetPreference(preferenceKey, defaultFeature);
@@ -113,7 +113,7 @@ namespace Data_Organizer.Services
         }
 
         private void LoadLanguagePreference(
-            AppEnums.Preferences preferenceKey,
+            Enums.Preferences preferenceKey,
             Languages defaultLanguage)
         {
             string storedValue = _preferenceService.GetPreference(preferenceKey, defaultLanguage);
@@ -134,14 +134,14 @@ namespace Data_Organizer.Services
         }
 
         private void SaveEnumPreference<TEnum>(
-            AppEnums.Preferences preferenceKey,
+            Enums.Preferences preferenceKey,
             TEnum value) where TEnum : Enum
         {
             _preferenceService.SetPreference(preferenceKey, value);
         }
 
         private void LoadBoolPreference(
-            AppEnums.Preferences preferenceKey,
+            Enums.Preferences preferenceKey,
             bool defaultValue,
             Action<bool> setterAction)
         {
@@ -150,7 +150,7 @@ namespace Data_Organizer.Services
         }
 
         private void SaveBoolPreference(
-            AppEnums.Preferences preferenceKey,
+            Enums.Preferences preferenceKey,
             bool value)
         {
             _preferenceService.SetPreference(preferenceKey, value);

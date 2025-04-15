@@ -1,6 +1,5 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Globalization;
-using System.Threading.Tasks;
 
 namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
 {
@@ -9,9 +8,9 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
         [RelayCommand]
         public async Task PlayFeature()
         {
-            if (SelectedFeature.FeatureType == AppEnums.Features.Transcription)
+            if (SelectedFeature.FeatureType == Enums.Features.Transcription)
                 PlayTranscription();
-            else if (SelectedFeature.FeatureType == AppEnums.Features.Summary)
+            else if (SelectedFeature.FeatureType == Enums.Features.Summary)
                 await PlayAISummary();
         }
 
@@ -86,6 +85,6 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
                 AudioTranscriptorService.OnTranscriptionUpdated -= _transcriptionUpdatedHandler;
                 _transcriptionUpdatedHandler = null;
             }
-        }        
+        }
     }
-} 
+}

@@ -1,6 +1,6 @@
-﻿namespace Data_Organizer.MVVM.Models
+﻿namespace Data_Organizer.DTOs
 {
-    public class SummaryRequest
+    public class SummaryRequestDTO
     {
         public string Content { get; set; } = string.Empty;
         public string Result { get; set; } = string.Empty;

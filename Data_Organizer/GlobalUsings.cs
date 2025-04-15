@@ -1,1 +1,0 @@
-﻿global using AppEnums = Data_Organizer.MVVM.Models.Enums;

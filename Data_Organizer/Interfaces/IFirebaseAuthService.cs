@@ -13,5 +13,6 @@
         Task<bool> ResetPassword(string email);
         Task<bool> SignOutWithoutNotification();
         Task<bool> DeleteAccount();
+        string GetUid();
     }
 }
