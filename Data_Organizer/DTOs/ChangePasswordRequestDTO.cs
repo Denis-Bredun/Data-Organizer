@@ -1,11 +1,21 @@
-﻿using Data_Organizer_Server.Models;
+﻿using Data_Organizer.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Data_Organizer.DTOs
 {
     public class ChangePasswordRequestDTO
     {
-        public string Uid { get; set; }
-        public ChangePassword ChangePassword { get; set; }
-        public DeviceInfoModel DeviceInfo { get; set; }
+        [Required]
+        [JsonPropertyName("uid")]
+        public string Uid { get; set; } = default!;
+
+        [Required]
+        [JsonPropertyName("changePassword")]
+        public ChangePassword ChangePassword { get; set; } = default!;
+
+        [Required]
+        [JsonPropertyName("deviceInfo")]
+        public DeviceInfoModel DeviceInfo { get; set; } = default!;
     }
 }

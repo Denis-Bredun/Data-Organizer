@@ -8,6 +8,8 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
     {
         private readonly IFirebaseAuthService _firebaseAuthService;
         private readonly INotificationService _notificationService;
+        private readonly IFirestoreDbService _firestoreDbService;
+        private readonly IDeviceServiceDecorator _deviceServiceDecorator;
 
         [ObservableProperty] private string _username;
         [ObservableProperty] private string _email;
@@ -18,10 +20,14 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
 
         public SignUpViewModel(
             IFirebaseAuthService firebaseAuthService,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IFirestoreDbService firestoreDbService,
+            IDeviceServiceDecorator deviceServiceDecorator)
         {
             _firebaseAuthService = firebaseAuthService;
             _notificationService = notificationService;
+            _firestoreDbService = firestoreDbService;
+            _deviceServiceDecorator = deviceServiceDecorator;
         }
 
         [RelayCommand]

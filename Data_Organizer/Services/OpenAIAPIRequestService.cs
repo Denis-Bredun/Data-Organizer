@@ -46,7 +46,7 @@ namespace Data_Organizer.Services
 
             if (!string.IsNullOrWhiteSpace(response.Error))
             {
-                await _notificationService.ShowToastAsync($"Ошибка при запросе к OpenAI: {response.Error}");
+                await _notificationService.ShowToastAsync($"Помилка при запиті до OpenAI: {response.Error}");
                 return null;
             }
 

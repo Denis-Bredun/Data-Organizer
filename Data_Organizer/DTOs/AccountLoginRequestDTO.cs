@@ -1,11 +1,21 @@
-﻿using Data_Organizer_Server.Models;
+﻿using Data_Organizer.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Data_Organizer.DTOs
 {
-    public class AccountLoginCreationRequest
+    public class AccountLoginRequestDTO
     {
-        public string UserId { get; set; }
-        public AccountLogin AccountLogin { get; set; }
-        public DeviceInfoModel DeviceInfo { get; set; }
+        [Required]
+        [JsonPropertyName("userId")]
+        public string UserId { get; set; } = default!;
+
+        [Required]
+        [JsonPropertyName("accountLogin")]
+        public AccountLogin AccountLogin { get; set; } = default!;
+
+        [Required]
+        [JsonPropertyName("deviceInfo")]
+        public DeviceInfoModel DeviceInfo { get; set; } = default!;
     }
 }

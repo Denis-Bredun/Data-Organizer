@@ -1,5 +1,5 @@
 ﻿using Data_Organizer.DTOs;
-using Data_Organizer_Server.Models;
+using Data_Organizer.Models;
 using Refit;
 
 namespace Data_Organizer.Queries
@@ -25,10 +25,10 @@ namespace Data_Organizer.Queries
 
         // Account login/logout
         [Post("/firestoredb/create-account-login")]
-        Task<AccountLogin> CreateAccountLoginAsync([Body] AccountLoginCreationRequest request);
+        Task<AccountLogin> CreateAccountLoginAsync([Body] AccountLoginRequestDTO request);
 
         [Post("/firestoredb/create-account-logout")]
-        Task<AccountLogout> CreateAccountLogoutAsync([Body] AccountLogoutCreationRequest request);
+        Task<AccountLogout> CreateAccountLogoutAsync([Body] AccountLogoutRequestDTO request);
 
         // Notes
         [Post("/firestoredb/create-note")]

@@ -1,5 +1,4 @@
 using CommunityToolkit.Mvvm.Input;
-using System.Threading.Tasks;
 
 namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
 {
@@ -13,17 +12,32 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
 
             IsLoading = true;
 
+            Data_Organizer.Models.Location location = null;
+
+            if (IsMetadataStored)
+            {
+                location = await _deviceServiceDecorator.GetCurrentLocationAsync();
+
+                if (location == null)
+                {
+                    IsLoading = false;
+                    await _notificationService.ShowToastAsync("Для збору метаданих потрібен доступ до вашої геолокації!");
+                    return;
+                }
+            }
+
             bool succeeded = await _firebaseAuthService.SignUpAsync(Email, Password, Username);
 
             if (succeeded)
             {
+                await _firestoreDbService.CreateUserAsync(IsMetadataStored, location);
+
                 CleanFields();
+
                 await NavigateToMainPage();
             }
             else
                 IsLoading = false;
-
-            // добавить сохранение куда-то того, что метаданные собираются
         }
     }
-} 
+}

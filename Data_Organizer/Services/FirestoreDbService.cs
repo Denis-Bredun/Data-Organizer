@@ -1,8 +1,8 @@
 ﻿using Data_Organizer.DTOs;
 using Data_Organizer.Interfaces;
+using Data_Organizer.Models;
 using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.Queries;
-using Data_Organizer_Server.Models;
 
 namespace Data_Organizer.Services
 {
@@ -12,36 +12,60 @@ namespace Data_Organizer.Services
         private readonly IFirebaseAuthService _firebaseAuthService;
         private readonly IFirestoreDbQueries _firestoreDbQueries;
         private readonly INotificationService _notificationService;
+        private readonly IDeviceServiceDecorator _deviceServiceDecorator;
+        private readonly IMappingService _mappingService;
 
         public FirestoreDbService(
             IServiceProvider serviceProvider,
             IFirebaseAuthService firebaseAuthService,
             IFirestoreDbQueries firestoreDbQueries,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IDeviceServiceDecorator deviceServiceDecorator,
+            IMappingService mappingService)
         {
             _savedNotesPageViewModel = serviceProvider.GetRequiredService<SavedNotesPageViewModel>();
             _firebaseAuthService = firebaseAuthService;
             _firestoreDbQueries = firestoreDbQueries;
             _notificationService = notificationService;
+            _deviceServiceDecorator = deviceServiceDecorator;
+            _mappingService = mappingService;
         }
 
-        public async Task CreateUser(bool isMetadataStored)
+        public async Task CreateUserAsync(bool isMetadataStored, Data_Organizer.Models.Location location)
         {
             if (!_firebaseAuthService.IsUserAuthorized())
                 throw new UnauthorizedAccessException("Користувач незареєстрований!");
 
-            UserRequestDTO userCreationRequest = new UserRequestDTO();
+            UserRequestDTO userRequestDTO = new();
 
-            userCreationRequest.User = new User()
+            var user = new User()
             {
                 Uid = _firebaseAuthService.GetUid(),
                 IsMetadataStored = isMetadataStored
             };
 
+            userRequestDTO.UserDTO = _mappingService.MapUser(user);
+
             if (isMetadataStored)
             {
+                var deviceInfo = _deviceServiceDecorator.GetDeviceInfo();
+                var dateTimeNow = DateTime.Now;
 
+                var metadata = new UsersMetadata()
+                {
+                    CreationDate = dateTimeNow,
+                    CreationLocation = location
+                };
+
+                userRequestDTO.UsersMetadataDTO = _mappingService.MapMetadata(metadata);
+
+                userRequestDTO.CreationDevice = deviceInfo;
             }
+
+            var response = await _firestoreDbQueries.CreateUserAsync(userRequestDTO);
+
+            if (!string.IsNullOrWhiteSpace(response.Error))
+                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Maui;
-using Data_Organizer.Queries;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
@@ -8,6 +7,7 @@ using Data_Organizer.MVVM.ViewModels.SignInViewModel;
 using Data_Organizer.MVVM.ViewModels.SignUpViewModel;
 using Data_Organizer.MVVM.Views;
 using Data_Organizer.MVVM.Views.Controls;
+using Data_Organizer.Queries;
 using Data_Organizer.Services;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
@@ -139,6 +139,7 @@ namespace Data_Organizer
             services.AddScoped<IFirestoreDbService, FirestoreDbService>();
             services.AddScoped<IDeviceService, DeviceService>();
             services.AddScoped<IDeviceServiceDecorator, DeviceServiceDecorator>();
+            services.AddScoped<IMappingService, MappingService>();
 
             services.AddScoped<HomePageHelpSection>();
             services.AddScoped<SavedNotesHelpSection>();

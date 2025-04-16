@@ -1,5 +1,5 @@
 ﻿using Data_Organizer.Interfaces;
-using Data_Organizer_Server.Models;
+using Data_Organizer.Models;
 
 namespace Data_Organizer.Services
 {
@@ -29,7 +29,7 @@ namespace Data_Organizer.Services
             }
         }
 
-        public async Task<Data_Organizer_Server.Models.Location> GetCurrentLocationAsync()
+        public async Task<Data_Organizer.Models.Location> GetCurrentLocationAsync()
         {
             try
             {
