@@ -6,6 +6,7 @@
         LastSelectedOutputLanguage,
         IsTextAddedAtTheEnd,
         HasVisitedMainPage,
-        HelpPopupHasBeenClosedOnce
+        HelpPopupHasBeenClosedOnce,
+        IsMetadataStored
     }
 }

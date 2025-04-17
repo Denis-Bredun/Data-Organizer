@@ -1,7 +1,6 @@
 ﻿using Data_Organizer.Interfaces;
-using Data_Organizer.MVVM.Views;
 using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
-using Data_Organizer.MVVM.ViewModels;
+using Data_Organizer.MVVM.Views;
 
 namespace Data_Organizer
 {
@@ -9,6 +8,8 @@ namespace Data_Organizer
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IApplicationPreferencesService _applicationPreferencesService;
+        private readonly IFirestoreDbService _firestoreDbService;
+        private readonly IFirebaseAuthService _firebaseAuthService;
 
         public App(IServiceProvider serviceProvider)
         {
@@ -21,6 +22,8 @@ namespace Data_Organizer
 
             _serviceProvider = serviceProvider;
             _applicationPreferencesService = serviceProvider.GetRequiredService<IApplicationPreferencesService>();
+            _firestoreDbService = serviceProvider.GetRequiredService<IFirestoreDbService>();
+            _firebaseAuthService = serviceProvider.GetRequiredService<IFirebaseAuthService>();
         }
 
         protected override void OnSleep()

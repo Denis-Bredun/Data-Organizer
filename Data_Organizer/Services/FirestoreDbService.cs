@@ -62,10 +62,68 @@ namespace Data_Organizer.Services
                 userRequestDTO.CreationDevice = deviceInfo;
             }
 
-            var response = await _firestoreDbQueries.CreateUserAsync(userRequestDTO);
+            UserRequestDTO? response = new UserRequestDTO();
+
+            try
+            {
+                response = await _firestoreDbQueries.CreateUserAsync(userRequestDTO);
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+            }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
                 throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+        }
+
+        public async Task SetMetadataStoredAsync(bool isMetadataStored)
+        {
+            if (!_firebaseAuthService.IsUserAuthorized())
+                throw new UnauthorizedAccessException("Користувач незареєстрований!");
+
+            var updateDTO = new UserMetadataFlagUpdateDTO();
+            updateDTO.Uid = _firebaseAuthService.GetUid();
+            updateDTO.IsMetadataStored = isMetadataStored;
+
+            UserMetadataFlagUpdateDTO? response = new UserMetadataFlagUpdateDTO();
+
+            try
+            {
+                response = await _firestoreDbQueries.SetMetadataStoredAsync(updateDTO);
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.Error))
+                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+        }
+
+        public async Task<bool> GetMetadataStoredAsync()
+        {
+            if (!_firebaseAuthService.IsUserAuthorized())
+                throw new UnauthorizedAccessException("Користувач незареєстрований!");
+
+            var updateDTO = new UserMetadataFlagUpdateDTO();
+            updateDTO.Uid = _firebaseAuthService.GetUid();
+
+            UserMetadataFlagUpdateDTO? response = new UserMetadataFlagUpdateDTO();
+
+            try
+            {
+                response = await _firestoreDbQueries.GetUserMetadataFlagAsync(updateDTO);
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.Error))
+                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+
+            return response.IsMetadataStored;
         }
     }
 }

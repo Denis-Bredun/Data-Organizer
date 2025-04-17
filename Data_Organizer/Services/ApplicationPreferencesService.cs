@@ -1,9 +1,8 @@
 ﻿using Data_Organizer.Enums;
 using Data_Organizer.Interfaces;
-using Data_Organizer.MVVM.Models;
 using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.ViewModels.MainPageViewModel;
-using System.Linq;
+using Data_Organizer.MVVM.ViewModels.SettingsPageViewModel;
 
 namespace Data_Organizer.Services
 {
@@ -14,6 +13,7 @@ namespace Data_Organizer.Services
         private readonly IEnumDescriptionResolverService _enumDescriptionResolverService;
         private readonly MainPageViewModel _mainPageViewModel;
         private readonly HelpPageViewModel _helpPageViewModel;
+        private readonly SettingsPageViewModel _settingsPageViewModel;
 
         public ApplicationPreferencesService(IServiceProvider serviceProvider)
         {
@@ -22,18 +22,21 @@ namespace Data_Organizer.Services
             _enumDescriptionResolverService = _serviceProvider.GetRequiredService<IEnumDescriptionResolverService>();
             _mainPageViewModel = _serviceProvider.GetRequiredService<MainPageViewModel>();
             _helpPageViewModel = _serviceProvider.GetRequiredService<HelpPageViewModel>();
+            _settingsPageViewModel = _serviceProvider.GetRequiredService<SettingsPageViewModel>();
         }
 
         public void LoadPreferences()
         {
             LoadMainPagePreferences();
             LoadHelpPagePreferences();
+            LoadSettingsPagePreferences();
         }
 
         public void SavePreferences()
         {
             SaveMainPagePreferences();
             SaveHelpPagePreferences();
+            SaveSettingsPagePreferences();
         }
 
         private void LoadMainPagePreferences()
@@ -97,8 +100,8 @@ namespace Data_Organizer.Services
         {
             string storedValue = _preferenceService.GetPreference(preferenceKey, defaultFeature);
             Features selectedFeature;
-            
-            try 
+
+            try
             {
                 selectedFeature = Enum.Parse<Features>(storedValue);
             }
@@ -106,9 +109,9 @@ namespace Data_Organizer.Services
             {
                 selectedFeature = defaultFeature;
             }
-            
+
             _mainPageViewModel.SelectedFeature = _mainPageViewModel.Features
-                .FirstOrDefault(f => f.FeatureType == selectedFeature) 
+                .FirstOrDefault(f => f.FeatureType == selectedFeature)
                 ?? _mainPageViewModel.Features.FirstOrDefault();
         }
 
@@ -118,8 +121,8 @@ namespace Data_Organizer.Services
         {
             string storedValue = _preferenceService.GetPreference(preferenceKey, defaultLanguage);
             Languages selectedLanguage;
-            
-            try 
+
+            try
             {
                 selectedLanguage = Enum.Parse<Languages>(storedValue);
             }
@@ -127,7 +130,7 @@ namespace Data_Organizer.Services
             {
                 selectedLanguage = defaultLanguage;
             }
-            
+
             _mainPageViewModel.SelectedLanguage = _mainPageViewModel.CultureInfoService.Languages
                 .FirstOrDefault(l => l.LanguageType == selectedLanguage)
                 ?? _mainPageViewModel.CultureInfoService.Languages.FirstOrDefault();
@@ -154,6 +157,21 @@ namespace Data_Organizer.Services
             bool value)
         {
             _preferenceService.SetPreference(preferenceKey, value);
+        }
+
+        private void LoadSettingsPagePreferences()
+        {
+            LoadBoolPreference(
+                Enums.Preferences.IsMetadataStored,
+                false,
+                value => _settingsPageViewModel.ChangeMetadataFlagWithoutAsking(value));
+        }
+
+        private void SaveSettingsPagePreferences()
+        {
+            SaveBoolPreference(
+                Enums.Preferences.IsMetadataStored,
+                _settingsPageViewModel.IsMetadataStored);
         }
     }
 }

@@ -42,7 +42,16 @@ namespace Data_Organizer.Services
                 Content = content
             };
 
-            SummaryRequestDTO response = await _openAIQueries.GetSummary(requestData);
+            SummaryRequestDTO? response = new SummaryRequestDTO();
+
+            try
+            {
+                response = await _openAIQueries.GetSummary(requestData);
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+            }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
             {

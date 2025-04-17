@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Data_Organizer.Interfaces;
 
 namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
@@ -10,6 +9,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
         private readonly INotificationService _notificationService;
         private readonly IFirestoreDbService _firestoreDbService;
         private readonly IDeviceServiceDecorator _deviceServiceDecorator;
+        private readonly IServiceProvider _serviceProvider;
 
         [ObservableProperty] private string _username;
         [ObservableProperty] private string _email;
@@ -22,23 +22,14 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
             IFirebaseAuthService firebaseAuthService,
             INotificationService notificationService,
             IFirestoreDbService firestoreDbService,
-            IDeviceServiceDecorator deviceServiceDecorator)
+            IDeviceServiceDecorator deviceServiceDecorator,
+            IServiceProvider serviceProvider)
         {
             _firebaseAuthService = firebaseAuthService;
             _notificationService = notificationService;
             _firestoreDbService = firestoreDbService;
             _deviceServiceDecorator = deviceServiceDecorator;
-        }
-
-        [RelayCommand]
-        public async Task ShowTipAboutMetadata()
-        {
-            await _notificationService.ShowToastAsync("Геолокація, дата, час та" +
-                                                      " пристрій реєстрації, авторизацій, виходів з акаунту" +
-                                                      " та змінень паролю. Мета: " +
-                                                      " відслідковування активності акаунту та " +
-                                                      "потенційних підозрюваних дій.",
-                                                      17);
+            _serviceProvider = serviceProvider;
         }
 
         private void CleanFields()

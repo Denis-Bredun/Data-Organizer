@@ -19,13 +19,12 @@ namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
 
             if (succeeded)
             {
+                await SetMetadataFlagIfAuthorized();
                 CleanFields();
                 await NavigateToMainPage();
             }
             else
                 IsLoading = false;
-
-            // подгрузка о том, чи собираем метаданные
         }
 
         private async Task<bool> ValidateDataForEmptiness()

@@ -32,6 +32,9 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
             {
                 await _firestoreDbService.CreateUserAsync(IsMetadataStored, location);
 
+                var settingsPageViewModel = _serviceProvider.GetRequiredService<SettingsPageViewModel.SettingsPageViewModel>();
+                settingsPageViewModel.ChangeMetadataFlagWithoutAsking(IsMetadataStored);
+
                 CleanFields();
 
                 await NavigateToMainPage();
