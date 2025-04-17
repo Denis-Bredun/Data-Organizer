@@ -51,6 +51,7 @@ namespace Data_Organizer.Services
             catch (Exception ex)
             {
                 await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return null;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))

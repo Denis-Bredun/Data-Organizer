@@ -32,7 +32,7 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
             if (confirmed)
             {
                 IsLoading = true;
-                await _firestoreDbService.SetMetadataStoredAsync(newValue);
+                await _firestoreDbService.SetUserMetadataFlagAsync(newValue);
                 IsLoading = false;
             }
             else

@@ -31,7 +31,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
             if (_firebaseAuthService.IsUserAuthorized())
             {
                 var settingsPageViewModel = _serviceProvider.GetRequiredService<SettingsPageViewModel.SettingsPageViewModel>();
-                var isMetadataStored = await _firestoreDbService.GetMetadataStoredAsync();
+                var isMetadataStored = await _firestoreDbService.GetUserMetadataFlagAsync();
                 settingsPageViewModel.ChangeMetadataFlagWithoutAsking(isMetadataStored);
             }
         }

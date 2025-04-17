@@ -165,21 +165,6 @@ namespace Data_Organizer.Services
 
         public async Task<bool> DeleteAccount()
         {
-            if (!await CheckInternetConnectionAsync())
-                return false;
-
-            if (!IsUserAuthorized())
-            {
-                await _notificationService.ShowToastAsync("Користувач незареєстрований!");
-                return false;
-            }
-
-            bool confirmed = await _notificationService.ShowConfirmationDialogAsync("Ви впевнені, що хочете видалити акаунт?\n"
-                                                                                    + "Його неможливо буде відновити!");
-
-            if (!confirmed)
-                return false;
-
             try
             {
                 await _firebaseAuthClient.User.DeleteAsync();

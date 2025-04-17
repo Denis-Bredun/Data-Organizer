@@ -2,7 +2,9 @@
 using Data_Organizer.Interfaces;
 using Data_Organizer.Models;
 using Data_Organizer.MVVM.ViewModels;
+using Data_Organizer.MVVM.ViewModels.SettingsPageViewModel;
 using Data_Organizer.Queries;
+using static Google.Rpc.Context.AttributeContext.Types;
 
 namespace Data_Organizer.Services
 {
@@ -71,13 +73,14 @@ namespace Data_Organizer.Services
             catch (Exception ex)
             {
                 await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
                 throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
         }
 
-        public async Task SetMetadataStoredAsync(bool isMetadataStored)
+        public async Task SetUserMetadataFlagAsync(bool isMetadataStored)
         {
             if (!_firebaseAuthService.IsUserAuthorized())
                 throw new UnauthorizedAccessException("Користувач незареєстрований!");
@@ -95,13 +98,14 @@ namespace Data_Organizer.Services
             catch (Exception ex)
             {
                 await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
                 throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
         }
 
-        public async Task<bool> GetMetadataStoredAsync()
+        public async Task<bool> GetUserMetadataFlagAsync()
         {
             if (!_firebaseAuthService.IsUserAuthorized())
                 throw new UnauthorizedAccessException("Користувач незареєстрований!");
@@ -118,12 +122,86 @@ namespace Data_Organizer.Services
             catch (Exception ex)
             {
                 await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return false;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
                 throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
 
             return response.IsMetadataStored;
+        }
+
+        public async Task<UsersMetadataDTO> GetUsersMetadataDTO(string uid)
+        {
+            var metadataDTO = new UsersMetadataDTO();
+            metadataDTO.Uid = uid;
+
+            UsersMetadataDTO? response = new UsersMetadataDTO();
+
+            try
+            {
+                response = await _firestoreDbQueries.GetUserMetadataAsync(metadataDTO);
+            }
+            catch (Exception ex)
+            {
+                //await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return new UsersMetadataDTO();
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.Error))
+            {
+                //throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+                return new UsersMetadataDTO();
+            }
+
+            return response;
+        }
+
+        public async Task RemoveUserAsync(string uid, bool isMetadataStored, Data_Organizer.Models.Location location)
+        {
+            UserRequestDTO userRequestDTO = new();
+
+            var userDTO = new UserDTO();
+            userDTO.Uid = uid;
+            userDTO.IsMetadataStored = isMetadataStored;
+
+            userRequestDTO.UserDTO = userDTO;
+
+            if (userDTO.IsMetadataStored)
+            {
+                var DTOofExistingMetadata = await GetUsersMetadataDTO(uid);
+
+                var deviceInfo = _deviceServiceDecorator.GetDeviceInfo();
+                var dateTimeNow = DateTime.Now;
+
+                var metadata = new UsersMetadata()
+                {
+                    DeletionDate = dateTimeNow,
+                    DeletionLocation = location
+                };
+
+                userRequestDTO.UsersMetadataDTO = _mappingService.MapMetadata(metadata);
+
+                userRequestDTO.DeletionDevice = deviceInfo;
+                userRequestDTO.UsersMetadataDTO.CreationDeviceId = DTOofExistingMetadata.CreationDeviceId;
+                userRequestDTO.UsersMetadataDTO.CreationDate = DTOofExistingMetadata.CreationDate;
+                userRequestDTO.UsersMetadataDTO.CreationLocation = DTOofExistingMetadata.CreationLocation;
+            }
+
+            UserRequestDTO? response = new UserRequestDTO();
+
+            try
+            {
+                response = await _firestoreDbQueries.RemoveUserAsync(userRequestDTO);
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.Error))
+                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
         }
     }
 }

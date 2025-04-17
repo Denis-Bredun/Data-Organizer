@@ -8,6 +8,7 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
         private readonly IFirebaseAuthService _firebaseAuthService;
         private readonly INotificationService _notificationService;
         private readonly IFirestoreDbService _firestoreDbService;
+        private readonly IDeviceServiceDecorator _deviceServiceDecorator;
 
         private bool _isReverting;
 
@@ -21,11 +22,13 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
         public SettingsPageViewModel(
             IFirebaseAuthService firebaseAuthService,
             INotificationService notificationService,
-            IFirestoreDbService firestoreDbService)
+            IFirestoreDbService firestoreDbService,
+            IDeviceServiceDecorator deviceServiceDecorator)
         {
             _firebaseAuthService = firebaseAuthService;
             _notificationService = notificationService;
             _firestoreDbService = firestoreDbService;
+            _deviceServiceDecorator = deviceServiceDecorator;
             _authStateChangedHandler = OnAuthStateChanged;
             _firebaseAuthService.AuthStateChanged += _authStateChangedHandler;
 

@@ -10,6 +10,10 @@ namespace Data_Organizer.Queries
         [Post("/firestoredb/create-user")]
         Task<UserRequestDTO> CreateUserAsync([Body] UserRequestDTO request);
 
+        [Delete("/firestoredb/remove-user")]
+        Task<UserRequestDTO> RemoveUserAsync([Body] UserRequestDTO request);
+
+        // Metadata
         [Post("/firestoredb/get-metadata")]
         Task<UsersMetadataDTO> GetUserMetadataAsync([Body] UsersMetadataDTO request);
 
@@ -18,9 +22,6 @@ namespace Data_Organizer.Queries
 
         [Post("/firestoredb/set-metadata-flag")]
         Task<UserMetadataFlagUpdateDTO> SetUserMetadataFlagAsync([Body] UserMetadataFlagUpdateDTO updateDTO);
-
-        [Delete("/firestoredb/remove-user")]
-        Task<UserRequestDTO> RemoveUserAsync([Body] UserRequestDTO request);
 
         // Change password
         [Post("/firestoredb/create-change-password")]
