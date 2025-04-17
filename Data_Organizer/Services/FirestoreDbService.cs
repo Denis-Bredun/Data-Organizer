@@ -90,7 +90,7 @@ namespace Data_Organizer.Services
 
             try
             {
-                response = await _firestoreDbQueries.SetMetadataStoredAsync(updateDTO);
+                response = await _firestoreDbQueries.SetUserMetadataFlagAsync(updateDTO);
             }
             catch (Exception ex)
             {

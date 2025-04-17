@@ -4,6 +4,9 @@ namespace Data_Organizer.DTOs
 {
     public class UsersMetadataDTO
     {
+        [JsonPropertyName("uid")]
+        public string? Uid { get; set; }
+
         [JsonPropertyName("creationDate")]
         public DateTime? CreationDate { get; set; }
 
@@ -21,5 +24,8 @@ namespace Data_Organizer.DTOs
 
         [JsonPropertyName("deletionLocation")]
         public Data_Organizer.Models.Location? DeletionLocation { get; set; }
+
+        [JsonPropertyName("error")]
+        public string? Error { get; set; }
     }
 }
