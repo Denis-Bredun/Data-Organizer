@@ -10,6 +10,7 @@ namespace Data_Organizer.MVVM.ViewModels
         private readonly INotificationService _notificationService;
 
         [ObservableProperty] private string _email;
+        [ObservableProperty] private string _oldPassword;
         [ObservableProperty] private bool _isLoading;
 
         public ResetPasswordPageViewModel(
