@@ -29,7 +29,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
         public async Task NavigateToSupportPage()
         {
             IsLoading = true;
-            await Shell.Current.GoToAsync("//SupportPage");
+            await Shell.Current.GoToAsync($"//SupportPage?returnTo={"//SignInPage"}");
         }
     }
 }

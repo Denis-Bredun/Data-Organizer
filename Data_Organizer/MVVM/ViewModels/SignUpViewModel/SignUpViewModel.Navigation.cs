@@ -22,7 +22,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
         public async Task NavigateToSupportPage()
         {
             IsLoading = true;
-            await Shell.Current.GoToAsync("//SupportPage");
+            await Shell.Current.GoToAsync($"//SupportPage?returnTo={"//SignUpPage"}");
         }
     }
 }

@@ -4,11 +4,14 @@ using Data_Organizer.Interfaces;
 
 namespace Data_Organizer.MVVM.ViewModels
 {
+    [QueryProperty(nameof(ReturnTo), "returnTo")]
     public partial class SupportPageViewModel : ObservableObject
     {
         private readonly IFirebaseAuthService _firebaseAuthService;
 
         [ObservableProperty] private bool _isLoading;
+
+        public string ReturnTo { get; set; }
 
         public SupportPageViewModel(IFirebaseAuthService firebaseAuthService)
         {
@@ -23,7 +26,12 @@ namespace Data_Organizer.MVVM.ViewModels
             if (_firebaseAuthService.IsUserAuthorized())
                 await Shell.Current.GoToAsync("//SettingsPage");
             else
-                await Shell.Current.GoToAsync("//SignInPage");
+            {
+                if (!string.IsNullOrEmpty(ReturnTo))
+                    await Shell.Current.GoToAsync(ReturnTo);
+                else
+                    await Shell.Current.GoToAsync("//SignInPage");
+            }
         }
     }
 }
