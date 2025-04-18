@@ -6,8 +6,8 @@ namespace Data_Organizer.Interfaces
     {
         Task<bool> RequestPermissionsStorageReadAsync();
         Task<bool> RequestPermissionsStorageWriteAsync();
-        Task<string> ImportTextAsync();
+        Task<FileInfoModel> ImportTextAsync();
         Task ExportTextAsync(string text, Enums.TextFileFormat textFileFormat);
-        Task<string> ImportAudiofileAsync(LanguageModel selectedLanguage);
+        Task<FileInfoModel> ImportAudiofileAsync(LanguageModel selectedLanguage);
     }
 }

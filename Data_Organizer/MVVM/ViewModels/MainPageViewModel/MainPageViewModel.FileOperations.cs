@@ -9,11 +9,17 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
         {
             IsLoading = true;
 
-            string importedText = await _fileService.ImportTextAsync();
+            var fileInfoObj = await _fileService.ImportTextAsync();
 
-            if (importedText != null)
+            if (fileInfoObj != null)
             {
                 _wasInfluenceOnOutputText = true;
+
+                var importedText = fileInfoObj.Content;
+
+                if (AreHeadersAdded)
+                    AddHeaders(ref importedText, fileInfoObj.Name);
+
                 SetOutputText(importedText);
             }
 
@@ -35,11 +41,17 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
         {
             IsLoading = true;
 
-            string transcribedText = await _fileService.ImportAudiofileAsync();
+            var fileInfoObj = await _fileService.ImportAudiofileAsync();
 
-            if (transcribedText != null)
+            if (fileInfoObj != null)
             {
                 _wasInfluenceOnOutputText = true;
+
+                var transcribedText = fileInfoObj.Content;
+
+                if (AreHeadersAdded)
+                    AddHeaders(ref transcribedText, fileInfoObj.Name);
+
                 SetOutputText(transcribedText);
             }
 

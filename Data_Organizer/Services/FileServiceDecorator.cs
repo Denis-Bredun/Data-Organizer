@@ -1,4 +1,5 @@
 ﻿using Data_Organizer.Interfaces;
+using Data_Organizer.MVVM.Models;
 
 namespace Data_Organizer.Services
 {
@@ -21,7 +22,7 @@ namespace Data_Organizer.Services
             _cultureInfoService = cultureInfoService;
         }
 
-        public async Task<string> ImportTextAsync()
+        public async Task<FileInfoModel> ImportTextAsync()
         {
             if (!await CheckIfUserIsAuthorized())
                 return null;
@@ -34,17 +35,17 @@ namespace Data_Organizer.Services
                     return null;
                 }
 
-                var content = await _fileService.ImportTextAsync();
+                var fileInfoObj = await _fileService.ImportTextAsync();
 
-                if (content == null)
+                if (fileInfoObj == null)
                 {
                     await _notificationService.ShowToastAsync("Файл не обрано");
                     return null;
                 }
 
                 await _notificationService.ShowToastAsync(
-                    $"Успішно імпортовано {content.Length} символів");
-                return content;
+                    $"Успішно імпортовано {fileInfoObj.Content.Length} символів");
+                return fileInfoObj;
             }
             catch (Exception ex)
             {
@@ -108,7 +109,7 @@ namespace Data_Organizer.Services
             }
         }
 
-        public async Task<string> ImportAudiofileAsync()
+        public async Task<FileInfoModel> ImportAudiofileAsync()
         {
             if (!await CheckIfUserIsAuthorized())
                 return null;
@@ -131,17 +132,17 @@ namespace Data_Organizer.Services
                     return null;
 
                 var selectedLanguage = _cultureInfoService.Languages.FirstOrDefault(l => l.DisplayName == answer);
-                var transcription = await _fileService.ImportAudiofileAsync(selectedLanguage);
+                var fileInfoObj = await _fileService.ImportAudiofileAsync(selectedLanguage);
 
-                if (transcription == null)
+                if (fileInfoObj == null)
                 {
                     await _notificationService.ShowToastAsync("Файл не обрано або помилка транскрипції");
                     return null;
                 }
 
                 await _notificationService.ShowToastAsync(
-                    $"Успішно транскрибовано {transcription.Length} символів");
-                return transcription;
+                    $"Успішно транскрибовано {fileInfoObj.Content.Length} символів");
+                return fileInfoObj;
             }
             catch (Exception ex)
             {

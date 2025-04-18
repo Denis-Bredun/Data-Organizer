@@ -5,6 +5,7 @@
         LastSelectedFeature,
         LastSelectedOutputLanguage,
         IsTextAddedAtTheEnd,
+        AreHeadersAdded,
         HasVisitedMainPage,
         HelpPopupHasBeenClosedOnce,
         IsMetadataStored

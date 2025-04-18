@@ -25,6 +25,7 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
         [ObservableProperty] private bool _isLoading;
         [ObservableProperty] private bool _areSettingsOpen;
         [ObservableProperty] private bool _isTextAddedAtTheEnd;
+        [ObservableProperty] private bool _areHeadersAdded;
         [ObservableProperty] private bool _hasVisitedMainPage;
 
         public ICultureInfoService CultureInfoService { get; }
@@ -61,6 +62,7 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
         private void SetDefaultProperties()
         {
             IsReadOnly = true;
+            AreHeadersAdded = true;
             EditButtonImageSource = "disabled_edit_mode.svg";
             PlayButtonImageSource = "start_record.svg";
         }

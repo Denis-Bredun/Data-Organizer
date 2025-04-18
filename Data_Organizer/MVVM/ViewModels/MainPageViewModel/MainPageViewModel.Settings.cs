@@ -17,6 +17,12 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
         }
 
         [RelayCommand]
+        public void ChangeSettingAreHeadersAdded()
+        {
+            AreHeadersAdded = !AreHeadersAdded;
+        }
+
+        [RelayCommand]
         public async Task ShowHelpInformation()
         {
             IsLoading = true;
@@ -24,6 +30,15 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
             await Shell.Current.GoToAsync("//HelpPage");
 
             IsLoading = false;
+        }
+
+        private void AddHeaders(ref string content, string fileOrFeatureName)
+        {
+            string dateOfConversion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            content = $"Назва функції/файлу: {fileOrFeatureName}\n" +
+                      $"Дата операції/імпорту: {dateOfConversion}\n" +
+                      $"Текст:\n{content}";
         }
     }
 }

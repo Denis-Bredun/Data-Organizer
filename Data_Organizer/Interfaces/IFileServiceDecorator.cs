@@ -4,8 +4,8 @@ namespace Data_Organizer.Interfaces
 {
     public interface IFileServiceDecorator
     {
-        Task<string> ImportTextAsync();
+        Task<FileInfoModel> ImportTextAsync();
         Task ExportTextAsync(string text);
-        Task<string> ImportAudiofileAsync();
+        Task<FileInfoModel> ImportAudiofileAsync();
     }
 }

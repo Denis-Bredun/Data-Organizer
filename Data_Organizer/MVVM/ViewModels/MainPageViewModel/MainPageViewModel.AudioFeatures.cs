@@ -23,7 +23,13 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
             if (responseResult != null)
             {
                 _wasInfluenceOnOutputText = true;
-                SetOutputText(responseResult.Result);
+
+                var summary = responseResult.Result;
+
+                if (AreHeadersAdded)
+                    AddHeaders(ref summary, "Конспект");
+
+                SetOutputText(summary);
             }
 
             IsLoading = false;
@@ -37,13 +43,18 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
             {
                 var cultureInfo = CultureInfo.GetCultureInfo(SelectedLanguage.CultureCode);
 
+                var headers = "";
+
+                if (AreHeadersAdded)
+                    AddHeaders(ref headers, "Транскрипція");
+
                 if (!IsTextAddedAtTheEnd)
                 {
                     OutputText = "";
-                    SetTranscriptionFromOutputText();
+                    SetTranscriptionFromOutputText(headers);
                 }
                 else if (_wasInfluenceOnOutputText)
-                    SetTranscriptionFromOutputText(_lineToDivideOutput);
+                    SetTranscriptionFromOutputText(_lineToDivideOutput + headers);
 
                 AudioTranscriptorService.StartListeningAsync(cultureInfo);
             }

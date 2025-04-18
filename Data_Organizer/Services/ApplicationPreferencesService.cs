@@ -58,6 +58,11 @@ namespace Data_Organizer.Services
                 Enums.Preferences.HasVisitedMainPage,
                 false,
                 value => _mainPageViewModel.HasVisitedMainPage = value);
+
+            LoadBoolPreference(
+                Enums.Preferences.AreHeadersAdded,
+                true,
+                value => _mainPageViewModel.AreHeadersAdded = value);
         }
 
         private void SaveMainPagePreferences()
@@ -77,6 +82,10 @@ namespace Data_Organizer.Services
             SaveBoolPreference(
                 Enums.Preferences.HasVisitedMainPage,
                 _mainPageViewModel.HasVisitedMainPage);
+
+            SaveBoolPreference(
+                Enums.Preferences.AreHeadersAdded,
+                _mainPageViewModel.AreHeadersAdded);
         }
 
         private void LoadHelpPagePreferences()

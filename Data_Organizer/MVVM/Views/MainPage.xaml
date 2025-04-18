@@ -88,10 +88,10 @@
             <AbsoluteLayout>
                 <Frame
             AbsoluteLayout.LayoutFlags="All" 
-            AbsoluteLayout.LayoutBounds="1, 0.1, 0.77, 0.38"
+            AbsoluteLayout.LayoutBounds="1, 0.1, 0.77, 0.45"
             Style="{StaticResource PopupFrameStyle}">
                     <Grid 
-                RowDefinitions="*, 1, *, 1, *, 1, *, 1, *"       
+                RowDefinitions="*, 1, *, 1, 1.5*, 1, *, 1, *, 1, *"       
                 Padding="15"
                 HorizontalOptions="Start">
 
@@ -124,15 +124,26 @@
                         </StackLayout>
 
                         <BoxView 
-                    Grid.Row="3" 
-                    Style="{StaticResource SeparatorLineStyle}"/>
+                            Grid.Row="3" 
+                            Style="{StaticResource SeparatorLineStyle}"/>
 
-                        <Button 
-                    Grid.Row="4" 
-                    ImageSource="import_file.svg" 
-                    Text="Імпорт файлу"
-                    Style="{StaticResource MenuButtonStyle}"
-                    Command="{Binding ImportFileCommand}"/>
+                        <StackLayout 
+                            Grid.Row="4"
+                            Style="{StaticResource MenuItemContainerStyle}">
+
+                            <CheckBox 
+                                Color="White"
+                                IsChecked="{Binding AreHeadersAdded, Mode=TwoWay}"/>
+
+                            <Label
+                                Text="Додавати заголовки&#10;(дата, імена файлів...)"
+                                VerticalOptions="Center"
+                                Style="{StaticResource LabelStyle}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ChangeSettingAreHeadersAddedCommand}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
 
                         <BoxView 
                     Grid.Row="5" 
@@ -140,10 +151,10 @@
 
                         <Button 
                     Grid.Row="6" 
-                    ImageSource="export_file.svg" 
-                    Text="Експорт файлу"
+                    ImageSource="import_file.svg" 
+                    Text="Імпорт файлу"
                     Style="{StaticResource MenuButtonStyle}"
-                    Command="{Binding ExportFileCommand}"/>
+                    Command="{Binding ImportFileCommand}"/>
 
                         <BoxView 
                     Grid.Row="7" 
@@ -151,6 +162,17 @@
 
                         <Button 
                     Grid.Row="8" 
+                    ImageSource="export_file.svg" 
+                    Text="Експорт файлу"
+                    Style="{StaticResource MenuButtonStyle}"
+                    Command="{Binding ExportFileCommand}"/>
+
+                        <BoxView 
+                    Grid.Row="9" 
+                    Style="{StaticResource SeparatorLineStyle}"/>
+
+                        <Button 
+                    Grid.Row="10" 
                     ImageSource="import_audiofile.svg" 
                     Text="Імпорт аудіофайлу"
                     Style="{StaticResource MenuButtonStyle}"

@@ -34,12 +34,19 @@ namespace Data_Organizer.Services
             return status == PermissionStatus.Granted;
         }
 
-        public async Task<string> ImportTextAsync()
+        public async Task<FileInfoModel> ImportTextAsync()
         {
             var result = await PickTextFileAsync();
             if (result == null) return null;
 
-            return await ReadTextFromFileAsync(result);
+            var content = await ReadTextFromFileAsync(result);
+            var fileName = result.FileName;
+
+            return new FileInfoModel()
+            {
+                Content = content,
+                Name = fileName
+            };
         }
 
         private async Task<FileResult?> PickTextFileAsync()
@@ -178,12 +185,19 @@ namespace Data_Organizer.Services
             return memoryStream.ToArray();
         }
 
-        public async Task<string> ImportAudiofileAsync(LanguageModel selectedLanguage)
+        public async Task<FileInfoModel> ImportAudiofileAsync(LanguageModel selectedLanguage)
         {
             var result = await PickAudioFileAsync();
             if (result == null) return null;
 
-            return await TranscribeAudiofile(result, selectedLanguage.CultureCode);
+            var content = await TranscribeAudiofile(result, selectedLanguage.CultureCode);
+            var fileName = result.FileName;
+
+            return new FileInfoModel()
+            {
+                Content = content,
+                Name = fileName
+            };
         }
 
         private async Task<FileResult> PickAudioFileAsync()
