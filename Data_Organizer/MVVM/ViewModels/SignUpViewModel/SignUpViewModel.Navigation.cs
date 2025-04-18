@@ -14,7 +14,6 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
         [RelayCommand]
         public async Task NavigateToMainPage()
         {
-            // добавить сохранение куда-то того, что метаданные не собираются
             IsLoading = true;
             await Shell.Current.GoToAsync("//MainPage");
         }

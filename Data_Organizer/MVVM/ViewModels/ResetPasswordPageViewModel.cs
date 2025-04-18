@@ -28,8 +28,7 @@ namespace Data_Organizer.MVVM.ViewModels
 
             IsLoading = true;
 
-            bool confirmed = await _notificationService.ShowConfirmationDialogAsync($"Ви точно правильно написали пошту?\n\n{Email}");
-
+            bool confirmed = await ConfirmEmail();
             if (!confirmed)
             {
                 IsLoading = false;
@@ -38,26 +37,44 @@ namespace Data_Organizer.MVVM.ViewModels
 
             Email = Email?.Trim();
 
-            bool succeeded = await _firebaseAuthService.ResetPassword(Email);
-
+            bool succeeded = await ResetPassword();
             if (succeeded)
             {
-                Email = "";
-
-                if (_firebaseAuthService.IsUserAuthorized())
-                {
-                    succeeded = await _firebaseAuthService.SignOutWithoutNotification();
-
-                    if (succeeded)
-                        await Shell.Current.GoToAsync("//SignInPage");
-                    else
-                        await Shell.Current.GoToAsync("//SettingsPage");
-                }
-
-                await Shell.Current.GoToAsync("//SignInPage");
+                await HandlePostResetActions();
             }
             else
+            {
                 IsLoading = false;
+            }
+        }
+
+        private async Task<bool> ConfirmEmail()
+        {
+            return await _notificationService.ShowConfirmationDialogAsync($"Ви точно правильно написали пошту?\n\n{Email}");
+        }
+
+        private async Task<bool> ResetPassword()
+        {
+            return await _firebaseAuthService.ResetPassword(Email);
+        }
+
+        private async Task HandlePostResetActions()
+        {
+            Email = "";
+
+            if (_firebaseAuthService.IsUserAuthorized())
+            {
+                bool signOutSucceeded = await _firebaseAuthService.SignOutWithoutNotification();
+
+                if (signOutSucceeded)
+                    await Shell.Current.GoToAsync("//SignInPage");
+                else
+                    await Shell.Current.GoToAsync("//SettingsPage");
+            }
+            else
+            {
+                await Shell.Current.GoToAsync("//SignInPage");
+            }
         }
 
         [RelayCommand]

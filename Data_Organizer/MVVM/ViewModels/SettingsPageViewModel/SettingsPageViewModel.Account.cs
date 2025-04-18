@@ -19,38 +19,58 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
 
         [RelayCommand]
         public async Task DeleteAccount()
-        {          
+        {
             if (!await CheckInternetConnectionAsync())
                 return;
 
-            if (!_firebaseAuthService.IsUserAuthorized())
-            {
-                await _notificationService.ShowToastAsync("Користувач незареєстрований!");
+            if (!await IsUserAuthorizedCheck())
                 return;
-            }
 
-            bool confirmed = await _notificationService.ShowConfirmationDialogAsync("Ви впевнені, що хочете видалити акаунт?\n"
-                                                                                    + "Його неможливо буде відновити!");
-
+            bool confirmed = await ShowDeletionConfirmation();
             if (!confirmed)
                 return;
 
             IsLoading = true;
 
-            Data_Organizer.Models.Location location = null;
+            Data_Organizer.Models.Location location = await GetLocationForMetadata();
+            if (location == null)
+                return;
 
-            if (IsMetadataStored)
+            await DeleteUserAccount(location);
+        }
+
+        private async Task<bool> IsUserAuthorizedCheck()
+        {
+            if (!_firebaseAuthService.IsUserAuthorized())
             {
-                location = await _deviceServiceDecorator.GetCurrentLocationAsync();
-
-                if (location == null)
-                {
-                    IsLoading = false;
-                    await _notificationService.ShowToastAsync("Для збору метаданих потрібен доступ до вашої геолокації!");
-                    return;
-                }
+                await _notificationService.ShowToastAsync("Користувач незареєстрований!");
+                return false;
             }
+            return true;
+        }
 
+        private async Task<bool> ShowDeletionConfirmation()
+        {
+            return await _notificationService.ShowConfirmationDialogAsync("Ви впевнені, що хочете видалити акаунт?\n"
+                                                                        + "Його неможливо буде відновити!");
+        }
+
+        private async Task<Data_Organizer.Models.Location> GetLocationForMetadata()
+        {
+            if (!IsMetadataStored)
+                return null;
+
+            var location = await _deviceServiceDecorator.GetCurrentLocationAsync();
+            if (location == null)
+            {
+                IsLoading = false;
+                await _notificationService.ShowToastAsync("Для збору метаданих потрібен доступ до вашої геолокації!");
+            }
+            return location;
+        }
+
+        private async Task DeleteUserAccount(Data_Organizer.Models.Location location)
+        {
             var uid = _firebaseAuthService.GetUid();
             await _firestoreDbService.RemoveUserAsync(uid, IsMetadataStored, location);
 
@@ -61,7 +81,9 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
                 await Shell.Current.GoToAsync("//SignInPage");
             }
             else
+            {
                 IsLoading = false;
+            }
         }
 
         private async Task<bool> CheckInternetConnectionAsync()
