@@ -49,6 +49,12 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
             IsMetadataStored = isMetadataStored;
             _isReverting = false;
         }
+
+        [RelayCommand]
+        public void ChangeSettingIsMetadataStored()
+        {
+            IsMetadataStored = !IsMetadataStored;
+        }
     }
 
 }

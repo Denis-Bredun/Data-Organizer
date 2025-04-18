@@ -73,7 +73,11 @@
                         Grid.Column="1"
                         VerticalOptions="Center"
                         Text="Збір метаданих"
-                        Style="{StaticResource LabelStyle}"/>
+                        Style="{StaticResource LabelStyle}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeSettingIsMetadataStoredCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <ImageButton 
                         Margin="20,0,0,0"
                         x:Name="QuestionButton"

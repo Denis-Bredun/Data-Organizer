@@ -67,11 +67,17 @@
                 <CheckBox 
         Color="White"
         IsChecked="{Binding IsMetadataStored, Mode=TwoWay}"/>
-                <Label 
-        Grid.Column="1"
-        VerticalOptions="Center"
-        Text="Дати згоду на збір метаданих"
-        Style="{StaticResource LabelStyle}"/>
+                <Label
+    Grid.Column="1"
+VerticalOptions="Center"
+Text="Дати згоду на збір метаданих"
+Style="{StaticResource LabelStyle}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeSettingIsMetadataStoredCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+
                 <ImageButton 
         x:Name="QuestionButton"
         Grid.Column="2" 

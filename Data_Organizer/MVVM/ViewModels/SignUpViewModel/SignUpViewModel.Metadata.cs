@@ -14,5 +14,11 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
                                                       "потенційних підозрюваних дій.",
                                                       17);
         }
+
+        [RelayCommand]
+        public void ChangeSettingIsMetadataStored()
+        {
+            IsMetadataStored = !IsMetadataStored;
+        }
     }
 }
