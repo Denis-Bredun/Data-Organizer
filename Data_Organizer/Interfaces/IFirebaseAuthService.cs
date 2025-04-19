@@ -14,5 +14,6 @@
         Task<bool> SignOutWithoutNotification();
         Task<bool> DeleteAccount();
         string GetUid();
+        string GetEmail();
     }
 }

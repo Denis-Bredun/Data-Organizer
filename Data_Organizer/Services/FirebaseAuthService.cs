@@ -216,6 +216,15 @@ namespace Data_Organizer.Services
 
         }
 
+        public string GetEmail()
+        {
+            if (!IsUserAuthorized())
+                return null;
+            else
+                return _firebaseAuthClient.User?.Info?.Email;
+
+        }
+
         private async Task<bool> CheckInternetConnectionAsync()
         {
             var isConnectedToInternet = IsConnectedToInternet();

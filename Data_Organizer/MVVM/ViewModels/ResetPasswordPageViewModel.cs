@@ -12,31 +12,37 @@ namespace Data_Organizer.MVVM.ViewModels
         [ObservableProperty] private string _email;
         [ObservableProperty] private string _oldPassword;
         [ObservableProperty] private bool _isLoading;
+        public SettingsPageViewModel.SettingsPageViewModel SettingsPageViewModel { get; set; }
 
         public ResetPasswordPageViewModel(
             IFirebaseAuthService firebaseAuthService,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IServiceProvider serviceProvider)
         {
             _firebaseAuthService = firebaseAuthService;
             _notificationService = notificationService;
+            SettingsPageViewModel = serviceProvider.GetRequiredService<SettingsPageViewModel.SettingsPageViewModel>();
         }
 
         [RelayCommand]
         public async Task ChangePassword()
         {
-            if (!await ValidateEmailForEmptiness())
+            if (!await ValidateDataForEmptiness())
+                return;
+
+            if (!await ValidateEmailForCorrectnessIfAuthorized())
+                return;
+
+            if (!await UserReauthentication())
+                return;
+
+            if (!await ConfirmEmailIfNotAuthorized())
                 return;
 
             IsLoading = true;
 
-            bool confirmed = await ConfirmEmail();
-            if (!confirmed)
-            {
-                IsLoading = false;
-                return;
-            }
-
             Email = Email?.Trim();
+            OldPassword = OldPassword?.Trim();
 
             bool succeeded = await ResetPassword();
             if (succeeded)
@@ -49,9 +55,16 @@ namespace Data_Organizer.MVVM.ViewModels
             }
         }
 
-        private async Task<bool> ConfirmEmail()
+        private async Task<bool> ConfirmEmailIfNotAuthorized()
         {
-            return await _notificationService.ShowConfirmationDialogAsync($"Ви точно правильно написали пошту?\n\n{Email}");
+            if (!SettingsPageViewModel.IsUserAuthorized)
+            {
+                bool emailConfirmed = await _notificationService.ShowConfirmationDialogAsync($"Ви точно правильно написали пошту?\n\n{Email}");
+
+                return emailConfirmed;
+            }
+
+            return true;
         }
 
         private async Task<bool> ResetPassword()
@@ -62,6 +75,7 @@ namespace Data_Organizer.MVVM.ViewModels
         private async Task HandlePostResetActions()
         {
             Email = "";
+            OldPassword = "";
 
             if (_firebaseAuthService.IsUserAuthorized())
             {
@@ -89,12 +103,43 @@ namespace Data_Organizer.MVVM.ViewModels
                 await Shell.Current.GoToAsync("//SignInPage");
         }
 
-        private async Task<bool> ValidateEmailForEmptiness()
+        private async Task<bool> ValidateDataForEmptiness()
         {
             if (string.IsNullOrWhiteSpace(Email))
             {
                 await _notificationService.ShowToastAsync("Потрібно ввести пошту!");
                 return false;
+            }
+
+            if (SettingsPageViewModel.IsUserAuthorized && string.IsNullOrWhiteSpace(OldPassword))
+            {
+                await _notificationService.ShowToastAsync("Потрібно ввести старий пароль!");
+                return false;
+            }
+
+            return true;
+        }
+
+        private async Task<bool> ValidateEmailForCorrectnessIfAuthorized()
+        {
+            if (SettingsPageViewModel.IsUserAuthorized && Email != _firebaseAuthService.GetEmail())
+            {
+                await _notificationService.ShowToastAsync("Уведена пошта не відповідає вашій реальній пошті!");
+                return false;
+            }
+
+            return true;
+        }
+
+        private async Task<bool> UserReauthentication()
+        {
+            if (SettingsPageViewModel.IsUserAuthorized)
+            {
+                IsLoading = true;
+                bool doesUserExist = await _firebaseAuthService.SignInAsync(Email, OldPassword);
+                IsLoading = false;
+
+                return doesUserExist;
             }
 
             return true;
