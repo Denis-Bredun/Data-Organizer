@@ -1,4 +1,4 @@
-﻿using Data_Organizer.Models;
+﻿using Data_Organizer.MVVM.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -8,14 +8,17 @@ namespace Data_Organizer.DTOs
     {
         [Required]
         [JsonPropertyName("uid")]
-        public string Uid { get; set; } = default!;
+        public string Uid { get; set; }
 
         [Required]
-        [JsonPropertyName("changePassword")]
-        public ChangePassword ChangePassword { get; set; } = default!;
+        [JsonPropertyName("changePasswordDTO")]
+        public ChangePasswordDTO ChangePasswordDTO { get; set; }
 
         [Required]
         [JsonPropertyName("deviceInfo")]
-        public DeviceInfoModel DeviceInfo { get; set; } = default!;
+        public DeviceInfoModel DeviceInfo { get; set; }
+
+        [JsonPropertyName("error")]
+        public string? Error { get; set; }
     }
 }

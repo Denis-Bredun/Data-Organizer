@@ -12,7 +12,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
 
             IsLoading = true;
 
-            Data_Organizer.Models.Location location = await GetLocationForMetadata();
+            Data_Organizer.MVVM.Models.Location location = await GetLocationForMetadata();
             if (location == null)
                 return;
 
@@ -28,7 +28,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
             }
         }
 
-        private async Task<Data_Organizer.Models.Location> GetLocationForMetadata()
+        private async Task<Data_Organizer.MVVM.Models.Location> GetLocationForMetadata()
         {
             if (!IsMetadataStored)
                 return null;
@@ -47,7 +47,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
             return await _firebaseAuthService.SignUpAsync(Email, Password, Username);
         }
 
-        private async Task CreateUserInDatabase(Data_Organizer.Models.Location location)
+        private async Task CreateUserInDatabase(Data_Organizer.MVVM.Models.Location location)
         {
             await _firestoreDbService.CreateUserAsync(IsMetadataStored, location);
 

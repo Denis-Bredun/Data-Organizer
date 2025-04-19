@@ -1,6 +1,6 @@
 ﻿using Data_Organizer.DTOs;
 using Data_Organizer.Interfaces;
-using Data_Organizer.Models;
+using Data_Organizer.MVVM.Models;
 
 namespace Data_Organizer.Services
 {
@@ -27,6 +27,18 @@ namespace Data_Organizer.Services
                 DeletionDate = metadata.DeletionDate,
                 DeletionDeviceId = metadata.DeletionDevice?.Id,
                 DeletionLocation = metadata.DeletionLocation
+            };
+        }
+
+        public ChangePasswordDTO MapChangePassword(ChangePassword model)
+        {
+            return new ChangePasswordDTO
+            {
+                UsersMetadataId = model.UsersMetadata?.Id,
+                OldPassword = model.OldPassword,
+                DeviceId = model.Device?.Id,
+                Location = model.Location,
+                Date = model.Date
             };
         }
     }

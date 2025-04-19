@@ -1,4 +1,4 @@
-﻿using Data_Organizer.Models;
+﻿using Data_Organizer.MVVM.Models;
 
 namespace Data_Organizer.Interfaces
 {
@@ -6,7 +6,7 @@ namespace Data_Organizer.Interfaces
     {
         Task<bool> RequestPermissionsLocationAsync();
         DeviceInfoModel GetDeviceInfo();
-        Task<Data_Organizer.Models.Location> GetCurrentLocationAsync();
+        Task<Data_Organizer.MVVM.Models.Location> GetCurrentLocationAsync();
     }
 
 }

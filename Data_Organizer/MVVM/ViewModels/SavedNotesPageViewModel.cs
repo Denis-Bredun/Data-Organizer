@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Data_Organizer.Models;
+using Data_Organizer.MVVM.Models;
 using System.Collections.ObjectModel;
 
 namespace Data_Organizer.MVVM.ViewModels

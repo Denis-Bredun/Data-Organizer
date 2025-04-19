@@ -32,7 +32,7 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
 
             IsLoading = true;
 
-            Data_Organizer.Models.Location location = await GetLocationForMetadata();
+            Data_Organizer.MVVM.Models.Location location = await GetLocationForMetadata();
             if (location == null)
                 return;
 
@@ -55,7 +55,7 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
                                                                         + "Його неможливо буде відновити!");
         }
 
-        private async Task<Data_Organizer.Models.Location> GetLocationForMetadata()
+        private async Task<Data_Organizer.MVVM.Models.Location> GetLocationForMetadata()
         {
             if (!IsMetadataStored)
                 return null;
@@ -69,7 +69,7 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
             return location;
         }
 
-        private async Task DeleteUserAccount(Data_Organizer.Models.Location location)
+        private async Task DeleteUserAccount(Data_Organizer.MVVM.Models.Location location)
         {
             var uid = _firebaseAuthService.GetUid();
             await _firestoreDbService.RemoveUserAsync(uid, IsMetadataStored, location);

@@ -5,10 +5,10 @@ namespace Data_Organizer.Interfaces
 {
     public interface IFirestoreDbService
     {
-        Task CreateUserAsync(bool isMetadataStored, Data_Organizer.Models.Location location);
+        Task CreateUserAsync(bool isMetadataStored, Data_Organizer.MVVM.Models.Location location);
         Task<bool> GetUserMetadataFlagAsync();
         Task<UsersMetadataDTO> GetUsersMetadataDTO(string uid);
-        Task RemoveUserAsync(string uid, bool isMetadataStored, Models.Location location);
+        Task RemoveUserAsync(string uid, bool isMetadataStored, Data_Organizer.MVVM.Models.Location location);
         Task SetUserMetadataFlagAsync(bool isMetadataStored);
     }
 }

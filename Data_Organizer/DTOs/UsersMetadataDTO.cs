@@ -14,7 +14,7 @@ namespace Data_Organizer.DTOs
         public string? CreationDeviceId { get; set; }
 
         [JsonPropertyName("creationLocation")]
-        public Data_Organizer.Models.Location? CreationLocation { get; set; }
+        public Data_Organizer.MVVM.Models.Location? CreationLocation { get; set; }
 
         [JsonPropertyName("deletionDate")]
         public DateTime? DeletionDate { get; set; }
@@ -23,7 +23,7 @@ namespace Data_Organizer.DTOs
         public string? DeletionDeviceId { get; set; }
 
         [JsonPropertyName("deletionLocation")]
-        public Data_Organizer.Models.Location? DeletionLocation { get; set; }
+        public Data_Organizer.MVVM.Models.Location? DeletionLocation { get; set; }
 
         [JsonPropertyName("error")]
         public string? Error { get; set; }

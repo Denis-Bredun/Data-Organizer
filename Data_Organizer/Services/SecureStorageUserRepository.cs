@@ -28,15 +28,15 @@ namespace Data_Organizer.Services
             try
             {
                 string encryptedJson = SecureStorage.Default.GetAsync(GetStorageKey()).Result;
-                
+
                 if (string.IsNullOrEmpty(encryptedJson))
                     return (null, null);
-                
+
                 string decryptedJson = _encryptionService.Decrypt(encryptedJson);
-                
+
                 if (string.IsNullOrEmpty(decryptedJson))
                     return (null, null);
-                
+
                 var userData = JsonSerializer.Deserialize<UserData>(decryptedJson);
                 return (userData?.UserInfo, userData?.Credential);
             }
@@ -46,7 +46,7 @@ namespace Data_Organizer.Services
             }
         }
 
-        public void SaveUser(User user)
+        public void SaveUser(Firebase.Auth.User user)
         {
             if (user == null)
             {
@@ -71,5 +71,5 @@ namespace Data_Organizer.Services
         }
 
         private string GetStorageKey() => $"{_appName}_{AUTH_DATA_KEY}";
-    }    
-} 
+    }
+}

@@ -1,6 +1,6 @@
 ﻿using Data_Organizer.DTOs;
 using Data_Organizer.Interfaces;
-using Data_Organizer.Models;
+using Data_Organizer.MVVM.Models;
 using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.MVVM.ViewModels.SettingsPageViewModel;
 using Data_Organizer.Queries;
@@ -33,7 +33,7 @@ namespace Data_Organizer.Services
             _mappingService = mappingService;
         }
 
-        public async Task CreateUserAsync(bool isMetadataStored, Data_Organizer.Models.Location location)
+        public async Task CreateUserAsync(bool isMetadataStored, Data_Organizer.MVVM.Models.Location location)
         {
             if (!_firebaseAuthService.IsUserAuthorized())
                 throw new UnauthorizedAccessException("Користувач незареєстрований!");
@@ -157,7 +157,7 @@ namespace Data_Organizer.Services
             return response;
         }
 
-        public async Task RemoveUserAsync(string uid, bool isMetadataStored, Data_Organizer.Models.Location location)
+        public async Task RemoveUserAsync(string uid, bool isMetadataStored, Data_Organizer.MVVM.Models.Location location)
         {
             UserRequestDTO userRequestDTO = new();
 

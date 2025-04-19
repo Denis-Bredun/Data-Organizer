@@ -1,5 +1,5 @@
 ﻿using Data_Organizer.DTOs;
-using Data_Organizer.Models;
+using Data_Organizer.MVVM.Models;
 using Refit;
 
 namespace Data_Organizer.Queries

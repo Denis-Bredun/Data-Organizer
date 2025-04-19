@@ -1,5 +1,5 @@
 ﻿using Data_Organizer.Interfaces;
-using Data_Organizer.Models;
+using Data_Organizer.MVVM.Models;
 
 namespace Data_Organizer.Services
 {
@@ -25,7 +25,7 @@ namespace Data_Organizer.Services
             };
         }
 
-        public async Task<Data_Organizer.Models.Location> GetCurrentLocationAsync()
+        public async Task<Data_Organizer.MVVM.Models.Location> GetCurrentLocationAsync()
         {
             try
             {
@@ -33,7 +33,7 @@ namespace Data_Organizer.Services
                 var location = await Geolocation.Default.GetLocationAsync(request);
 
                 return location != null
-                    ? new Data_Organizer.Models.Location { Latitude = location.Latitude, Longitude = location.Longitude }
+                    ? new Data_Organizer.MVVM.Models.Location { Latitude = location.Latitude, Longitude = location.Longitude }
                     : null;
             }
             catch (Exception ex)

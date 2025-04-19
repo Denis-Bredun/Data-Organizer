@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Data_Organizer.Models
+namespace Data_Organizer.MVVM.Models
 {
     public class DeviceInfoModel
     {

@@ -1,4 +1,4 @@
-﻿using Data_Organizer.Models;
+﻿using Data_Organizer.MVVM.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -8,7 +8,7 @@ namespace Data_Organizer.DTOs
     {
         [Required]
         [JsonPropertyName("userDTO")]
-        public UserDTO UserDTO { get; set; } = default!;
+        public UserDTO UserDTO { get; set; }
 
         [JsonPropertyName("usersMetadataDTO")]
         public UsersMetadataDTO? UsersMetadataDTO { get; set; }

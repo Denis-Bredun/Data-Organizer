@@ -1,6 +1,6 @@
 ﻿using Google.Cloud.Firestore;
 
-namespace Data_Organizer.Models
+namespace Data_Organizer.MVVM.Models
 {
     public class UsersMetadata
     {
