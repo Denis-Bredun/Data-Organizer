@@ -17,9 +17,9 @@ namespace Data_Organizer.Services
     {
         private readonly ITranskriptorQueries _transkriptorQueries;
 
-        public FileService(ITranskriptorQueries transkriptorQueries)
+        public FileService(ITranskriptorQueries _transkriptorQueries)
         {
-            _transkriptorQueries = transkriptorQueries;
+            _transkriptorQueries = _transkriptorQueries;
         }
 
         public async Task<bool> RequestPermissionsStorageReadAsync()
