@@ -7,7 +7,21 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
         [RelayCommand]
         public async Task SignOut()
         {
+            if (!await CheckInternetConnectionAsync())
+                return;
+
+            if (!await IsUserAuthorizedCheck())
+                return;
+
+            bool confirmed = await ShowSignOutConfirmation();
+
+            if (!confirmed)
+                return;
+
             IsLoading = true;
+
+            if (IsMetadataStored)
+                await _firestoreDbService.CreateAccountLogoutInstance();
 
             bool succeeded = await _firebaseAuthService.SignOut();
 
@@ -53,6 +67,11 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
         {
             return await _notificationService.ShowConfirmationDialogAsync("Ви впевнені, що хочете видалити акаунт?\n"
                                                                         + "Його неможливо буде відновити!");
+        }
+
+        private async Task<bool> ShowSignOutConfirmation()
+        {
+            return await _notificationService.ShowConfirmationDialogAsync("Ви впевнені, що хочете вийти з акаунту?");
         }
 
         private async Task<Data_Organizer.MVVM.Models.Location> GetLocationForMetadata()

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Data_Organizer_Server.DTOs
+namespace Data_Organizer.DTOs
 {
     public class AccountLoginDTO
     {

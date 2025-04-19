@@ -86,6 +86,9 @@ namespace Data_Organizer.MVVM.ViewModels
 
             if (_firebaseAuthService.IsUserAuthorized())
             {
+                if (SettingsPageViewModel.IsMetadataStored)
+                    await _firestoreDbService.CreateAccountLogoutInstance();
+
                 bool signOutSucceeded = await _firebaseAuthService.SignOutWithoutNotification();
 
                 if (signOutSucceeded)

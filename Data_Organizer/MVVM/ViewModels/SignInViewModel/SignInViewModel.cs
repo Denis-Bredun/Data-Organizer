@@ -9,6 +9,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
         private readonly IFirebaseAuthService _firebaseAuthService;
         private readonly IServiceProvider _serviceProvider;
         private readonly IFirestoreDbService _firestoreDbService;
+        private SettingsPageViewModel.SettingsPageViewModel _settingsPageViewModel;
 
         [ObservableProperty] private string _email;
         [ObservableProperty] private string _password;
@@ -30,9 +31,9 @@ namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
         {
             if (_firebaseAuthService.IsUserAuthorized())
             {
-                var settingsPageViewModel = _serviceProvider.GetRequiredService<SettingsPageViewModel.SettingsPageViewModel>();
+                _settingsPageViewModel = _serviceProvider.GetRequiredService<SettingsPageViewModel.SettingsPageViewModel>();
                 var isMetadataStored = await _firestoreDbService.GetUserMetadataFlagAsync();
-                settingsPageViewModel.ChangeMetadataFlagWithoutAsking(isMetadataStored);
+                _settingsPageViewModel.ChangeMetadataFlagWithoutAsking(isMetadataStored);
             }
         }
 

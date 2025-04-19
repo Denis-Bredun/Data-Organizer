@@ -11,5 +11,7 @@ namespace Data_Organizer.Interfaces
         Task RemoveUserAsync(string uid, bool isMetadataStored, Data_Organizer.MVVM.Models.Location location);
         Task CreateChangePasswordInstance(string oldPassword);
         Task SetUserMetadataFlagAsync(bool isMetadataStored);
+        Task CreateAccountLoginInstance();
+        Task CreateAccountLogoutInstance();
     }
 }

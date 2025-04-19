@@ -82,14 +82,6 @@ namespace Data_Organizer.Services
 
         public async Task<bool> SignOut()
         {
-            if (!await CheckInternetConnectionAsync())
-                return false;
-
-            bool confirmed = await _notificationService.ShowConfirmationDialogAsync("Ви впевнені, що хочете вийти з акаунту?");
-
-            if (!confirmed)
-                return false;
-
             try
             {
                 _firebaseAuthClient.SignOut();

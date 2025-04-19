@@ -234,5 +234,71 @@ namespace Data_Organizer.Services
             if (!string.IsNullOrWhiteSpace(response.Error))
                 throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
         }
+
+        public async Task CreateAccountLoginInstance()
+        {
+            if (!_firebaseAuthService.IsUserAuthorized())
+                throw new UnauthorizedAccessException("Користувач незареєстрований!");
+
+            AccountLoginRequestDTO accountLoginRequestDTO = new AccountLoginRequestDTO();
+
+            accountLoginRequestDTO.Uid = _firebaseAuthService.GetUid();
+            accountLoginRequestDTO.DeviceInfo = _deviceServiceDecorator.GetDeviceInfo();
+
+            AccountLoginDTO accountLoginDTO = new AccountLoginDTO();
+
+            accountLoginDTO.Date = DateTime.Now;
+            accountLoginDTO.Location = await _deviceServiceDecorator.GetCurrentLocationAsync();
+
+            accountLoginRequestDTO.AccountLoginDTO = accountLoginDTO;
+
+            AccountLoginRequestDTO? response = new AccountLoginRequestDTO();
+
+            try
+            {
+                response = await _firestoreDbQueries.CreateAccountLoginAsync(accountLoginRequestDTO);
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.Error))
+                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+        }
+
+        public async Task CreateAccountLogoutInstance()
+        {
+            if (!_firebaseAuthService.IsUserAuthorized())
+                throw new UnauthorizedAccessException("Користувач незареєстрований!");
+
+            AccountLogoutRequestDTO accountLogoutRequestDTO = new AccountLogoutRequestDTO();
+
+            accountLogoutRequestDTO.Uid = _firebaseAuthService.GetUid();
+            accountLogoutRequestDTO.DeviceInfo = _deviceServiceDecorator.GetDeviceInfo();
+
+            AccountLogoutDTO accountLogoutDTO = new AccountLogoutDTO();
+
+            accountLogoutDTO.Date = DateTime.Now;
+            accountLogoutDTO.Location = await _deviceServiceDecorator.GetCurrentLocationAsync();
+
+            accountLogoutRequestDTO.AccountLogoutDTO = accountLogoutDTO;
+
+            AccountLogoutRequestDTO? response = new AccountLogoutRequestDTO();
+
+            try
+            {
+                response = await _firestoreDbQueries.CreateAccountLogoutAsync(accountLogoutRequestDTO);
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.Error))
+                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+        }
     }
 }

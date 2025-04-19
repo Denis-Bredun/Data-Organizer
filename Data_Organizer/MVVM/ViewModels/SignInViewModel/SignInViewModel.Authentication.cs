@@ -20,7 +20,12 @@ namespace Data_Organizer.MVVM.ViewModels.SignInViewModel
             if (succeeded)
             {
                 await SetMetadataFlagIfAuthorized();
+
+                if (_settingsPageViewModel.IsMetadataStored)
+                    await _firestoreDbService.CreateAccountLoginInstance();
+
                 CleanFields();
+
                 await NavigateToMainPage();
             }
             else

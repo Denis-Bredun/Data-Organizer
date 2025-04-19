@@ -1,5 +1,4 @@
 ﻿using Data_Organizer.MVVM.Models;
-using Data_Organizer_Server.DTOs;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
