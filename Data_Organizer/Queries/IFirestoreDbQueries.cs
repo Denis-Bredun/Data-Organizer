@@ -29,10 +29,10 @@ namespace Data_Organizer.Queries
 
         // Account login/logout
         [Post("/firestoredb/create-account-login")]
-        Task<AccountLogin> CreateAccountLoginAsync([Body] AccountLoginRequestDTO request);
+        Task<AccountLoginRequestDTO> CreateAccountLoginAsync([Body] AccountLoginRequestDTO request);
 
         [Post("/firestoredb/create-account-logout")]
-        Task<AccountLogout> CreateAccountLogoutAsync([Body] AccountLogoutRequestDTO request);
+        Task<AccountLogoutRequestDTO> CreateAccountLogoutAsync([Body] AccountLogoutRequestDTO request);
 
         // Notes
         [Post("/firestoredb/create-note")]

@@ -29,18 +29,5 @@ namespace Data_Organizer.Services
                 DeletionLocation = metadata.DeletionLocation
             };
         }
-
-        public ChangePasswordDTO MapChangePassword(ChangePassword model)
-        {
-            return new ChangePasswordDTO
-            {
-                UsersMetadataId = model.UsersMetadata?.Id,
-                OldPassword = model.OldPassword,
-                DeviceId = model.Device?.Id,
-                Location = model.Location,
-                Date = model.Date
-            };
-        }
     }
-
 }

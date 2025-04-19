@@ -36,33 +36,33 @@ namespace Data_Organizer.Services
             if (!_firebaseAuthService.IsUserAuthorized())
                 throw new UnauthorizedAccessException("Користувач незареєстрований!");
 
-            UserRequestDTO userRequestDTO = new();
+            var uid = _firebaseAuthService.GetUid();
+            var dateTimeNow = DateTime.Now;
 
-            var user = new User()
+            UserRequestDTO userRequestDTO = new()
             {
-                Uid = _firebaseAuthService.GetUid(),
-                IsMetadataStored = isMetadataStored
+                UserDTO = new UserDTO
+                {
+                    Uid = uid,
+                    IsMetadataStored = isMetadataStored,
+                    IsDeleted = false
+                }
             };
-
-            userRequestDTO.UserDTO = _mappingService.MapUser(user);
 
             if (isMetadataStored)
             {
                 var deviceInfo = _deviceServiceDecorator.GetDeviceInfo();
-                var dateTimeNow = DateTime.Now;
 
-                var metadata = new UsersMetadata()
+                userRequestDTO.UsersMetadataDTO = new UsersMetadataDTO
                 {
                     CreationDate = dateTimeNow,
                     CreationLocation = location
                 };
 
-                userRequestDTO.UsersMetadataDTO = _mappingService.MapMetadata(metadata);
-
                 userRequestDTO.CreationDevice = deviceInfo;
             }
 
-            UserRequestDTO? response = new UserRequestDTO();
+            UserRequestDTO? response;
 
             try
             {
@@ -74,7 +74,7 @@ namespace Data_Organizer.Services
                 return;
             }
 
-            if (!string.IsNullOrWhiteSpace(response.Error))
+            if (!string.IsNullOrWhiteSpace(response?.Error))
                 throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
         }
 
