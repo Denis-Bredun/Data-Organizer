@@ -8,19 +8,23 @@ namespace Data_Organizer.MVVM.ViewModels
     {
         private readonly IFirebaseAuthService _firebaseAuthService;
         private readonly INotificationService _notificationService;
+        private readonly IFirestoreDbService _firestoreDbService;
 
         [ObservableProperty] private string _email;
         [ObservableProperty] private string _oldPassword;
         [ObservableProperty] private bool _isLoading;
+
         public SettingsPageViewModel.SettingsPageViewModel SettingsPageViewModel { get; set; }
 
         public ResetPasswordPageViewModel(
             IFirebaseAuthService firebaseAuthService,
             INotificationService notificationService,
+            IFirestoreDbService firestoreDbService,
             IServiceProvider serviceProvider)
         {
             _firebaseAuthService = firebaseAuthService;
             _notificationService = notificationService;
+            _firestoreDbService = firestoreDbService;
             SettingsPageViewModel = serviceProvider.GetRequiredService<SettingsPageViewModel.SettingsPageViewModel>();
         }
 
@@ -29,6 +33,9 @@ namespace Data_Organizer.MVVM.ViewModels
         {
             if (!await ValidateDataForEmptiness())
                 return;
+
+            Email = Email?.Trim();
+            OldPassword = OldPassword?.Trim();
 
             if (!await ValidateEmailForCorrectnessIfAuthorized())
                 return;
@@ -40,9 +47,6 @@ namespace Data_Organizer.MVVM.ViewModels
                 return;
 
             IsLoading = true;
-
-            Email = Email?.Trim();
-            OldPassword = OldPassword?.Trim();
 
             bool succeeded = await ResetPassword();
             if (succeeded)
@@ -74,6 +78,9 @@ namespace Data_Organizer.MVVM.ViewModels
 
         private async Task HandlePostResetActions()
         {
+            if (SettingsPageViewModel.IsMetadataStored)
+                await _firestoreDbService.SaveChangePasswordInstance(OldPassword);
+
             Email = "";
             OldPassword = "";
 

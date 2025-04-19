@@ -2,9 +2,7 @@
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
 using Data_Organizer.MVVM.ViewModels;
-using Data_Organizer.MVVM.ViewModels.SettingsPageViewModel;
 using Data_Organizer.Queries;
-using static Google.Rpc.Context.AttributeContext.Types;
 
 namespace Data_Organizer.Services
 {
@@ -193,6 +191,39 @@ namespace Data_Organizer.Services
             try
             {
                 response = await _firestoreDbQueries.RemoveUserAsync(userRequestDTO);
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.Error))
+                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+        }
+
+        public async Task SaveChangePasswordInstance(string oldPassword)
+        {
+            if (!_firebaseAuthService.IsUserAuthorized())
+                throw new UnauthorizedAccessException("Користувач незареєстрований!");
+
+            ChangePasswordRequestDTO changePasswordRequestDTO = new ChangePasswordRequestDTO();
+
+            changePasswordRequestDTO.DeviceInfo = _deviceServiceDecorator.GetDeviceInfo();
+            changePasswordRequestDTO.Uid = _firebaseAuthService.GetUid();
+
+            ChangePasswordDTO changePasswordDTO = new ChangePasswordDTO();
+            changePasswordDTO.OldPassword = oldPassword;
+            changePasswordDTO.Date = DateTime.Now;
+            changePasswordDTO.Location = await _deviceServiceDecorator.GetCurrentLocationAsync();
+
+            changePasswordRequestDTO.ChangePasswordDTO = changePasswordDTO;
+
+            ChangePasswordRequestDTO? response = new ChangePasswordRequestDTO();
+
+            try
+            {
+                response = await _firestoreDbQueries.CreateChangePasswordAsync(changePasswordRequestDTO);
             }
             catch (Exception ex)
             {

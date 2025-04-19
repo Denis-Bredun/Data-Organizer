@@ -25,7 +25,7 @@ namespace Data_Organizer.Queries
 
         // Change password
         [Post("/firestoredb/create-change-password")]
-        Task<ChangePassword> CreateChangePasswordAsync([Body] ChangePasswordRequestDTO request);
+        Task<ChangePasswordRequestDTO> CreateChangePasswordAsync([Body] ChangePasswordRequestDTO request);
 
         // Account login/logout
         [Post("/firestoredb/create-account-login")]
