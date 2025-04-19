@@ -3,10 +3,10 @@ using Refit;
 
 namespace Data_Organizer.Queries
 {
-    public interface ITranskriptorQueries
+    public interface IAzureQueries
     {
         [Multipart]
-        [Post("/transkriptor/transcribe-file")]
+        [Post("/azure/transcribe-file")]
         Task<TranscriptionResponse> GetTranscriptionFromAudiofile([AliasAs("AudioFile")] StreamPart audioFile, [AliasAs("LanguageCode")] string languageCode);
     }
 }

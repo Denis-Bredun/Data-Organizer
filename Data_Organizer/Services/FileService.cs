@@ -15,11 +15,11 @@ namespace Data_Organizer.Services
 {
     public class FileService : IFileService
     {
-        private readonly ITranskriptorQueries _transkriptorQueries;
+        private readonly IAzureQueries _azureQueries;
 
-        public FileService(ITranskriptorQueries _transkriptorQueries)
+        public FileService(IAzureQueries getTranscriptionFromAudiofileQuery)
         {
-            _transkriptorQueries = _transkriptorQueries;
+            _azureQueries = getTranscriptionFromAudiofileQuery;
         }
 
         public async Task<bool> RequestPermissionsStorageReadAsync()
@@ -225,7 +225,7 @@ namespace Data_Organizer.Services
                 fileStream = await fileResult.OpenReadAsync();
                 var streamPart = new StreamPart(fileStream, fileResult.FileName, fileResult.ContentType);
 
-                var response = await _transkriptorQueries.GetTranscriptionFromAudiofile(streamPart, languageCode);
+                var response = await _azureQueries.GetTranscriptionFromAudiofile(streamPart, languageCode);
 
                 if (!string.IsNullOrWhiteSpace(response.Error))
                 {

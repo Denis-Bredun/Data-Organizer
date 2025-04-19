@@ -109,7 +109,7 @@ namespace Data_Organizer
                     .ConfigureHttpClient(c => c.BaseAddress = new Uri(baseUrl))
                     .AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
 
-            services.AddRefitClient<ITranskriptorQueries>()
+            services.AddRefitClient<IAzureQueries>()
                     .ConfigureHttpClient(c => c.BaseAddress = new Uri(baseUrl))
                     .AddHttpMessageHandler<FirebaseAuthHttpMessageHandler>();
 
