@@ -202,7 +202,7 @@ namespace Data_Organizer.Services
                 throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
         }
 
-        public async Task SaveChangePasswordInstance(string oldPassword)
+        public async Task CreateChangePasswordInstance(string oldPassword)
         {
             if (!_firebaseAuthService.IsUserAuthorized())
                 throw new UnauthorizedAccessException("Користувач незареєстрований!");

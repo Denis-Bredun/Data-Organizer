@@ -79,7 +79,7 @@ namespace Data_Organizer.MVVM.ViewModels
         private async Task HandlePostResetActions()
         {
             if (SettingsPageViewModel.IsMetadataStored)
-                await _firestoreDbService.SaveChangePasswordInstance(OldPassword);
+                await _firestoreDbService.CreateChangePasswordInstance(OldPassword);
 
             Email = "";
             OldPassword = "";
