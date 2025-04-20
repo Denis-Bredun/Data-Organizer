@@ -2,7 +2,6 @@
 
 namespace Data_Organizer.MVVM.Models
 {
-    [FirestoreData]
     public class NoteHeader
     {
         public string UserId { get; set; }

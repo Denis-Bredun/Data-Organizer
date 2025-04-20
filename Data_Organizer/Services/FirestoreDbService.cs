@@ -306,13 +306,15 @@ namespace Data_Organizer.Services
             if (!await ValidateConditionsForCreatingNote(content))
                 return;
 
+            const int MAX_TITLE_LENGTH = 66;
+
             var title = await Application.Current.MainPage.DisplayPromptAsync(
                 "Новий запис",
-                "Уведіть заголовок запису (макс. - 50 символів)",
+                $"Уведіть заголовок запису (макс. - {MAX_TITLE_LENGTH} символів)",
                 "ОК",
                 "Скасувати",
                 "|",
-                50,
+                MAX_TITLE_LENGTH,
                 Keyboard.Default);
 
             if (string.IsNullOrWhiteSpace(title))
@@ -321,11 +323,13 @@ namespace Data_Organizer.Services
                 return;
             }
 
+            const int MAX_PREVIEW_TEXT_LENGTH = 66;
+
             NoteDTO noteDTO = new NoteDTO();
             noteDTO.Content = content;
             noteDTO.Title = title;
             var contentLength = content.Length;
-            noteDTO.PreviewText = contentLength <= 70 ? content[0..contentLength] : content[0..70] + "...";
+            noteDTO.PreviewText = contentLength <= MAX_PREVIEW_TEXT_LENGTH ? content[0..contentLength] : content[0..MAX_PREVIEW_TEXT_LENGTH] + "...";
             noteDTO.CreationTime = DateTime.Now;
             noteDTO.UserId = _firebaseAuthService.GetUid();
 

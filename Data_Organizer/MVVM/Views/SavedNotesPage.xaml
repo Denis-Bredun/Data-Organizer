@@ -1,17 +1,79 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Data_Organizer.MVVM.Views.SavedNotesPage"
-             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
+             xmlns:models="clr-namespace:Data_Organizer.MVVM.Models"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             x:Class="Data_Organizer.MVVM.Views.SavedNotesPage"
              x:DataType="vm:SavedNotesPageViewModel"
              Style="{StaticResource PageStyle}">
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="Saved Notes Page!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
-    
+
+    <Grid>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="{Binding StatusMessage}" 
+           Style="{StaticResource StatusMessageStyle}"
+           TextColor="White"/>
+
+            <Label Text="Ваші записи"
+           Style="{StaticResource PageTitleStyle}"
+           HorizontalOptions="Center"
+           TextColor="White"
+           Margin="0,0,0,5"/>
+
+            <CollectionView ItemsSource="{Binding NoteHeaders}"
+                    IsVisible="{Binding AreNotesVisible}"
+                    VerticalScrollBarVisibility="Always"
+                    HeightRequest="600">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:NoteHeader">
+                        <Frame Style="{StaticResource EntriesFrameStyle}" 
+       Padding="15"
+       Margin="0,0,0,15"
+       HeightRequest="130">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Title}" 
+                       FontAttributes="Bold"
+                       FontSize="14"
+                       TextColor="White"
+                       Grid.Column="0"
+                       LineBreakMode="TailTruncation"/>
+
+                                        <Label Text="{Binding CreationTime, StringFormat='dd.MM.yyyy HH:mm'}" 
+                       FontSize="14"
+                       TextColor="White"
+                       Grid.Column="1"
+                       HorizontalOptions="Start"/>
+
+                                        <Label Text="{Binding PreviewText}" 
+                   FontSize="13"
+                   TextColor="White"
+                   LineBreakMode="TailTruncation"
+                   MaxLines="3"/>
+                                </VerticalStackLayout>
+
+                                <Button Text="🗑" 
+                Grid.Column="1"
+                VerticalOptions="Center"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedNotesPageViewModel}}, Path=DeleteNoteCommand}"
+                Style="{StaticResource BaseButtonStyle}"/>
+
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedNotesPageViewModel}}, Path=OpenNoteCommand}"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </Frame>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
+
+        <Grid IsVisible="{Binding IsLoading, Mode=TwoWay}" 
+              Style="{StaticResource TransparentGridStyle}">
+            <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
+        </Grid>
+    </Grid>
 </ContentPage>

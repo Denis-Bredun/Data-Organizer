@@ -17,7 +17,14 @@ public partial class SavedNotesPage : ContentPage
             _savedNotesPageViewModel = (SavedNotesPageViewModel)BindingContext;
 
         _savedNotesPageViewModel.IsLoading = false;
+        _savedNotesPageViewModel.UpdateStatusMessage();
 
         base.OnAppearing();
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        _savedNotesPageViewModel.UpdateStatusMessage();
     }
 }

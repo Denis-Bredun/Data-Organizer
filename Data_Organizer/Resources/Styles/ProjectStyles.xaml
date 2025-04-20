@@ -86,6 +86,12 @@
         <Setter Property="TextColor" Value="{StaticResource TextColor}"/>
     </Style>
 
+    <Style TargetType="Label" x:Key="StatusMessageStyle" BasedOn="{StaticResource LabelStyle}">
+        <Setter Property="FontSize" Value="{StaticResource StatusMessageFontSize}"/>
+        <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+    </Style>
+
     <Style TargetType="Label" BasedOn="{StaticResource LabelStyle}" x:Key="PageTitleStyle">
         <Setter Property="FontSize" Value="{StaticResource TitleFontSize}"/>
         <Setter Property="HorizontalOptions" Value="Center"/>
