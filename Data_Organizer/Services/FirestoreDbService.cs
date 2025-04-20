@@ -300,5 +300,68 @@ namespace Data_Organizer.Services
             if (!string.IsNullOrWhiteSpace(response.Error))
                 throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
         }
+
+        public async Task CreateNoteAsync(string content)
+        {
+            if (!await ValidateConditionsForCreatingNote(content))
+                return;
+
+            var title = await Application.Current.MainPage.DisplayPromptAsync(
+                "Новий запис",
+                "Уведіть заголовок запису (макс. - 50 символів)",
+                "ОК",
+                "Скасувати",
+                "|",
+                50,
+                Keyboard.Default);
+
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                await _notificationService.ShowToastAsync("Потрібно ввести заголовок!");
+                return;
+            }
+
+            NoteDTO noteDTO = new NoteDTO();
+            noteDTO.Content = content;
+            noteDTO.Title = title;
+            var contentLength = content.Length;
+            noteDTO.PreviewText = contentLength <= 70 ? content[0..contentLength] : content[0..70] + "...";
+            noteDTO.CreationTime = DateTime.Now;
+            noteDTO.UserId = _firebaseAuthService.GetUid();
+
+            NoteDTO? response = new NoteDTO();
+
+            try
+            {
+                response = await _firestoreDbQueries.CreateNoteAsync(noteDTO);
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.Error))
+                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+
+            await _notificationService.ShowToastAsync("Запис було успішно збережено!");
+        }
+
+        private async Task<bool> ValidateConditionsForCreatingNote(string content)
+        {
+            if (!_firebaseAuthService.IsUserAuthorized())
+            {
+                await _notificationService.ShowToastAsync("Ви не авторизовані! Увійдіть в акаунт або зареєструйтесь.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                await _notificationService.ShowToastAsync("Запис не може створитись з пустоти!)");
+                return false;
+            }
+
+            return true;
+        }
     }
 }

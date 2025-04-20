@@ -36,7 +36,7 @@ namespace Data_Organizer.Queries
 
         // Notes
         [Post("/firestoredb/create-note")]
-        Task<Note> CreateNoteAsync([Body] Note note);
+        Task<NoteDTO> CreateNoteAsync([Body] NoteDTO note);
 
         [Get("/firestoredb/headers/{uid}")]
         Task<List<NoteHeader>> GetNoteHeadersByUidAsync(string uid);

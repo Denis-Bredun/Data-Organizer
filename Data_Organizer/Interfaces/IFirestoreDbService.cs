@@ -13,5 +13,6 @@ namespace Data_Organizer.Interfaces
         Task SetUserMetadataFlagAsync(bool isMetadataStored);
         Task CreateAccountLoginInstance();
         Task CreateAccountLogoutInstance();
+        Task CreateNoteAsync(string content);
     }
 }

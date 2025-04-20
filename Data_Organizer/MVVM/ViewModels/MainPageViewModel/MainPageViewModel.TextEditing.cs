@@ -67,6 +67,16 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
             SwitchEditButtonImage(wasEditModeEnabled);
         }
 
+        [RelayCommand]
+        public async Task SaveNoteAsync()
+        {
+            IsLoading = true;
+
+            await _firestoreDbService.CreateNoteAsync(OutputText);
+
+            IsLoading = false;
+        }
+
         private void SwitchEditButtonImage(bool wasEditModeEnabled)
         {
             if (wasEditModeEnabled)

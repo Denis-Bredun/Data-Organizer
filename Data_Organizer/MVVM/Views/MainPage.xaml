@@ -72,7 +72,8 @@
                  Style="{StaticResource MainPageButtonStyle}"
                  Command="{Binding CleanEditorCommand}"/>
             <ImageButton Grid.Column="1" Grid.Row="5" Source="save.svg" 
-                 Style="{StaticResource MainPageButtonStyle}"/>
+                 Style="{StaticResource MainPageButtonStyle}"
+                 Command="{Binding SaveNoteCommand}"/>
         </Grid>
 
         <!--Settings Popup-->
