@@ -10,187 +10,161 @@
              Style="{StaticResource PageStyle}">
 
     <ContentPage.Resources>
-        <converters:SelectedFeatureFormatConverter x:Key="SelectedFeatureFormatConverter"/>
+        <converters:SelectedFeatureFormatConverter x:Key="SelectedFeatureFormatConverter" />
     </ContentPage.Resources>
 
     <Grid RowDefinitions="0.08*, *" Margin="15" RowSpacing="15">
 
-        <!--HeaderBar-->
-
+        <!-- HeaderBar -->
         <Grid ColumnDefinitions="0.4*, 0.15*, 0.1*" ColumnSpacing="10">
             <uranium:Dropdown 
-        ItemsSource="{Binding Features}" 
-        SelectedItem="{Binding SelectedFeature, Mode=TwoWay, Converter={StaticResource SelectedFeatureFormatConverter}}"
-        TextColor="{StaticResource TextColor}"
-        BackgroundColor="{StaticResource ControlElementBackgroundColor}"
-        Style="{StaticResource MainPageDropdownStyle}"/>
+                ItemsSource="{Binding Features}" 
+                SelectedItem="{Binding SelectedFeature, Mode=TwoWay, Converter={StaticResource SelectedFeatureFormatConverter}}"
+                TextColor="{StaticResource TextColor}"
+                BackgroundColor="{StaticResource ControlElementBackgroundColor}"
+                Style="{StaticResource MainPageDropdownStyle}" />
 
             <uranium:Dropdown 
-        Grid.Column="1"
-        ItemsSource="{Binding CultureInfoService.Languages}" 
-        SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
-        TextColor="{StaticResource TextColor}"
-        BackgroundColor="{StaticResource ControlElementBackgroundColor}"
-        Style="{StaticResource MainPageDropdownStyle}"/>
+                Grid.Column="1"
+                ItemsSource="{Binding CultureInfoService.Languages}" 
+                SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
+                TextColor="{StaticResource TextColor}"
+                BackgroundColor="{StaticResource ControlElementBackgroundColor}"
+                Style="{StaticResource MainPageDropdownStyle}" />
 
-            <ImageButton Grid.Column="2" Source="settings.svg"
-                 Style="{StaticResource MainPageButtonStyle}"
-                 Command="{Binding OpenCloseSettingsCommand}"/>
+            <ImageButton 
+                Grid.Column="2" 
+                Source="settings.svg"
+                Style="{StaticResource MainPageButtonStyle}"
+                Command="{Binding OpenCloseSettingsCommand}" />
         </Grid>
 
-        <!--Editor Section Popup-->
+        <!-- Editor Section Popup -->
+        <Grid Grid.Row="1"
+              ColumnDefinitions="0.8*, 0.2*" 
+              RowDefinitions="0.2*, 0.2*, 0.2*, 0.2*, 0.2*, 0.2*" 
+              ColumnSpacing="10" 
+              RowSpacing="10">
 
-        <Grid 
-            Grid.Row="1"
-            ColumnDefinitions="0.8*, 0.2*" 
-            RowDefinitions="0.2*, 0.2*, 0.2*, 0.2*, 0.2*, 0.2*" 
-            ColumnSpacing="10" 
-            RowSpacing="10">
             <Border Grid.RowSpan="6">
                 <ScrollView x:Name="MyScrollView">
                     <Editor
-                x:Name="MyEditor"
-                Text="{Binding OutputText, Mode=TwoWay}" 
-                IsReadOnly="{Binding IsReadOnly, Mode=TwoWay}" 
-                Style="{StaticResource MainPageEditorStyle}"
-                TextChanged="OnEditorTextChanged"/>
+                        x:Name="MyEditor"
+                        Text="{Binding OutputText, Mode=TwoWay}" 
+                        IsReadOnly="{Binding IsReadOnly, Mode=TwoWay}" 
+                        Style="{StaticResource MainPageEditorStyle}"
+                        TextChanged="OnEditorTextChanged" />
                 </ScrollView>
             </Border>
 
             <ImageButton Grid.Column="1" Grid.Row="0" Source="{Binding PlayButtonImageSource}"
-                 Command="{Binding PlayFeatureCommand}"/>
+                         Command="{Binding PlayFeatureCommand}" />
+
             <ImageButton Grid.Column="1" Grid.Row="1" Source="copy.svg" 
-                 Style="{StaticResource MainPageButtonStyle}"
-                 Command="{Binding CopyOutputTextCommand}"/>
+                         Style="{StaticResource MainPageButtonStyle}"
+                         Command="{Binding CopyOutputTextCommand}" />
+
             <ImageButton Grid.Column="1" Grid.Row="2" Source="paste.svg" 
-                 Style="{StaticResource MainPageButtonStyle}"
-                 Command="{Binding PasteTextCommand}"/>
+                         Style="{StaticResource MainPageButtonStyle}"
+                         Command="{Binding PasteTextCommand}" />
+
             <ImageButton Grid.Column="1" Grid.Row="3" Source="{Binding EditButtonImageSource}" 
-                 Style="{StaticResource MainPageButtonStyle}"
-                 Command="{Binding SwitchEditModeCommand}"/>
+                         Style="{StaticResource MainPageButtonStyle}"
+                         Command="{Binding SwitchEditModeCommand}" />
+
             <ImageButton Grid.Column="1" Grid.Row="4" Source="clean.svg" 
-                 Style="{StaticResource MainPageButtonStyle}"
-                 Command="{Binding CleanEditorCommand}"/>
+                         Style="{StaticResource MainPageButtonStyle}"
+                         Command="{Binding CleanEditorCommand}" />
+
             <ImageButton Grid.Column="1" Grid.Row="5" Source="save.svg" 
-                 Style="{StaticResource MainPageButtonStyle}"
-                 Command="{Binding SaveNoteCommand}"/>
+                         Style="{StaticResource MainPageButtonStyle}"
+                         Command="{Binding SaveNoteCommand}" />
         </Grid>
 
-        <!--Settings Popup-->
+        <!-- Settings Popup -->
+        <Grid Grid.RowSpan="2"
+              IsVisible="{Binding AreSettingsOpen, Mode=TwoWay}"
+              Style="{StaticResource TransparentGridStyle}">
 
-        <Grid 
-            Grid.RowSpan="2"
-            IsVisible="{Binding AreSettingsOpen, Mode=TwoWay}"
-            Style="{StaticResource TransparentGridStyle}">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding OpenCloseSettingsCommand}"/>
+                <TapGestureRecognizer Command="{Binding OpenCloseSettingsCommand}" />
             </Grid.GestureRecognizers>
 
             <AbsoluteLayout>
-                <Frame
-            AbsoluteLayout.LayoutFlags="All" 
-            AbsoluteLayout.LayoutBounds="1, 0.1, 0.77, 0.45"
-            Style="{StaticResource PopupFrameStyle}">
-                    <Grid 
-                RowDefinitions="*, 1, *, 1, 1.5*, 1, *, 1, *, 1, *"       
-                Padding="15"
-                HorizontalOptions="Start">
+                <Frame AbsoluteLayout.LayoutFlags="All" 
+                       AbsoluteLayout.LayoutBounds="1, 0.1, 0.77, 0.45"
+                       Style="{StaticResource PopupFrameStyle}">
 
-                        <Button 
-                    ImageSource="help_info.svg" 
-                    Text="Довідка"
-                    Style="{StaticResource MenuButtonStyle}"
-                    Command="{Binding ShowHelpInformationCommand}"/>
+                    <Grid RowDefinitions="*, 1, *, 1, 1.5*, 1, *, 1, *, 1, *"       
+                          Padding="15"
+                          HorizontalOptions="Start">
 
-                        <BoxView 
-                    Grid.Row="1" 
-                    Style="{StaticResource SeparatorLineStyle}"/>
+                        <Button ImageSource="help_info.svg" 
+                                Text="Довідка"
+                                Style="{StaticResource MenuButtonStyle}"
+                                Command="{Binding ShowHelpInformationCommand}" />
 
-                        <StackLayout 
-                    Grid.Row="2"
-                    Style="{StaticResource MenuItemContainerStyle}">
+                        <BoxView Grid.Row="1" Style="{StaticResource SeparatorLineStyle}" />
 
-                            <CheckBox 
-                        Color="White"
-                        IsChecked="{Binding IsTextAddedAtTheEnd, Mode=TwoWay}"/>
-
-                            <Label
-                        Text="Додавати в кінець"
-                        VerticalOptions="Center"
-                        Style="{StaticResource LabelStyle}">
+                        <StackLayout Grid.Row="2" Style="{StaticResource MenuItemContainerStyle}">
+                            <CheckBox Color="White" IsChecked="{Binding IsTextAddedAtTheEnd, Mode=TwoWay}" />
+                            <Label Text="Додавати в кінець"
+                                   VerticalOptions="Center"
+                                   Style="{StaticResource LabelStyle}">
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ChangeSettingIsTextAddedAtTheEndCommand}"/>
+                                    <TapGestureRecognizer Command="{Binding ChangeSettingIsTextAddedAtTheEndCommand}" />
                                 </Label.GestureRecognizers>
                             </Label>
                         </StackLayout>
 
-                        <BoxView 
-                            Grid.Row="3" 
-                            Style="{StaticResource SeparatorLineStyle}"/>
+                        <BoxView Grid.Row="3" Style="{StaticResource SeparatorLineStyle}" />
 
-                        <StackLayout 
-                            Grid.Row="4"
-                            Style="{StaticResource MenuItemContainerStyle}">
-
-                            <CheckBox 
-                                Color="White"
-                                IsChecked="{Binding AreHeadersAdded, Mode=TwoWay}"/>
-
-                            <Label
-                                Text="Додавати заголовки&#10;(дата, імена файлів...)"
-                                VerticalOptions="Center"
-                                Style="{StaticResource LabelStyle}">
+                        <StackLayout Grid.Row="4" Style="{StaticResource MenuItemContainerStyle}">
+                            <CheckBox Color="White" IsChecked="{Binding AreHeadersAdded, Mode=TwoWay}" />
+                            <Label Text="Додавати заголовки&#10;(дата, імена файлів...)"
+                                   VerticalOptions="Center"
+                                   Style="{StaticResource LabelStyle}">
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ChangeSettingAreHeadersAddedCommand}"/>
+                                    <TapGestureRecognizer Command="{Binding ChangeSettingAreHeadersAddedCommand}" />
                                 </Label.GestureRecognizers>
                             </Label>
                         </StackLayout>
 
-                        <BoxView 
-                    Grid.Row="5" 
-                    Style="{StaticResource SeparatorLineStyle}"/>
+                        <BoxView Grid.Row="5" Style="{StaticResource SeparatorLineStyle}" />
 
-                        <Button 
-                    Grid.Row="6" 
-                    ImageSource="import_file.svg" 
-                    Text="Імпорт файлу"
-                    Style="{StaticResource MenuButtonStyle}"
-                    Command="{Binding ImportFileCommand}"/>
+                        <Button Grid.Row="6" 
+                                ImageSource="import_file.svg" 
+                                Text="Імпорт файлу"
+                                Style="{StaticResource MenuButtonStyle}"
+                                Command="{Binding ImportFileCommand}" />
 
-                        <BoxView 
-                    Grid.Row="7" 
-                    Style="{StaticResource SeparatorLineStyle}"/>
+                        <BoxView Grid.Row="7" Style="{StaticResource SeparatorLineStyle}" />
 
-                        <Button 
-                    Grid.Row="8" 
-                    ImageSource="export_file.svg" 
-                    Text="Експорт файлу"
-                    Style="{StaticResource MenuButtonStyle}"
-                    Command="{Binding ExportFileCommand}"/>
+                        <Button Grid.Row="8" 
+                                ImageSource="export_file.svg" 
+                                Text="Експорт файлу"
+                                Style="{StaticResource MenuButtonStyle}"
+                                Command="{Binding ExportFileCommand}" />
 
-                        <BoxView 
-                    Grid.Row="9" 
-                    Style="{StaticResource SeparatorLineStyle}"/>
+                        <BoxView Grid.Row="9" Style="{StaticResource SeparatorLineStyle}" />
 
-                        <Button 
-                    Grid.Row="10" 
-                    ImageSource="import_audiofile.svg" 
-                    Text="Імпорт аудіофайлу"
-                    Style="{StaticResource MenuButtonStyle}"
-                    Command="{Binding ImportAudioFileCommand}"/>
+                        <Button Grid.Row="10" 
+                                ImageSource="import_audiofile.svg" 
+                                Text="Імпорт аудіофайлу"
+                                Style="{StaticResource MenuButtonStyle}"
+                                Command="{Binding ImportAudioFileCommand}" />
 
                     </Grid>
                 </Frame>
             </AbsoluteLayout>
         </Grid>
 
-        <!--Loading Overlay-->
-        
+        <!-- Loading Overlay -->
         <Grid Grid.RowSpan="2"
               IsVisible="{Binding IsLoading, Mode=TwoWay}" 
               Style="{StaticResource TransparentGridStyle}">
             <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
         </Grid>
-    </Grid>
 
+    </Grid>
 </ContentPage>

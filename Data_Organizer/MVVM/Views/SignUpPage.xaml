@@ -9,106 +9,100 @@
 
     <Grid>
         <VerticalStackLayout>
+
             <Label Margin="0,20,0,0"
-    Text="Реєстрація"
-    Style="{StaticResource PageTitleStyle}"/>
+                   Text="Реєстрація"
+                   Style="{StaticResource PageTitleStyle}" />
 
             <Grid RowDefinitions="*,*" Margin="30,20,30,0">
                 <Label 
-        Text="Відображуване ім'я"
-        Style="{StaticResource EntriesTitleStyle}"/>
-                <Frame Grid.Row="1" 
-           Style="{StaticResource EntriesFrameStyle}">
+                    Text="Відображуване ім'я"
+                    Style="{StaticResource EntriesTitleStyle}" />
+                <Frame Grid.Row="1" Style="{StaticResource EntriesFrameStyle}">
                     <Entry 
-            Style="{StaticResource UsernameEntryStyle}"
-            Text="{Binding Username, Mode=TwoWay}"/>
+                        Style="{StaticResource UsernameEntryStyle}"
+                        Text="{Binding Username, Mode=TwoWay}" />
                 </Frame>
             </Grid>
 
             <Grid RowDefinitions="*,*" Margin="30,20,30,0">
                 <Label 
-        Text="Пошта *"
-        Style="{StaticResource EntriesTitleStyle}"/>
-                <Frame Grid.Row="1" 
-           Style="{StaticResource EntriesFrameStyle}">
+                    Text="Пошта *"
+                    Style="{StaticResource EntriesTitleStyle}" />
+                <Frame Grid.Row="1" Style="{StaticResource EntriesFrameStyle}">
                     <Entry 
-            Style="{StaticResource EntryStyle}"
-            Text="{Binding Email, Mode=TwoWay}"/>
+                        Style="{StaticResource EntryStyle}"
+                        Text="{Binding Email, Mode=TwoWay}" />
                 </Frame>
             </Grid>
 
             <Grid RowDefinitions="*,*" Margin="30,20,30,0">
                 <Label 
-        Text="Пароль *"
-        Style="{StaticResource EntriesTitleStyle}"/>
-                <Frame Grid.Row="1" 
-           Style="{StaticResource EntriesFrameStyle}">
+                    Text="Пароль *"
+                    Style="{StaticResource EntriesTitleStyle}" />
+                <Frame Grid.Row="1" Style="{StaticResource EntriesFrameStyle}">
                     <Entry 
-            Style="{StaticResource EntryStyle}"
-            IsPassword="True"
-            Text="{Binding Password, Mode=TwoWay}"/>
+                        Style="{StaticResource EntryStyle}"
+                        IsPassword="True"
+                        Text="{Binding Password, Mode=TwoWay}" />
                 </Frame>
             </Grid>
 
             <Grid RowDefinitions="*,*" Margin="30,20,30,0">
                 <Label 
-        Text="Підтвердження паролю *"
-        Style="{StaticResource EntriesTitleStyle}"/>
-                <Frame Grid.Row="1" 
-           Style="{StaticResource EntriesFrameStyle}">
+                    Text="Підтвердження паролю *"
+                    Style="{StaticResource EntriesTitleStyle}" />
+                <Frame Grid.Row="1" Style="{StaticResource EntriesFrameStyle}">
                     <Entry 
-            Style="{StaticResource EntryStyle}"
-            IsPassword="True"
-            Text="{Binding ConfirmPassword, Mode=TwoWay}"/>
+                        Style="{StaticResource EntryStyle}"
+                        IsPassword="True"
+                        Text="{Binding ConfirmPassword, Mode=TwoWay}" />
                 </Frame>
             </Grid>
 
             <Grid ColumnDefinitions="0.1*,*,0.1*" Margin="25,10,25,0">
                 <CheckBox 
-        Color="White"
-        IsChecked="{Binding IsMetadataStored, Mode=TwoWay}"/>
-                <Label
-    Grid.Column="1"
-VerticalOptions="Center"
-Text="Дати згоду на збір метаданих"
-Style="{StaticResource LabelStyle}">
+                    Color="White"
+                    IsChecked="{Binding IsMetadataStored, Mode=TwoWay}" />
+
+                <Label Grid.Column="1"
+                       VerticalOptions="Center"
+                       Text="Дати згоду на збір метаданих"
+                       Style="{StaticResource LabelStyle}">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ChangeSettingIsMetadataStoredCommand}"/>
+                        <TapGestureRecognizer Command="{Binding ChangeSettingIsMetadataStoredCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
 
-
-                <ImageButton 
-        x:Name="QuestionButton"
-        Grid.Column="2" 
-        Source="question.svg"
-        HeightRequest="40"
-        Command="{Binding ShowTipAboutMetadataCommand}"/>
+                <ImageButton x:Name="QuestionButton"
+                             Grid.Column="2" 
+                             Source="question.svg"
+                             HeightRequest="40"
+                             Command="{Binding ShowTipAboutMetadataCommand}" />
             </Grid>
 
             <Button 
-    Style="{StaticResource SignUpButtonStyle}"
-    VerticalOptions="Start"
-    Margin="30,10,30,0"
-    Text="Зареєструватись"
-    Command="{Binding SignUpCommand}"/>
+                Style="{StaticResource SignUpButtonStyle}"
+                VerticalOptions="Start"
+                Margin="30,10,30,0"
+                Text="Зареєструватись"
+                Command="{Binding SignUpCommand}" />
 
-            <Button
-                Margin="0,10,0,0"
-    Text="Маєте акаунт? Увійдіть."
-    Style="{StaticResource LinkButtonStyle}"
-    Command="{Binding NavigateToSignInPageCommand}"/>
+            <Button Margin="0,10,0,0"
+                    Text="Маєте акаунт? Увійдіть."
+                    Style="{StaticResource LinkButtonStyle}"
+                    Command="{Binding NavigateToSignInPageCommand}" />
 
-            <Button
-    Text="Увійти як гість"
-    Style="{StaticResource LinkButtonStyle}"
-    Command="{Binding NavigateToMainPageCommand}"/>
+            <Button 
+                Text="Увійти як гість"
+                Style="{StaticResource LinkButtonStyle}"
+                Command="{Binding NavigateToMainPageCommand}" />
 
-            <Button
-    Margin="70,10,70,0"
-    Text="Служба підтримки"
-    Style="{StaticResource BaseButtonStyle}"
-    Command="{Binding NavigateToSupportPageCommand}"/>
+            <Button 
+                Margin="70,10,70,0"
+                Text="Служба підтримки"
+                Style="{StaticResource BaseButtonStyle}"
+                Command="{Binding NavigateToSupportPageCommand}" />
         </VerticalStackLayout>
 
         <Grid IsVisible="{Binding IsLoading, Mode=TwoWay}" 

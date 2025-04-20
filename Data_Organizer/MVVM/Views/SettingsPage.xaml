@@ -9,104 +9,90 @@
              Style="{StaticResource PageStyle}">
 
     <ContentPage.Resources>
-        <converters:BoolReverserConverter x:Key="BoolReverserConverter"/>
+        <converters:BoolReverserConverter x:Key="BoolReverserConverter" />
     </ContentPage.Resources>
-    
+
     <Grid>
-        
         <VerticalStackLayout>
-        <Label Style="{StaticResource GreetingOnSettingsPageLabelStyle}">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span TextColor="{StaticResource TextColor}" Text="Ласкаво просимо,&#10;" />
-                        <Span TextColor="{StaticResource TextColor}" Text="{Binding Username}" />
-                        <Span TextColor="{StaticResource TextColor}" Text="!" />
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <StackLayout 
-            Margin="0,30,0,0" 
-            Orientation="Horizontal" 
-            HorizontalOptions="Center">
-            <Button 
-                WidthRequest="300"
-                Text="Увійти в акаунт"
-                Command="{Binding NavigateToSignInPageCommand}"
-                Style="{StaticResource BlueButtonStyle}"
-                IsVisible="{Binding IsUserAuthorized, Converter={StaticResource BoolReverserConverter}}"/>
+            <Label Style="{StaticResource GreetingOnSettingsPageLabelStyle}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span TextColor="{StaticResource TextColor}" Text="Ласкаво просимо,&#10;" />
+                            <Span TextColor="{StaticResource TextColor}" Text="{Binding Username}" />
+                            <Span TextColor="{StaticResource TextColor}" Text="!" />
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
 
-                <StackLayout 
-                Orientation="Horizontal" 
-                HorizontalOptions="Center"
-                IsVisible="{Binding IsUserAuthorized}">
+            <StackLayout Margin="0,30,0,0"
+                         Orientation="Horizontal"
+                         HorizontalOptions="Center">
+                <Button WidthRequest="300"
+                        Text="Увійти в акаунт"
+                        Command="{Binding NavigateToSignInPageCommand}"
+                        Style="{StaticResource BlueButtonStyle}"
+                        IsVisible="{Binding IsUserAuthorized, Converter={StaticResource BoolReverserConverter}}" />
 
-                    <Button 
-                    WidthRequest="160"
-                    Margin="10"
-                    Command="{Binding SignOutCommand}"
-                    Text="Вийти з&#10;акаунту"
-                    LineBreakMode="WordWrap"
-                    Style="{StaticResource BlueButtonStyle}"/>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             IsVisible="{Binding IsUserAuthorized}">
 
-                    <Button 
-                    WidthRequest="160"
-                    Margin="10"
-                    Command="{Binding NavigateToResetPasswordPageCommand}"
-                    Text="Змінити&#10;пароль"
-                    LineBreakMode="WordWrap"
-                    Style="{StaticResource BaseButtonStyle}"/>
+                    <Button WidthRequest="160"
+                            Margin="10"
+                            Command="{Binding SignOutCommand}"
+                            Text="Вийти з&#10;акаунту"
+                            LineBreakMode="WordWrap"
+                            Style="{StaticResource BlueButtonStyle}" />
 
+                    <Button WidthRequest="160"
+                            Margin="10"
+                            Command="{Binding NavigateToResetPasswordPageCommand}"
+                            Text="Змінити&#10;пароль"
+                            LineBreakMode="WordWrap"
+                            Style="{StaticResource BaseButtonStyle}" />
                 </StackLayout>
-
             </StackLayout>
 
-            <HorizontalStackLayout 
-                    HorizontalOptions="Center"
-                    Margin="25"
-                    IsVisible="{Binding IsUserAuthorized}">
-                <CheckBox 
-                        Color="White"
-                        IsChecked="{Binding IsMetadataStored, Mode=TwoWay}"/>
-                <Label 
-                        Grid.Column="1"
-                        VerticalOptions="Center"
-                        Text="Збір метаданих"
-                        Style="{StaticResource LabelStyle}">
+            <HorizontalStackLayout HorizontalOptions="Center"
+                                   Margin="25"
+                                   IsVisible="{Binding IsUserAuthorized}">
+                <CheckBox Color="White"
+                          IsChecked="{Binding IsMetadataStored, Mode=TwoWay}" />
+                <Label Grid.Column="1"
+                       VerticalOptions="Center"
+                       Text="Збір метаданих"
+                       Style="{StaticResource LabelStyle}">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ChangeSettingIsMetadataStoredCommand}"/>
+                        <TapGestureRecognizer Command="{Binding ChangeSettingIsMetadataStoredCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
-                <ImageButton 
-                        Margin="20,0,0,0"
-                        x:Name="QuestionButton"
-                        Grid.Column="2" 
-                        Source="question.svg"
-                        HeightRequest="40"
-                        Command="{Binding ShowTipAboutMetadataCommand}"/>
+                <ImageButton Margin="20,0,0,0"
+                             x:Name="QuestionButton"
+                             Grid.Column="2"
+                             Source="question.svg"
+                             HeightRequest="40"
+                             Command="{Binding ShowTipAboutMetadataCommand}" />
             </HorizontalStackLayout>
 
-            <Button
-                Margin="20"
-                WidthRequest="260"
-                Text="Служба підтримки"
-                Style="{StaticResource BaseButtonStyle}"
-                Command="{Binding NavigateToSupportPageCommand}"/>
+            <Button Margin="20"
+                    WidthRequest="260"
+                    Text="Служба підтримки"
+                    Style="{StaticResource BaseButtonStyle}"
+                    Command="{Binding NavigateToSupportPageCommand}" />
 
             <Button IsVisible="{Binding IsUserAuthorized}"
-                Margin="30"
-                Command="{Binding DeleteAccountCommand}"
-                Text="Видалити акаунт"
-                Style="{StaticResource RedSeriousButtonStyle}"/>
-
+                    Margin="30"
+                    Command="{Binding DeleteAccountCommand}"
+                    Text="Видалити акаунт"
+                    Style="{StaticResource RedSeriousButtonStyle}" />
         </VerticalStackLayout>
-        
-        <Grid IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-          Style="{StaticResource TransparentGridStyle}">
+
+        <Grid IsVisible="{Binding IsLoading, Mode=TwoWay}"
+              Style="{StaticResource TransparentGridStyle}">
             <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
         </Grid>
-        
     </Grid>
 
 </ContentPage>

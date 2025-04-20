@@ -9,67 +9,67 @@
 
     <Grid>
         <VerticalStackLayout>
+
             <Label Margin="0,20,0,0"
-               Text="Авторизація"
-               Style="{StaticResource PageTitleStyle}"/>
+                   Text="Авторизація"
+                   Style="{StaticResource PageTitleStyle}" />
 
-        <Grid RowDefinitions="*,*" Margin="30,20,30,0">
-            <Label 
-                Text="Пошта"
-                Style="{StaticResource EntriesTitleStyle}"/>
-            <Frame Grid.Row="1" 
-                   Style="{StaticResource EntriesFrameStyle}">
-                <Entry 
-                    Style="{StaticResource EntryStyle}"
-                    Text="{Binding Email, Mode=TwoWay}"/>
-            </Frame>
-        </Grid>
+            <Grid RowDefinitions="*,*" Margin="30,20,30,0">
+                <Label 
+                    Text="Пошта"
+                    Style="{StaticResource EntriesTitleStyle}" />
+                <Frame Grid.Row="1" 
+                       Style="{StaticResource EntriesFrameStyle}">
+                    <Entry 
+                        Style="{StaticResource EntryStyle}"
+                        Text="{Binding Email, Mode=TwoWay}" />
+                </Frame>
+            </Grid>
 
-        <Grid RowDefinitions="*,*" Margin="30,20,30,0">
-            <Label 
-                Text="Пароль"
-                Style="{StaticResource EntriesTitleStyle}"/>
-            <Frame Grid.Row="1" 
-                   Style="{StaticResource EntriesFrameStyle}">
-                <Entry 
-                    Style="{StaticResource EntryStyle}"
-                    IsPassword="True"
-                    Text="{Binding Password, Mode=TwoWay}"/>
-            </Frame>
-        </Grid>
+            <Grid RowDefinitions="*,*" Margin="30,20,30,0">
+                <Label 
+                    Text="Пароль"
+                    Style="{StaticResource EntriesTitleStyle}" />
+                <Frame Grid.Row="1" 
+                       Style="{StaticResource EntriesFrameStyle}">
+                    <Entry 
+                        Style="{StaticResource EntryStyle}"
+                        IsPassword="True"
+                        Text="{Binding Password, Mode=TwoWay}" />
+                </Frame>
+            </Grid>
 
-        <Button 
-            Style="{StaticResource BlueButtonStyle}"
-            VerticalOptions="Start"
-            Margin="30,50,30,0"
-            Text="Авторизуватись"
-            Command="{Binding SignInCommand}"/>
+            <Button 
+                Style="{StaticResource BlueButtonStyle}"
+                VerticalOptions="Start"
+                Margin="30,50,30,0"
+                Text="Авторизуватись"
+                Command="{Binding SignInCommand}" />
 
             <Button Margin="0,20,0,0"
-                Text="Забули пароль? Натисність сюди."
-                Style="{StaticResource LinkButtonStyle}"
-                Command="{Binding NavigateToResetPasswordPageCommand}"/>
+                    Text="Забули пароль? Натисність сюди."
+                    Style="{StaticResource LinkButtonStyle}"
+                    Command="{Binding NavigateToResetPasswordPageCommand}" />
 
-        <Button Text="Немає акаунту? Зареєструйтесь."
-                Style="{StaticResource LinkButtonStyle}"
-                Command="{Binding NavigateToSignUpPageCommand}"/>
+            <Button Text="Немає акаунту? Зареєструйтесь."
+                    Style="{StaticResource LinkButtonStyle}"
+                    Command="{Binding NavigateToSignUpPageCommand}" />
 
-        <Button Text="Увійти як гість"
-                Style="{StaticResource LinkButtonStyle}"
-                Command="{Binding NavigateToMainPageCommand}"/>
+            <Button Text="Увійти як гість"
+                    Style="{StaticResource LinkButtonStyle}"
+                    Command="{Binding NavigateToMainPageCommand}" />
 
-        <Button Margin="70,10,70,0"
-                Text="Служба підтримки"
-                Style="{StaticResource BaseButtonStyle}"
-                Command="{Binding NavigateToSupportPageCommand}"/>
+            <Button Margin="70,10,70,0"
+                    Text="Служба підтримки"
+                    Style="{StaticResource BaseButtonStyle}"
+                    Command="{Binding NavigateToSupportPageCommand}" />
 
-        
-    </VerticalStackLayout>
+        </VerticalStackLayout>
 
-    <Grid IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-      Style="{StaticResource TransparentGridStyle}">
-        <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
+        <Grid IsVisible="{Binding IsLoading, Mode=TwoWay}" 
+              Style="{StaticResource TransparentGridStyle}">
+            <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
+        </Grid>
     </Grid>
 
-    </Grid>
 </ContentPage>

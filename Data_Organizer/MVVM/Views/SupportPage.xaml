@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Data_Organizer.MVVM.Views.SupportPage"
              xmlns:vm="clr-namespace:Data_Organizer.MVVM.ViewModels"
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              x:DataType="vm:SupportPageViewModel"
+             x:Class="Data_Organizer.MVVM.Views.SupportPage"
              Style="{StaticResource PageStyle}">
 
     <Grid>
         <VerticalStackLayout>
-        <Label 
-            Margin="0,20,0,0"
-            Text="Служба підтримки"
-            Style="{StaticResource PageTitleStyle}"/>
-
-        <Label               
-            Margin="0,70,0,0"
-            Style="{StaticResource LabelStyle}"
-            Text="Розробник: Бредун Денис Сергійович"/>
 
             <Label 
-            Margin="0,20,0,0"
-            Style="{StaticResource LabelStyle}"
-            Text="Пошта: bredun.denis@gmail.com"/>
+                Margin="0,20,0,0"
+                Text="Служба підтримки"
+                Style="{StaticResource PageTitleStyle}" />
 
             <Label 
-            Margin="0,20,0,0"
-            Style="{StaticResource LabelStyle}"
-            Text="Телеграм: @Denn_cchik"/>
+                Margin="0,70,0,0"
+                Style="{StaticResource LabelStyle}"
+                Text="Розробник: Бредун Денис Сергійович" />
 
-        <Button 
-            Margin="30,40,30,0"
-            Style="{StaticResource BaseButtonStyle}"
-            VerticalOptions="Start"
-            Text="Повернутись назад"
-            Command="{Binding GoBackCommand}"/>
+            <Label 
+                Margin="0,20,0,0"
+                Style="{StaticResource LabelStyle}"
+                Text="Пошта: bredun.denis@gmail.com" />
 
-        
+            <Label 
+                Margin="0,20,0,0"
+                Style="{StaticResource LabelStyle}"
+                Text="Телеграм: @Denn_cchik" />
+
+            <Button 
+                Margin="30,40,30,0"
+                Style="{StaticResource BaseButtonStyle}"
+                VerticalOptions="Start"
+                Text="Повернутись назад"
+                Command="{Binding GoBackCommand}" />
+
         </VerticalStackLayout>
-        <Grid
-    IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-    Style="{StaticResource TransparentGridStyle}">
+
+        <Grid IsVisible="{Binding IsLoading, Mode=TwoWay}" 
+              Style="{StaticResource TransparentGridStyle}">
             <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
         </Grid>
     </Grid>
-
 </ContentPage>

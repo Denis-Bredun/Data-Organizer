@@ -9,31 +9,32 @@
 
     <Grid>
         <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20" Padding="30">
+
             <Image 
                 Source="icon.png"
                 WidthRequest="250"
                 HeightRequest="250"
-                HorizontalOptions="Center"/>
+                HorizontalOptions="Center" />
 
             <Label
                 Style="{StaticResource GreetingTextStyle}"
-                Text="Вітаємо у застосунку Data Organizer! З його допомогою виділяти тези з аудіо та зберігати їх стане набагато простіше ;)"/>
+                Text="Вітаємо у застосунку Data Organizer! З його допомогою виділяти тези з аудіо та зберігати їх стане набагато простіше ;)" />
 
             <VerticalStackLayout Spacing="10">
                 <Button
                     Style="{StaticResource BaseButtonStyle}"
                     Text="Зареєструватись"
-                    Command="{Binding NavigateToSignUpPageCommand}"/>
+                    Command="{Binding NavigateToSignUpPageCommand}" />
 
                 <Button
                     Style="{StaticResource BlueButtonStyle}"
                     Text="Увійти"
-                    Command="{Binding NavigateToSignInPageCommand}"/>
+                    Command="{Binding NavigateToSignInPageCommand}" />
 
                 <Button
                     Style="{StaticResource LinkButtonStyle}"
                     Text="Увійти як гість"
-                    Command="{Binding NavigateToMainPageCommand}"/>
+                    Command="{Binding NavigateToMainPageCommand}" />
             </VerticalStackLayout>
         </StackLayout>
 
@@ -42,5 +43,4 @@
             <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
         </Grid>
     </Grid>
-    
 </ContentPage>
