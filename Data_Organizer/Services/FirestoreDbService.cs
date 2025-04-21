@@ -397,5 +397,35 @@ namespace Data_Organizer.Services
 
             return headers;
         }
+
+        public async Task RemoveNoteAsync(NoteHeader header)
+        {
+            if (!_firebaseAuthService.IsUserAuthorized())
+                throw new UnauthorizedAccessException("Користувач незареєстрований!");
+
+            var isConfirmed = await _notificationService.ShowConfirmationDialogAsync($"Ви впевнені, що хочете видалити запис \"{header.Title}\"? Відновити його буде неможливо!");
+
+            if (!isConfirmed)
+                return;
+
+            var noteDTO = _mappingService.MapHeaderToNoteDTO(header);
+
+            NoteDTO? response = new NoteDTO();
+
+            try
+            {
+                response = await _firestoreDbQueries.RemoveNoteAsync(noteDTO);
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.Error))
+                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+
+            await _notificationService.ShowToastAsync("Запис було успішно видалено!");
+        }
     }
 }

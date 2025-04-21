@@ -16,5 +16,6 @@ namespace Data_Organizer.Interfaces
         Task CreateAccountLogoutInstance();
         Task CreateNoteAsync(string content);
         Task<List<NoteHeader>> GetNoteHeadersByUidAsync();
+        Task RemoveNoteAsync(NoteHeader header);
     }
 }

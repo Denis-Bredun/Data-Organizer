@@ -21,7 +21,7 @@ namespace Data_Organizer.DTOs
         public string PreviewText { get; set; }
 
         [JsonPropertyName("content")]
-        public string Content { get; set; }
+        public string? Content { get; set; }
 
         [Required]
         [JsonPropertyName("creationTime")]

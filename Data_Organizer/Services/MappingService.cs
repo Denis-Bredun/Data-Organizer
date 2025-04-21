@@ -39,5 +39,16 @@ namespace Data_Organizer.Services
             IsDeleted = dto.IsDeleted,
             NoteBodyReferenceId = dto.NoteBodyId
         };
+
+        public NoteDTO MapHeaderToNoteDTO(NoteHeader header) => new NoteDTO
+        {
+            UserId = header.UserId,
+            Title = header.Title,
+            PreviewText = header.PreviewText,
+            CreationTime = header.CreationTime,
+            IsDeleted = header.IsDeleted,
+            NoteBodyId = header.NoteBodyReferenceId
+        };
+
     }
 }

@@ -73,7 +73,7 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
             IsLoading = true;
 
             await _firestoreDbService.CreateNoteAsync(OutputText);
-            _savedNotesPageViewModel.WasLoadedOnce = false;
+            _savedNotesPageViewModel.DoesnotRequireReloading = false;
 
             IsLoading = false;
         }

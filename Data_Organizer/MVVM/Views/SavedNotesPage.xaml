@@ -62,6 +62,7 @@
                                         Grid.Column="1"
                                         VerticalOptions="Center"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SavedNotesPageViewModel}}, Path=DeleteNoteCommand}"
+                                        CommandParameter="{Binding .}"
                                         Style="{StaticResource BaseButtonStyle}" />
 
                                 <Grid.GestureRecognizers>

@@ -15,7 +15,7 @@ namespace Data_Organizer.MVVM.ViewModels
         [ObservableProperty] private bool isLoading;
         [ObservableProperty] private string statusMessage;
         [ObservableProperty] private bool isUserAuthorized;
-        [ObservableProperty] private bool _wasLoadedOnce;
+        [ObservableProperty] private bool _doesnotRequireReloading;
 
         public bool AreNotesVisible => IsUserAuthorized && NoteHeaders.Count > 0;
         public ObservableCollection<NoteHeader> NoteHeaders { get; set; }
@@ -65,7 +65,7 @@ namespace Data_Organizer.MVVM.ViewModels
 
         public async Task LoadNoteHeaders()
         {
-            if (!WasLoadedOnce)
+            if (!DoesnotRequireReloading)
             {
                 IsLoading = true;
                 var noteHeaders = await _firestoreDbService.GetNoteHeadersByUidAsync();
@@ -78,7 +78,7 @@ namespace Data_Organizer.MVVM.ViewModels
                 }
 
                 IsLoading = false;
-                WasLoadedOnce = true;
+                DoesnotRequireReloading = true;
             }
         }
 
@@ -88,8 +88,13 @@ namespace Data_Organizer.MVVM.ViewModels
         }
 
         [RelayCommand]
-        private void DeleteNote()
+        public async Task DeleteNote(NoteHeader header)
         {
+            IsLoading = true;
+            await _firestoreDbService.RemoveNoteAsync(header);
+            DoesnotRequireReloading = false;
+            await LoadNoteHeaders();
+            IsLoading = false;
         }
     }
 }

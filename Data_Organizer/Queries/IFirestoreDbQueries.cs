@@ -45,7 +45,7 @@ namespace Data_Organizer.Queries
         Task<NoteBody> GetNoteBodyByHeaderAsync([Body] NoteHeader noteHeader);
 
         [Delete("/firestoredb/remove-note")]
-        Task<NoteHeader> RemoveNoteAsync([Body] NoteHeader noteHeader);
+        Task<NoteDTO> RemoveNoteAsync([Body] NoteDTO noteDTO);
 
         [Put("/firestoredb/update-note")]
         Task<Note> UpdateNoteAsync([Body] Note note);

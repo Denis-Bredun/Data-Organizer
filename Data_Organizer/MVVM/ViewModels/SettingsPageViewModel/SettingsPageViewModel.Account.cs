@@ -27,7 +27,7 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
 
             if (succeeded)
             {
-                _savedNotesPageViewModel.WasLoadedOnce = false;
+                _savedNotesPageViewModel.DoesnotRequireReloading = false;
                 await Shell.Current.GoToAsync("//SignInPage");
             }
             else
@@ -100,7 +100,7 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
 
             if (succeeded)
             {
-                _savedNotesPageViewModel.WasLoadedOnce = false;
+                _savedNotesPageViewModel.DoesnotRequireReloading = false;
                 await Shell.Current.GoToAsync("//SignInPage");
             }
             else
