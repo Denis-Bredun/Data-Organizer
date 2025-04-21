@@ -32,16 +32,6 @@ namespace Data_Organizer.MVVM.ViewModels
 
             NoteHeaders.CollectionChanged += (_, _) => UpdateStatusMessage();
 
-            for (int i = 1; i <= 10; i++)
-            {
-                NoteHeaders.Add(new NoteHeader
-                {
-                    Title = $"Заголовок {i} - це текст, що складається",
-                    PreviewText = $"Це довгий опис запису №{i}, що складається із 70 символів для тестування даного фрагмента тексту в додатку.",
-                    CreationTime = DateTime.Now.AddMinutes(-i * 10)
-                });
-            }
-
             UpdateStatusMessage();
         }
 

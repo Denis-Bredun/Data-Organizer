@@ -20,15 +20,13 @@
 
             <Label Text="Ваші записи"
                    Style="{StaticResource PageTitleStyle}"
-                   HorizontalOptions="Center"
-                   TextColor="White"
                    Margin="0,0,0,5" />
 
             <Image Source="empty_note.svg"
                    IsVisible="{Binding AreNotesVisible, Converter={StaticResource BoolReverserConverter}}"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
-                   HeightRequest="200" />
+                   HeightRequest="300" />
 
             <CollectionView ItemsSource="{Binding NoteHeaders}"
                             IsVisible="{Binding AreNotesVisible}"
@@ -39,25 +37,22 @@
                         <Frame Style="{StaticResource EntriesFrameStyle}" 
                                Padding="15"
                                Margin="0,0,0,15"
-                               HeightRequest="130">
+                               HeightRequest="120">
                             <Grid ColumnDefinitions="*,Auto">
                                 <VerticalStackLayout>
                                     <Label Text="{Binding Title}" 
                                            FontAttributes="Bold"
-                                           FontSize="14"
-                                           TextColor="White"
+                                           Style="{StaticResource NoteHeadersInfoStyle}"
                                            Grid.Column="0"
                                            LineBreakMode="TailTruncation" />
 
                                     <Label Text="{Binding CreationTime, StringFormat='dd.MM.yyyy HH:mm'}" 
-                                           FontSize="14"
-                                           TextColor="White"
+                                           Style="{StaticResource NoteHeadersInfoStyle}"
                                            Grid.Column="1"
                                            HorizontalOptions="Start" />
 
                                     <Label Text="{Binding PreviewText}" 
-                                           FontSize="13"
-                                           TextColor="White"
+                                           Style="{StaticResource NoteHeadersInfoStyle}"
                                            LineBreakMode="TailTruncation"
                                            MaxLines="3" />
                                 </VerticalStackLayout>
