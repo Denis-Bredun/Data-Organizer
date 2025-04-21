@@ -20,7 +20,7 @@ namespace Data_Organizer.Queries
         [Post("/firestoredb/get-metadata-flag")]
         Task<UserMetadataFlagUpdateDTO> GetUserMetadataFlagAsync([Body] UserMetadataFlagUpdateDTO request);
 
-        [Post("/firestoredb/set-metadata-flag")]
+        [Put("/firestoredb/set-metadata-flag")]
         Task<UserMetadataFlagUpdateDTO> SetUserMetadataFlagAsync([Body] UserMetadataFlagUpdateDTO updateDTO);
 
         // Change password
@@ -38,8 +38,8 @@ namespace Data_Organizer.Queries
         [Post("/firestoredb/create-note")]
         Task<NoteDTO> CreateNoteAsync([Body] NoteDTO note);
 
-        [Get("/firestoredb/headers/{uid}")]
-        Task<List<NoteHeader>> GetNoteHeadersByUidAsync(string uid);
+        [Post("/firestoredb/headers")]
+        Task<List<NoteDTO>> GetNoteHeadersByUidAsync(UserDTO userDTO);
 
         [Post("/firestoredb/body-by-header")]
         Task<NoteBody> GetNoteBodyByHeaderAsync([Body] NoteHeader noteHeader);

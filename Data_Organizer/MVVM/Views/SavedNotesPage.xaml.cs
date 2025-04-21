@@ -11,10 +11,13 @@ public partial class SavedNotesPage : ContentPage
         InitializeComponent();
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         if (_savedNotesPageViewModel == null)
             _savedNotesPageViewModel = (SavedNotesPageViewModel)BindingContext;
+
+        if (_savedNotesPageViewModel.IsUserAuthorized)
+            await _savedNotesPageViewModel.LoadNoteHeaders();
 
         _savedNotesPageViewModel.IsLoading = false;
         _savedNotesPageViewModel.UpdateStatusMessage();

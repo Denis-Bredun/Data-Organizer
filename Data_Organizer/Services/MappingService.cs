@@ -29,5 +29,15 @@ namespace Data_Organizer.Services
                 DeletionLocation = metadata.DeletionLocation
             };
         }
+
+        public NoteHeader MapNoteDTOToHeader(NoteDTO dto) => new NoteHeader
+        {
+            UserId = dto.UserId,
+            Title = dto.Title,
+            PreviewText = dto.PreviewText,
+            CreationTime = dto.CreationTime,
+            IsDeleted = dto.IsDeleted,
+            NoteBodyReferenceId = dto.NoteBodyId
+        };
     }
 }

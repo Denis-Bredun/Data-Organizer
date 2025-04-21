@@ -26,6 +26,7 @@ public partial class SettingsPage : ContentPage
     {
         base.OnDisappearing();
         _settingsPageViewModel.UpdateDataOnPage();
+        _settingsPageViewModel.IsLoading = true;
         _settingsPageViewModel.Dispose();
     }
 }

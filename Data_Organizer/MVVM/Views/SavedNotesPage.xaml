@@ -10,6 +10,7 @@
 
     <ContentPage.Resources>
         <converters:BoolReverserConverter x:Key="BoolReverserConverter" />
+        <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
     </ContentPage.Resources>
 
     <Grid>
@@ -46,7 +47,7 @@
                                            Grid.Column="0"
                                            LineBreakMode="TailTruncation" />
 
-                                    <Label Text="{Binding CreationTime, StringFormat='dd.MM.yyyy HH:mm'}" 
+                                    <Label Text="{Binding CreationTime, Converter={StaticResource DateTimeToStringConverter}}"
                                            Style="{StaticResource NoteHeadersInfoStyle}"
                                            Grid.Column="1"
                                            HorizontalOptions="Start" />

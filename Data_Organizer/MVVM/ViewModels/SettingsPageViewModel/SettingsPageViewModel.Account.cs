@@ -26,7 +26,10 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
             bool succeeded = await _firebaseAuthService.SignOut();
 
             if (succeeded)
+            {
+                _savedNotesPageViewModel.WasLoadedOnce = false;
                 await Shell.Current.GoToAsync("//SignInPage");
+            }
             else
                 IsLoading = false;
         }
@@ -97,6 +100,7 @@ namespace Data_Organizer.MVVM.ViewModels.SettingsPageViewModel
 
             if (succeeded)
             {
+                _savedNotesPageViewModel.WasLoadedOnce = false;
                 await Shell.Current.GoToAsync("//SignInPage");
             }
             else

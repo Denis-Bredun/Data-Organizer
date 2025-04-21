@@ -7,5 +7,6 @@ namespace Data_Organizer.Interfaces
     {
         UserDTO MapUser(User user);
         UsersMetadataDTO MapMetadata(UsersMetadata metadata);
+        NoteHeader MapNoteDTOToHeader(NoteDTO dto);
     }
 }

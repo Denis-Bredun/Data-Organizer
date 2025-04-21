@@ -1,14 +1,12 @@
 ﻿using Data_Organizer.DTOs;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
-using Data_Organizer.MVVM.ViewModels;
 using Data_Organizer.Queries;
 
 namespace Data_Organizer.Services
 {
     public class FirestoreDbService : IFirestoreDbService
     {
-        private readonly SavedNotesPageViewModel _savedNotesPageViewModel;
         private readonly IFirebaseAuthService _firebaseAuthService;
         private readonly IFirestoreDbQueries _firestoreDbQueries;
         private readonly INotificationService _notificationService;
@@ -16,14 +14,12 @@ namespace Data_Organizer.Services
         private readonly IMappingService _mappingService;
 
         public FirestoreDbService(
-            IServiceProvider serviceProvider,
             IFirebaseAuthService firebaseAuthService,
             IFirestoreDbQueries firestoreDbQueries,
             INotificationService notificationService,
             IDeviceServiceDecorator deviceServiceDecorator,
             IMappingService mappingService)
         {
-            _savedNotesPageViewModel = serviceProvider.GetRequiredService<SavedNotesPageViewModel>();
             _firebaseAuthService = firebaseAuthService;
             _firestoreDbQueries = firestoreDbQueries;
             _notificationService = notificationService;
@@ -366,6 +362,40 @@ namespace Data_Organizer.Services
             }
 
             return true;
+        }
+
+        public async Task<List<NoteHeader>> GetNoteHeadersByUidAsync()
+        {
+            if (!_firebaseAuthService.IsUserAuthorized())
+                throw new UnauthorizedAccessException("Користувач незареєстрований!");
+
+            var headers = new List<NoteHeader>();
+            var response = new List<NoteDTO>();
+
+            UserDTO userDTO = new UserDTO();
+
+            userDTO.Uid = _firebaseAuthService.GetUid();
+            userDTO.IsDeleted = false;
+            userDTO.IsMetadataStored = false;
+
+            try
+            {
+                response = await _firestoreDbQueries.GetNoteHeadersByUidAsync(userDTO);
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return new List<NoteHeader>();
+            }
+
+            foreach (var note in response)
+            {
+                var header = _mappingService.MapNoteDTOToHeader(note);
+                header.CreationTime = header.CreationTime.ToLocalTime();
+                headers.Add(header);
+            }
+
+            return headers;
         }
     }
 }

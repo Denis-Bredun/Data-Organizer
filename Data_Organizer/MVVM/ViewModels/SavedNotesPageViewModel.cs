@@ -9,20 +9,23 @@ namespace Data_Organizer.MVVM.ViewModels
     public partial class SavedNotesPageViewModel : ObservableObject
     {
         private readonly IFirebaseAuthService _firebaseAuthService;
-
-        public ObservableCollection<NoteHeader> NoteHeaders { get; set; }
+        private readonly IFirestoreDbService _firestoreDbService;
+        private EventHandler _authStateChangedHandler;
 
         [ObservableProperty] private bool isLoading;
         [ObservableProperty] private string statusMessage;
         [ObservableProperty] private bool isUserAuthorized;
+        [ObservableProperty] private bool _wasLoadedOnce;
 
         public bool AreNotesVisible => IsUserAuthorized && NoteHeaders.Count > 0;
+        public ObservableCollection<NoteHeader> NoteHeaders { get; set; }
 
-        private EventHandler _authStateChangedHandler;
-
-        public SavedNotesPageViewModel(IFirebaseAuthService firebaseAuthService)
+        public SavedNotesPageViewModel(
+            IFirebaseAuthService firebaseAuthService,
+            IFirestoreDbService firestoreDbService)
         {
             _firebaseAuthService = firebaseAuthService;
+            _firestoreDbService = firestoreDbService;
             NoteHeaders = new();
 
             _authStateChangedHandler = OnAuthStateChanged;
@@ -58,6 +61,23 @@ namespace Data_Organizer.MVVM.ViewModels
             }
 
             OnPropertyChanged(nameof(AreNotesVisible));
+        }
+
+        public async Task LoadNoteHeaders()
+        {
+            if (!WasLoadedOnce)
+            {
+                IsLoading = true;
+                var noteHeaders = await _firestoreDbService.GetNoteHeadersByUidAsync();
+
+                foreach (var noteHeader in noteHeaders)
+                {
+                    NoteHeaders.Add(noteHeader);
+                }
+
+                IsLoading = false;
+                WasLoadedOnce = true;
+            }
         }
 
         [RelayCommand]

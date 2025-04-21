@@ -1,5 +1,6 @@
 ﻿
 using Data_Organizer.DTOs;
+using Data_Organizer.MVVM.Models;
 
 namespace Data_Organizer.Interfaces
 {
@@ -14,5 +15,6 @@ namespace Data_Organizer.Interfaces
         Task CreateAccountLoginInstance();
         Task CreateAccountLogoutInstance();
         Task CreateNoteAsync(string content);
+        Task<List<NoteHeader>> GetNoteHeadersByUidAsync();
     }
 }

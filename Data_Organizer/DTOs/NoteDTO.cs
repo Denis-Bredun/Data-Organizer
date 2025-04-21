@@ -20,7 +20,6 @@ namespace Data_Organizer.DTOs
         [JsonPropertyName("previewText")]
         public string PreviewText { get; set; }
 
-        [Required]
         [JsonPropertyName("content")]
         public string Content { get; set; }
 
