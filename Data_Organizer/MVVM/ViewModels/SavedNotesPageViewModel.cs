@@ -70,6 +70,8 @@ namespace Data_Organizer.MVVM.ViewModels
                 IsLoading = true;
                 var noteHeaders = await _firestoreDbService.GetNoteHeadersByUidAsync();
 
+                NoteHeaders.Clear();
+
                 foreach (var noteHeader in noteHeaders)
                 {
                     NoteHeaders.Add(noteHeader);

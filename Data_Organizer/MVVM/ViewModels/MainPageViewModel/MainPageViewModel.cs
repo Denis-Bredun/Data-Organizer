@@ -12,6 +12,7 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
         private readonly IClipboardService _clipboardService;
         private readonly IFileServiceDecorator _fileService;
         private readonly IFirestoreDbService _firestoreDbService;
+        private readonly SavedNotesPageViewModel _savedNotesPageViewModel;
 
         private Action<string>? _transcriptionUpdatedHandler;
         private bool _wasInfluenceOnOutputText;
@@ -41,7 +42,8 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
             IOpenAIAPIRequestService openAIAPIRequestService,
             IClipboardService clipboardService,
             IFileServiceDecorator fileService,
-            IFirestoreDbService firestoreDbService)
+            IFirestoreDbService firestoreDbService,
+            IServiceProvider serviceProvider)
         {
             CultureInfoService = cultureInfoService;
             AudioTranscriptorService = audioTranscriptorService;
@@ -51,6 +53,7 @@ namespace Data_Organizer.MVVM.ViewModels.MainPageViewModel
             _clipboardService = clipboardService;
             _fileService = fileService;
             _firestoreDbService = firestoreDbService;
+            _savedNotesPageViewModel = serviceProvider.GetRequiredService<SavedNotesPageViewModel>();
             _lineToDivideOutput = "\n-----------------------\n";
 
             Features = new ObservableCollection<FeatureModel>()
