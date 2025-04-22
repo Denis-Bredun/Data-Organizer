@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Data_Organizer.Converters;
 using Data_Organizer.Interfaces;
 using Data_Organizer.MVVM.Models;
 using System.Collections.ObjectModel;
+using System.Text.Json;
 
 namespace Data_Organizer.MVVM.ViewModels
 {
@@ -83,9 +85,26 @@ namespace Data_Organizer.MVVM.ViewModels
         }
 
         [RelayCommand]
-        private void OpenNote()
+        private async Task OpenNote(NoteHeader header)
         {
+            IsLoading = true;
+            var encoded = SerializeAndEncode(header);
+            await Shell.Current.GoToAsync($"//EditNotePage?headerJson={encoded}");
         }
+
+        private static string SerializeAndEncode(object obj)
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                WriteIndented = false,
+                Converters = { new DateTimeConverter() }
+            };
+
+            var json = JsonSerializer.Serialize(obj, options);
+            return Uri.EscapeDataString(json);
+        }
+
 
         [RelayCommand]
         public async Task DeleteNote(NoteHeader header)
