@@ -372,20 +372,37 @@ namespace Data_Organizer.Services
             var headers = new List<NoteHeader>();
             var response = new List<NoteDTO>();
 
-            UserDTO userDTO = new UserDTO();
-
-            userDTO.Uid = _firebaseAuthService.GetUid();
-            userDTO.IsDeleted = false;
-            userDTO.IsMetadataStored = false;
-
-            try
+            var userDTO = new UserDTO
             {
-                response = await _firestoreDbQueries.GetNoteHeadersByUidAsync(userDTO);
-            }
-            catch (Exception ex)
+                Uid = _firebaseAuthService.GetUid(),
+                IsDeleted = false,
+                IsMetadataStored = false
+            };
+
+            int retryCount = 0;
+            const int maxRetries = 5;
+
+            while (retryCount < maxRetries)
             {
-                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
-                return new List<NoteHeader>();
+                try
+                {
+                    response = await _firestoreDbQueries.GetNoteHeadersByUidAsync(userDTO);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message.Contains("503"))
+                    {
+                        retryCount++;
+                        await Task.Delay(500);
+                        continue;
+                    }
+
+                    if (!ex.Message.Contains("404"))
+                        await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+
+                    return new List<NoteHeader>();
+                }
             }
 
             foreach (var note in response)
@@ -398,7 +415,7 @@ namespace Data_Organizer.Services
             return headers;
         }
 
-        public async Task RemoveNoteAsync(NoteHeader header)
+        public async Task<bool> RemoveNoteAsync(NoteHeader header)
         {
             if (!_firebaseAuthService.IsUserAuthorized())
                 throw new UnauthorizedAccessException("Користувач незареєстрований!");
@@ -406,7 +423,7 @@ namespace Data_Organizer.Services
             var isConfirmed = await _notificationService.ShowConfirmationDialogAsync($"Ви впевнені, що хочете видалити запис \"{header.Title}\"? Відновити його буде неможливо!");
 
             if (!isConfirmed)
-                return;
+                return false;
 
             var noteDTO = _mappingService.MapHeaderToNoteDTO(header);
 
@@ -419,13 +436,15 @@ namespace Data_Organizer.Services
             catch (Exception ex)
             {
                 await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
-                return;
+                return false;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
                 throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
 
             await _notificationService.ShowToastAsync("Запис було успішно видалено!");
+
+            return true;
         }
     }
 }

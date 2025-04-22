@@ -12,11 +12,16 @@
     <Grid RowDefinitions="*, *, 8*" Margin="10" RowSpacing="15">
 
         <Grid ColumnDefinitions="*,*,*" ColumnSpacing="20" HorizontalOptions="Center">
-            <ImageButton Source="back.svg" />
+            <ImageButton 
+                    Source="back.svg" 
+                    Command="{Binding BackCommand}"/>
             <Button Grid.Column="1"
-                    Style="{StaticResource RemoveNoteButtonStyle}"
+                    Style="{StaticResource RemoveNoteButtonStyle}" 
+                    Command="{Binding DeleteNoteCommand}"
                     Text="🗑" />
-            <ImageButton Grid.Column="2" Source="save_changes.svg" />
+            <ImageButton 
+                    Grid.Column="2" 
+                    Source="save_changes.svg"/>
         </Grid>
 
         <Frame Grid.Row="1"

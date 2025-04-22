@@ -110,7 +110,14 @@ namespace Data_Organizer.MVVM.ViewModels
         public async Task DeleteNote(NoteHeader header)
         {
             IsLoading = true;
-            await _firestoreDbService.RemoveNoteAsync(header);
+            var wasCompleted = await _firestoreDbService.RemoveNoteAsync(header);
+
+            if (!wasCompleted)
+            {
+                IsLoading = false;
+                return;
+            }
+
             DoesnotRequireReloading = false;
             await LoadNoteHeaders();
             IsLoading = false;
