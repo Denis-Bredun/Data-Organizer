@@ -9,11 +9,35 @@
              x:DataType="vm:EditNotePageViewModel"
              Style="{StaticResource PageStyle}">
 
-    <Grid>
-        <Grid IsVisible="{Binding IsLoading, Mode=TwoWay}" 
-      Style="{StaticResource TransparentGridStyle}">
+    <Grid RowDefinitions="*, *, 8*" Margin="10" RowSpacing="15">
+
+        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="20" HorizontalOptions="Center">
+            <ImageButton Source="back.svg" />
+            <Button Grid.Column="1"
+                    Style="{StaticResource RemoveNoteButtonStyle}"
+                    Text="🗑" />
+            <ImageButton Grid.Column="2" Source="save_changes.svg" />
+        </Grid>
+
+        <Frame Grid.Row="1"
+               Style="{StaticResource EntriesFrameStyle}">
+            <Entry Style="{StaticResource NoteTitleStyle}"
+                   Text="{Binding Header.Title, Mode=TwoWay}" />
+        </Frame>
+
+        <Border Grid.Row="2">
+            <ScrollView>
+                <Editor Text="{Binding Body.Content, Mode=TwoWay}"
+                        Style="{StaticResource MainPageEditorStyle}" />
+            </ScrollView>
+        </Border>
+
+        <Grid Grid.RowSpan="3"
+              IsVisible="{Binding IsLoading, Mode=TwoWay}"
+              Style="{StaticResource TransparentGridStyle}">
             <skia:SKLottieView Style="{StaticResource LoadingAnimationStyle}" />
         </Grid>
+
     </Grid>
-    
+
 </ContentPage>

@@ -16,8 +16,7 @@
     <Grid>
         <VerticalStackLayout Padding="20" Spacing="15">
             <Label Text="{Binding StatusMessage}" 
-                   Style="{StaticResource StatusMessageStyle}"
-                   TextColor="White" />
+                   Style="{StaticResource StatusMessageStyle}"/>
 
             <Label Text="Ваші записи"
                    Style="{StaticResource PageTitleStyle}"
