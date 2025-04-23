@@ -21,13 +21,15 @@
                     Text="🗑" />
             <ImageButton 
                     Grid.Column="2" 
-                    Source="save_changes.svg"/>
+                    Source="save_changes.svg"
+                    Command="{Binding UpdateNoteCommand}"/>
         </Grid>
 
         <Frame Grid.Row="1"
                Style="{StaticResource EntriesFrameStyle}">
             <Entry Style="{StaticResource NoteTitleStyle}"
-                   Text="{Binding Header.Title, Mode=TwoWay}" />
+                   Text="{Binding Header.Title, Mode=TwoWay}" 
+                   MaxLength="40"/>
         </Frame>
 
         <Border Grid.Row="2">

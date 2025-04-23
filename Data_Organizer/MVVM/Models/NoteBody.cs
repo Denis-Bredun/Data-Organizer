@@ -1,7 +1,10 @@
-﻿namespace Data_Organizer.MVVM.Models
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace Data_Organizer.MVVM.Models
 {
-    public class NoteBody
+    public partial class NoteBody : ObservableObject
     {
-        public string Content { get; set; }
+        [ObservableProperty]
+        private string content;
     }
 }

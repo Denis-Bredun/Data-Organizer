@@ -302,7 +302,7 @@ namespace Data_Organizer.Services
             if (!await ValidateConditionsForCreatingNote(content))
                 return;
 
-            const int MAX_TITLE_LENGTH = 66;
+            const int MAX_TITLE_LENGTH = 40;
 
             var title = await Application.Current.MainPage.DisplayPromptAsync(
                 "Новий запис",
@@ -449,6 +449,9 @@ namespace Data_Organizer.Services
 
         public async Task<NoteBody> GetNoteBodyByHeaderAsync(NoteHeader header)
         {
+            if (!_firebaseAuthService.IsUserAuthorized())
+                throw new UnauthorizedAccessException("Користувач незареєстрований!");
+
             var request = _mappingService.MapHeaderToNoteDTO(header);
 
             NoteDTO? response = new NoteDTO();
@@ -469,6 +472,59 @@ namespace Data_Organizer.Services
             NoteBody body = new NoteBody();
             body.Content = response?.Content;
             return body;
+        }
+
+        public async Task<bool> UpdateNoteAsync(NoteHeader header, NoteBody body)
+        {
+            if (!_firebaseAuthService.IsUserAuthorized())
+                throw new UnauthorizedAccessException("Користувач незареєстрований!");
+
+            if (!await ValidateConditionsForUpdatingNote(header, body))
+                return false;
+
+            var request = _mappingService.MapHeaderToNoteDTO(header);
+            request.Content = body.Content;
+
+            const int MAX_PREVIEW_TEXT_LENGTH = 66;
+            var contentLength = request.Content.Length;
+            request.PreviewText = contentLength <= MAX_PREVIEW_TEXT_LENGTH ? request.Content[0..contentLength] : request.Content[0..MAX_PREVIEW_TEXT_LENGTH] + "...";
+
+            NoteDTO? response = new NoteDTO();
+
+            try
+            {
+                response = await _firestoreDbQueries.UpdateNoteAsync(request);
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.Error))
+                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+
+            await _notificationService.ShowToastAsync("Запис було успішно оновлено!");
+            return true;
+        }
+
+        private async Task<bool> ValidateConditionsForUpdatingNote(NoteHeader header, NoteBody body)
+        {
+            const int MINIMAL_TITLE_SIZE = 3;
+
+            if (header.Title.Length < MINIMAL_TITLE_SIZE)
+            {
+                await _notificationService.ShowToastAsync($"Заголовок повинен містити не менше трьох символів!");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(body.Content))
+            {
+                await _notificationService.ShowToastAsync($"В записі повинно бути хоча б щось написано! Або видаліть запис.");
+                return false;
+            }
+
+            return true;
         }
     }
 }

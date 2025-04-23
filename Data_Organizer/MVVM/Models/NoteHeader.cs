@@ -1,27 +1,34 @@
-﻿using System.Text.Json.Serialization;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace Data_Organizer.MVVM.Models
 {
-    public class NoteHeader
+    public partial class NoteHeader : ObservableObject
     {
         public NoteHeader() { }
 
+        [ObservableProperty]
         [JsonPropertyName("userId")]
-        public string UserId { get; set; }
+        private string userId;
 
+        [ObservableProperty]
         [JsonPropertyName("noteBodyReferenceId")]
-        public string NoteBodyReferenceId { get; set; }
+        private string noteBodyReferenceId;
 
+        [ObservableProperty]
         [JsonPropertyName("title")]
-        public string Title { get; set; }
+        private string title;
 
+        [ObservableProperty]
         [JsonPropertyName("previewText")]
-        public string PreviewText { get; set; }
+        private string previewText;
 
+        [ObservableProperty]
         [JsonPropertyName("creationTime")]
-        public DateTime CreationTime { get; set; }
+        private DateTime creationTime;
 
+        [ObservableProperty]
         [JsonPropertyName("isDeleted")]
-        public bool IsDeleted { get; set; }
+        private bool isDeleted;
     }
 }

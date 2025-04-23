@@ -18,5 +18,6 @@ namespace Data_Organizer.Interfaces
         Task<List<NoteHeader>> GetNoteHeadersByUidAsync();
         Task<bool> RemoveNoteAsync(NoteHeader header);
         Task<NoteBody> GetNoteBodyByHeaderAsync(NoteHeader header);
+        Task<bool> UpdateNoteAsync(NoteHeader header, NoteBody body);
     }
 }

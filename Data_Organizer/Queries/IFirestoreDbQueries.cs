@@ -1,5 +1,4 @@
 ﻿using Data_Organizer.DTOs;
-using Data_Organizer.MVVM.Models;
 using Refit;
 
 namespace Data_Organizer.Queries
@@ -48,7 +47,6 @@ namespace Data_Organizer.Queries
         Task<NoteDTO> RemoveNoteAsync([Body] NoteDTO noteDTO);
 
         [Put("/firestoredb/update-note")]
-        Task<Note> UpdateNoteAsync([Body] Note note);
+        Task<NoteDTO> UpdateNoteAsync([Body] NoteDTO request);
     }
-
 }
