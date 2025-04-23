@@ -17,5 +17,6 @@ namespace Data_Organizer.Interfaces
         Task CreateNoteAsync(string content);
         Task<List<NoteHeader>> GetNoteHeadersByUidAsync();
         Task<bool> RemoveNoteAsync(NoteHeader header);
+        Task<NoteBody> GetNoteBodyByHeaderAsync(NoteHeader header);
     }
 }

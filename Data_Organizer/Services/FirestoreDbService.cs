@@ -446,5 +446,29 @@ namespace Data_Organizer.Services
 
             return true;
         }
+
+        public async Task<NoteBody> GetNoteBodyByHeaderAsync(NoteHeader header)
+        {
+            var request = _mappingService.MapHeaderToNoteDTO(header);
+
+            NoteDTO? response = new NoteDTO();
+
+            try
+            {
+                response = await _firestoreDbQueries.GetNoteBodyByHeaderAsync(request);
+            }
+            catch (Exception ex)
+            {
+                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                return null;
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.Error))
+                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+
+            NoteBody body = new NoteBody();
+            body.Content = response?.Content;
+            return body;
+        }
     }
 }

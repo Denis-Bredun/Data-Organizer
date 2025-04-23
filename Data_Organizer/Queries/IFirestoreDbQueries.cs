@@ -42,7 +42,7 @@ namespace Data_Organizer.Queries
         Task<List<NoteDTO>> GetNoteHeadersByUidAsync(UserDTO userDTO);
 
         [Post("/firestoredb/body-by-header")]
-        Task<NoteBody> GetNoteBodyByHeaderAsync([Body] NoteHeader noteHeader);
+        Task<NoteDTO> GetNoteBodyByHeaderAsync([Body] NoteDTO noteDTO);
 
         [Delete("/firestoredb/remove-note")]
         Task<NoteDTO> RemoveNoteAsync([Body] NoteDTO noteDTO);

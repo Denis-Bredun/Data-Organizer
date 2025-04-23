@@ -30,20 +30,22 @@ namespace Data_Organizer.MVVM.ViewModels
 
         partial void OnHeaderJsonChanged(string value)
         {
-            try
+            Task.Run(async () =>
             {
-                ProcessHeaderJson(value);
-                LoadNoteBody();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Deserialization failed: {ex.Message}");
-                throw;
-            }
-            finally
-            {
-                IsLoading = false;
-            }
+                try
+                {
+                    ProcessHeaderJson(value);
+                    await LoadNoteBody();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error processing header: {ex.Message}");
+                }
+                finally
+                {
+                    IsLoading = false;
+                }
+            });
         }
 
         private void ProcessHeaderJson(string value)
@@ -65,12 +67,9 @@ namespace Data_Organizer.MVVM.ViewModels
                      ?? throw new JsonException("Не вдалося десеріалізувати NoteHeader.");
         }
 
-        private void LoadNoteBody()
+        private async Task LoadNoteBody()
         {
-            Body = new NoteBody
-            {
-                Content = $"Тут мав би бути вміст запису \"{Header.Title}\""
-            };
+            Body = await _firestoreDbService.GetNoteBodyByHeaderAsync(Header);
         }
 
         [RelayCommand]
