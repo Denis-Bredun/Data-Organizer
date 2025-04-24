@@ -30,27 +30,15 @@
             <StackLayout Style="{StaticResource HelpContentStackStyle}">
                 <Label 
                     Style="{StaticResource LabelStyle}"
-                    Text="• Переглядати раніше збережені записи"/>
+                    Text="• Переглядати список збережених записів"/>
 
                 <Label 
                     Style="{StaticResource LabelStyle}"
-                    Text="• Редагувати кожен запис окремо"/>
+                    Text="• Редагувати запис окремо для його редагування"/>
 
                 <Label 
                     Style="{StaticResource LabelStyle}"
-                    Text="• Видаляти непотрібні записи"/>
-
-                <Label 
-                    Style="{StaticResource LabelStyle}"
-                    Text="• Експортувати записи в різні формати"/>
-
-                <Label 
-                    Style="{StaticResource LabelStyle}"
-                    Text="• Сортувати записи за датою створення"/>
-
-                <Label 
-                    Style="{StaticResource LabelStyle}"
-                    Text="• Шукати записи за назвою"/>
+                    Text="• Видаляти непотрібні записи - 🗑"/>
             </StackLayout>
         </Frame>
 
