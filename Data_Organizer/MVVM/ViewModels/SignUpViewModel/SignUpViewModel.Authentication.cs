@@ -31,7 +31,7 @@ namespace Data_Organizer.MVVM.ViewModels.SignUpViewModel
         private async Task<Data_Organizer.MVVM.Models.Location> GetLocationForMetadata()
         {
             if (!IsMetadataStored)
-                return null;
+                return new Data_Organizer.MVVM.Models.Location();
 
             var location = await _deviceServiceDecorator.GetCurrentLocationAsync();
             if (location == null)
