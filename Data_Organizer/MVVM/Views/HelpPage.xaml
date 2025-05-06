@@ -40,7 +40,8 @@
                     <Button Text="Сторінка збережених&#10;записів" 
                             Command="{Binding ShowSavedNotesHelpCommand}"
                             Style="{StaticResource HelpNavButtonStyle}"
-                            x:Name="SavedNotesHelpButton"/>
+                            x:Name="SavedNotesHelpButton"
+                            LineBreakMode="WordWrap"/>
                     <Button Text="Сторінка налаштувань" 
                             Command="{Binding ShowSettingsHelpCommand}"
                             Style="{StaticResource HelpNavButtonStyle}"
