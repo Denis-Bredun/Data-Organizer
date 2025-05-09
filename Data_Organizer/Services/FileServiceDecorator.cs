@@ -156,7 +156,7 @@ namespace Data_Organizer.Services
             bool isAuthorized = _firebaseAuthService.IsUserAuthorized();
 
             if (!isAuthorized)
-                await _notificationService.ShowToastAsync("Ви не авторизовані! Увійдіть в акаунт або зареєструйтесь.");
+                await _notificationService.ShowToastAsync("Користувач незареєстрований!");
 
             return isAuthorized;
         }

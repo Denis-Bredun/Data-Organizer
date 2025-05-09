@@ -25,7 +25,7 @@ namespace Data_Organizer.Services
         {
             if (!_firebaseAuthService.IsUserAuthorized())
             {
-                await _notificationService.ShowToastAsync("Ви не авторизовані! Увійдіть в акаунт або зареєструйтесь.");
+                await _notificationService.ShowToastAsync("Користувач незареєстрований!");
                 return null;
             }
 
@@ -50,7 +50,7 @@ namespace Data_Organizer.Services
             }
             catch (Exception ex)
             {
-                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
                 return null;
             }
 

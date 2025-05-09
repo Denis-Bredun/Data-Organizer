@@ -70,7 +70,7 @@ namespace Data_Organizer.Services
         {
             var isConnected = Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
             if (!isConnected)
-                await _notificationService.ShowToastAsync("Потрібно інтернет-з'єднання");
+                await _notificationService.ShowToastAsync("Немає Інтернет-підключення");
 
             return isConnected;
         }

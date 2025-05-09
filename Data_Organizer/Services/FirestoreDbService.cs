@@ -66,12 +66,12 @@ namespace Data_Organizer.Services
             }
             catch (Exception ex)
             {
-                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
                 return;
             }
 
             if (!string.IsNullOrWhiteSpace(response?.Error))
-                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+                throw new Exception($"Помилка при запиті до Firestore DB: {response.Error}");
         }
 
         public async Task SetUserMetadataFlagAsync(bool isMetadataStored)
@@ -91,12 +91,12 @@ namespace Data_Organizer.Services
             }
             catch (Exception ex)
             {
-                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
                 return;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
-                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+                throw new Exception($"Помилка при запиті до Firestore DB: {response.Error}");
         }
 
         public async Task<bool> GetUserMetadataFlagAsync()
@@ -115,12 +115,12 @@ namespace Data_Organizer.Services
             }
             catch (Exception ex)
             {
-                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
                 return false;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
-                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+                throw new Exception($"Помилка при запиті до Firestore DB: {response.Error}");
 
             return response.IsMetadataStored;
         }
@@ -138,13 +138,13 @@ namespace Data_Organizer.Services
             }
             catch (Exception ex)
             {
-                //await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                //await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
                 return new UsersMetadataDTO();
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
             {
-                //throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+                //throw new Exception($"Помилка при запиті до Firestore DB: {response.Error}");
                 return new UsersMetadataDTO();
             }
 
@@ -190,12 +190,12 @@ namespace Data_Organizer.Services
             }
             catch (Exception ex)
             {
-                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
                 return;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
-                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+                throw new Exception($"Помилка при запиті до Firestore DB: {response.Error}");
         }
 
         public async Task CreateChangePasswordInstance(string oldPassword)
@@ -223,12 +223,12 @@ namespace Data_Organizer.Services
             }
             catch (Exception ex)
             {
-                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
                 return;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
-                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+                throw new Exception($"Помилка при запиті до Firestore DB: {response.Error}");
         }
 
         public async Task CreateAccountLoginInstance()
@@ -256,12 +256,12 @@ namespace Data_Organizer.Services
             }
             catch (Exception ex)
             {
-                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
                 return;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
-                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+                throw new Exception($"Помилка при запиті до Firestore DB: {response.Error}");
         }
 
         public async Task CreateAccountLogoutInstance()
@@ -289,12 +289,12 @@ namespace Data_Organizer.Services
             }
             catch (Exception ex)
             {
-                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
                 return;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
-                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+                throw new Exception($"Помилка при запиті до Firestore DB: {response.Error}");
         }
 
         public async Task CreateNoteAsync(string content)
@@ -337,12 +337,12 @@ namespace Data_Organizer.Services
             }
             catch (Exception ex)
             {
-                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
                 return;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
-                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+                throw new Exception($"Помилка при запиті до Firestore DB: {response.Error}");
 
             await _notificationService.ShowToastAsync("Запис було успішно збережено!");
         }
@@ -351,7 +351,7 @@ namespace Data_Organizer.Services
         {
             if (!_firebaseAuthService.IsUserAuthorized())
             {
-                await _notificationService.ShowToastAsync("Ви не авторизовані! Увійдіть в акаунт або зареєструйтесь.");
+                await _notificationService.ShowToastAsync("Користувач незареєстрований!");
                 return false;
             }
 
@@ -399,7 +399,7 @@ namespace Data_Organizer.Services
                     }
 
                     if (!ex.Message.Contains("404"))
-                        await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                        await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
 
                     return new List<NoteHeader>();
                 }
@@ -435,12 +435,12 @@ namespace Data_Organizer.Services
             }
             catch (Exception ex)
             {
-                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
                 return false;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
-                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+                throw new Exception($"Помилка при запиті до Firestore DB: {response.Error}");
 
             await _notificationService.ShowToastAsync("Запис було успішно видалено!");
 
@@ -462,12 +462,12 @@ namespace Data_Organizer.Services
             }
             catch (Exception ex)
             {
-                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
                 return null;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
-                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+                throw new Exception($"Помилка при запиті до Firestore DB: {response.Error}");
 
             NoteBody body = new NoteBody();
             body.Content = response?.Content;
@@ -497,12 +497,12 @@ namespace Data_Organizer.Services
             }
             catch (Exception ex)
             {
-                await _notificationService.ShowToastAsync($"Помилка при запиті до бази даних: {ex.Message}");
+                await _notificationService.ShowToastAsync($"Помилка при запиті до серверу: {ex.Message}");
                 return false;
             }
 
             if (!string.IsNullOrWhiteSpace(response.Error))
-                throw new Exception($"Помилка при запиті до бази даних: {response.Error}");
+                throw new Exception($"Помилка при запиті до Firestore DB: {response.Error}");
 
             await _notificationService.ShowToastAsync("Запис було успішно оновлено!");
             return true;
