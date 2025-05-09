@@ -7,13 +7,13 @@ namespace Data_Organizer.Services
     public class FirebaseAuthService : IFirebaseAuthService
     {
         private readonly INotificationService _notificationService;
-        private readonly FirebaseAuthClient _firebaseAuthClient;
+        private readonly IFirebaseAuthClient _firebaseAuthClient;
 
         public event EventHandler AuthStateChanged;
 
         public FirebaseAuthService(
             INotificationService notificationService,
-            FirebaseAuthClient firebaseAuthClient)
+            IFirebaseAuthClient firebaseAuthClient)
         {
             _notificationService = notificationService;
             _firebaseAuthClient = firebaseAuthClient;

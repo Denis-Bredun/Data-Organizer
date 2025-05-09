@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="Moq" Version="4.20.72" />
@@ -27,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="Integration Tests\" />
-    <Folder Include="Unit Tests\" />
   </ItemGroup>
 
 </Project>

@@ -49,7 +49,7 @@ namespace Data_Organizer.Services
             {
                 var deviceInfo = _deviceServiceDecorator.GetDeviceInfo();
 
-                userRequestDTO.UsersMetadataDTO = new UsersMetadataDTO
+                userRequestDTO.UsersMetadataDTO = new UsersMetadataDTO()
                 {
                     CreationDate = dateTimeNow,
                     CreationLocation = location
