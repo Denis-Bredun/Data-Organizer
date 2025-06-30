@@ -53,12 +53,13 @@ The app uses the file:
 "Data_Organizer/appsettings.json"
 
 Example:
-
+```json
 {
   "FIREBASE_API_KEY": "<your Firebase key>",
   "AUTH_DOMAIN": "<your Firebase Auth domain>",
   "SERVER_BASE_URL": "https://data-organizer-server.onrender.com"
 }
+```
 
 ### Explanation:
 - `FIREBASE_API_KEY` and `AUTH_DOMAIN` are from your Firebase project's Web App settings.
@@ -100,4 +101,7 @@ Firebase’s official recommendation is to migrate to alternative methods, such 
 
 If no action is taken, these features will continue working **only until 25 August 2025**.
 
-More details: https://firebase.google.com/docs/auth/web/email-link-auth
+More details: 
+https://firebase.google.com/docs/auth/web/email-link-auth
+https://firebase.google.com/support/dynamic-links-faq?authuser=0&hl=ru#impacts-on-email-link-authentication
+https://cloud.google.com/identity-platform/docs/reference/rest/v1/OobReqType?authuser=0
