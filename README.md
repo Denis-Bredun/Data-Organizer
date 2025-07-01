@@ -86,22 +86,9 @@ Example:
 
 ## ⚠ Firebase Authentication Deprecation Warning
 
-The following authentication features will stop working when Firebase Dynamic Links shuts down on **25 August 2025**:
-
-- Email link authentication for mobile apps  
-- Cordova OAuth support for web apps
-
-If you use `EMAIL_SIGNIN` (`OOB_REQ_TYPE.EMAIL_SIGNIN`) or similar features, **your users will no longer be able to sign up or sign in via email link on mobile platforms**.
-
-Firebase’s official recommendation is to migrate to alternative methods, such as:
-
-- Standard email/password authentication  
-- OAuth2 providers (Google, Microsoft, etc.)  
-- A custom backend-based authentication flow
-
-If no action is taken, these features will continue working **only until 25 August 2025**.
+Due to the shutdown of Firebase Dynamic Links on **25 August 2025**, email link authentication for mobile apps and Cordova OAuth support for web apps will no longer function. Users relying on these features will be unable to sign up or sign in via email link on mobile platforms after this date. Firebase recommends migrating to alternative authentication methods such as standard email/password, OAuth2 providers (Google, Microsoft, etc.), or a custom backend-based authentication flow to ensure uninterrupted service.
 
 More details: 
+https://firebase.google.com/support/dynamic-links-faq?hl=en#impacts-on-email-link-authentication
+https://cloud.google.com/identity-platform/docs/reference/rest/v1/OobReqType
 https://firebase.google.com/docs/auth/web/email-link-auth
-https://firebase.google.com/support/dynamic-links-faq?authuser=0&hl=ru#impacts-on-email-link-authentication
-https://cloud.google.com/identity-platform/docs/reference/rest/v1/OobReqType?authuser=0
