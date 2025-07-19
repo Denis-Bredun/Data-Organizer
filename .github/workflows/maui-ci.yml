@@ -1,0 +1,41 @@
+name: MAUI Android CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-latest  
+
+    env:
+      ANDROID_SDK_ROOT: /Users/runner/Library/Android/sdk
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET 8 SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore Data_Organizer.sln
+
+    - name: Build solution (Android)
+      run: dotnet build Data_Organizer.sln -c Release -f net8.0-android /p:AndroidSdkDirectory=$ANDROID_SDK_ROOT
+
+    - name: Run tests
+      run: dotnet test Data_Organizer.Tests/Data_Organizer.Tests.csproj --no-build --verbosity normal
+
+    - name: Publish APK
+      run: dotnet publish Data_Organizer/Data_Organizer.csproj -c Release -f net8.0-android /p:AndroidSdkDirectory=$ANDROID_SDK_ROOT /p:AndroidPackageFormat=apk /p:Platform=AnyCPU -o ./artifacts/apk
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: apk
+        path: ./artifacts/apk/*.apk
