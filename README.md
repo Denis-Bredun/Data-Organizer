@@ -92,3 +92,20 @@ More details:
 https://firebase.google.com/support/dynamic-links-faq?hl=en#impacts-on-email-link-authentication
 https://cloud.google.com/identity-platform/docs/reference/rest/v1/OobReqType
 https://firebase.google.com/docs/auth/web/email-link-auth
+
+---
+
+### 🛠️ Continuous Integration
+
+![CI Status](https://github.com/Denis-Bredun/Data-Organizer/actions/workflows/maui-ci.yml/badge.svg)
+
+This project uses **GitHub Actions** for Continuous Integration (CI).  
+On every push to the `master` branch:
+
+- ✅ The Android `.apk` is automatically built  
+- 🔐 A signed `.apk` file is uploaded as a build artifact  
+- 🧪 Unit tests are executed to verify application logic
+
+You can find recent builds and test results in the [Actions tab](https://github.com/Denis-Bredun/Data-Organizer/actions).
+
+> Workflow config: [.github/workflows/maui-ci.yml](.github/workflows/maui-ci.yml)
