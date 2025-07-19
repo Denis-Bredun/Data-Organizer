@@ -35,7 +35,7 @@ jobs:
       run: dotnet publish Data_Organizer/Data_Organizer.csproj -c Release -f net8.0-android /p:AndroidSdkDirectory=$ANDROID_SDK_ROOT /p:AndroidPackageFormat=apk /p:Platform=AnyCPU -o ./artifacts/apk
 
     - name: Upload APK artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: apk
         path: ./artifacts/apk/*.apk
