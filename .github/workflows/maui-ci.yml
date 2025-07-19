@@ -30,7 +30,7 @@ jobs:
       run: dotnet build Data_Organizer/Data_Organizer.csproj -c Release -f net8.0-android
 
     - name: Run tests
-      run: dotnet test Data_Organizer.Tests/Data_Organizer.Tests.csproj --configuration Release --no-build
+      run: dotnet test Data_Organizer.Tests/Data_Organizer.Tests.csproj --configuration Release
 
     - name: Publish APK
       run: dotnet publish Data_Organizer/Data_Organizer.csproj -c Release -f net8.0-android /p:AndroidPackageFormat=apk -o ./artifacts/apk
