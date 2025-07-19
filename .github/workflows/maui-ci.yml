@@ -1,23 +1,21 @@
-name: MAUI Android CI
+name: Build MAUI Android APK and run tests
 
 on:
   push:
-    branches:
-      - master
+    branches: [master]
   pull_request:
 
 jobs:
   build:
-    runs-on: macos-latest  
-
+    runs-on: macos-latest
     env:
       ANDROID_SDK_ROOT: /Users/runner/Library/Android/sdk
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
-    - name: Setup .NET 8 SDK
+    - name: Setup .NET 8
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
@@ -26,16 +24,16 @@ jobs:
       run: dotnet workload install maui-android
 
     - name: Restore dependencies
-      run: dotnet restore Data_Organizer.sln
+      run: dotnet restore Data_Organizer/Data_Organizer.csproj
 
-    - name: Build solution (Android)
-      run: dotnet build Data_Organizer.sln -c Release -f net8.0-android /p:AndroidSdkDirectory=$ANDROID_SDK_ROOT
+    - name: Build MAUI Android project
+      run: dotnet build Data_Organizer/Data_Organizer.csproj -c Release -f net8.0-android
 
     - name: Run tests
-      run: dotnet test Data_Organizer.Tests/Data_Organizer.Tests.csproj --no-build --verbosity normal
+      run: dotnet test Data_Organizer.Tests/Data_Organizer.Tests.csproj --configuration Release --no-build
 
     - name: Publish APK
-      run: dotnet publish Data_Organizer/Data_Organizer.csproj -c Release -f net8.0-android /p:AndroidSdkDirectory=$ANDROID_SDK_ROOT /p:AndroidPackageFormat=apk /p:Platform=AnyCPU -o ./artifacts/apk
+      run: dotnet publish Data_Organizer/Data_Organizer.csproj -c Release -f net8.0-android /p:AndroidPackageFormat=apk -o ./artifacts/apk
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
